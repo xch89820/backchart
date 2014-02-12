@@ -1,0 +1,27 @@
+{
+  "name": "backchart",
+  "title": "Backchart",
+  "description": "The best jQuery plugin ever.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/xch89820/backchart",
+  "author": {
+    "name": "xu.chenhui",
+    "email": "xu.chenhui@live.com",
+    "url": "www.jonecasper.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xch89820/backchart.git"
+  },
+  "bugs": "https://github.com/xch89820/backchart/issues",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/xch89820/backchart/blob/master/LICENSE-MIT"
+    }
+  ],
+  "dependencies": {
+    "jquery": "*"
+  },
+  "keywords": []
+}
