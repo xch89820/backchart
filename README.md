@@ -44,16 +44,16 @@ Otherwise, please copy all js files in *browser* directory to your target.
 ###Browser
 *Add Backchart base scripts and Backchart library script your want to use.*
 ```html
-   &lt;!-- Import backbone --&gt;
-   &lt;script type=&quot;text/javascript&quot; src=&quot;underscore.min.js&quot;&gt;&lt;/script&gt;
-   &lt;script type=&quot;text/javascript&quot; src=&quot;backbone.min.js&quot;&gt;&lt;/script&gt;
+   <!-- Import backbone -->
+   <script type="text/javascript" src="underscore.min.js"></script>
+   <script type="text/javascript" src="backbone.min.js"></script>
 
-   &lt;!-- Import base script --&gt;
-   &lt;script type=&quot;text/javascript&quot; src=&quot;bowser/backchart.base.js&quot;&gt;&lt;/script&gt;
+   <!-- Import base script -->
+   <script type="text/javascript" src="bowser/backchart.base.js"></script>
    
-   &lt;!-- Import CanvasJS and Backchart support --&gt;
-   &lt;script type=&quot;text/javascript&quot; src=&quot;canvasjs.min.js&quot;&gt;&lt;/script&gt;
-   &lt;script type=&quot;text/javascript&quot; src=&quot;bowser/backchart.canvasjs.js&quot;&gt;&lt;/script&gt;
+   <!-- Import CanvasJS and Backchart support -->
+   <script type="text/javascript" src="canvasjs.min.js"></script>
+   <script type="text/javascript" src="bowser/backchart.canvasjs.js"></script>
 ```
 *The global namespace which named `backchart` will be created if load script succeed.*
 ```javascript
@@ -67,10 +67,10 @@ Otherwise, please copy all js files in *browser* directory to your target.
    })(window);
 ```
 ## Documentation
-_(Coming soon)_
+
 
 ## Examples
-_(Coming soon)_
+
 
 ## Release History
-_(Nothing yet)_
+0.1.0 Released
