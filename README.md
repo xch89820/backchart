@@ -6,29 +6,36 @@ This project support AMD&COMMONJS standard and the aim of this project is make a
 
 ##Install
 ---
-Copy all files in *dist* directory to your JavaScript location.
-
+If you async loading your modules by AMD or CommonJS ,please copy all js files in *dist* directory but not *browser* directory to your library location.
+Otherwise, please copy all js files in *browser* directory to your target.
 
 ##Import
 ---
 ###AMD (require.js)
-*Add package configure in your application's import script.*
+*Add package configure in your `path` config, exmaple(load CanvasJS):*
 ```javascript
 	require.config({
-		packages: [
-          {
-          	name: 'backchart',
-         	main: "main"
-          },
-		  //...code...
-      	]
-	//...code...
+		path :{
+			backbone : "you/backbone/path",
+        	underscore : "you/underscore/path",
+
+			//import the chart library you want to use.
+        	CanvasJS : "../libs/charts/canvasjs/canvasjs",
+
+			//import the backchart to support your chart library
+			"backchart.canvasjs" : "backchart.canvasjs.min"
+		  	//...code...
+		}
+		//...code...
 	});
 ```
 *Require the package and Backchart library script your want to use.*
-```javascript
-	require(["backchart"], function(){
-        require(["backchart.canvasjs"],function(backchart){
+```javascript:
+	require(["backchart.canvasjs"], function(){
+        require(["canvasjs"],function(backchart){
+			var _model = backchart.model,
+				_collection = backchart.collection,
+				_view = backchart.view;
 			//...write codes...
 		});
 	});
@@ -37,17 +44,16 @@ Copy all files in *dist* directory to your JavaScript location.
 ###Browser
 *Add Backchart base scripts and Backchart library script your want to use.*
 ```html
-   <!--Import base script-->
-   <script type="text/javascript" src="base/model.js"></script>
-   <script type="text/javascript" src="base/collection.js"></script>
-   <script type="text/javascript" src="base/view.js"></script>
+   &lt;!-- Import backbone --&gt;
+   &lt;script type=&quot;text/javascript&quot; src=&quot;underscore.min.js&quot;&gt;&lt;/script&gt;
+   &lt;script type=&quot;text/javascript&quot; src=&quot;backbone.min.js&quot;&gt;&lt;/script&gt;
 
-   <!--Import CanvasJS and Backchart support-->
-   <script type="text/javascript" src="canvasjs.min.js"></script>
-   <script type="text/javascript" src="canvasjs/model.js"></script>
-   <script type="text/javascript" src="canvasjs/collection.js"></script>
-   <script type="text/javascript" src="canvasjs/view.js"></script>
-
+   &lt;!-- Import base script --&gt;
+   &lt;script type=&quot;text/javascript&quot; src=&quot;bowser/backchart.base.js&quot;&gt;&lt;/script&gt;
+   
+   &lt;!-- Import CanvasJS and Backchart support --&gt;
+   &lt;script type=&quot;text/javascript&quot; src=&quot;canvasjs.min.js&quot;&gt;&lt;/script&gt;
+   &lt;script type=&quot;text/javascript&quot; src=&quot;bowser/backchart.canvasjs.js&quot;&gt;&lt;/script&gt;
 ```
 *The global namespace which named `backchart` will be created if load script succeed.*
 ```javascript

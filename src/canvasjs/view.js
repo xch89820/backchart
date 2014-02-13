@@ -2,24 +2,23 @@
  *     File Name           :     view.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-11 10:50]
- *     Last Modified       :     [2014-02-12 23:46]
+ *     Last Modified       :     [2014-02-13 23:12]
  *     Description         :     Backchart view for canvasJS
  **********************************************************************************/
 (function(root, name, factory) {
 	"use strict";
 	if (typeof define === 'function' && define.amd) {
-		define(['jquery','../base/view','backbone',"underscore","CanvasJS","moment"], function($, base, Backbone, _, canvasjs, moment) {
+		define(['jquery','../base/view','backbone',"underscore","CanvasJS"], function($, base, Backbone, _, canvasjs) {
 			canvasjs = canvasjs || window.CanvasJS;
-			return factory($, Backbone, _, base, canvasjs, moment);
+			return factory($, Backbone, _, base, canvasjs);
 		});
 	}else if(typeof module !== 'undefined' && module.exports){
 		var $ = require("jquery"),
 		base = require("../base/view"),
 		Backbone = require("backbone"),
 		_ = require("underscore"),
-		moment = require("moment"),
 		canvasjs = require("CanvasJS") || window.CanvasJS;
-		module.exports = factory($, Backbone, _, base, canvasjs, moment);
+		module.exports = factory($, Backbone, _, base, canvasjs);
 	}else{
 		var namespaces = name.split("."),
 		scope = (root.jQuery || root.ender || root.$ || root || this);
@@ -31,20 +30,18 @@
 					(root.Backbone|| window.Backbone),
 					(root._ || window._),
 					scope.backchart.base.view,
-					(root.CanvasJS || window.CanvasJS),
-					(root.moment || window.moment)
+					(root.CanvasJS || window.CanvasJS)
 				):
 				{}; 
 		}
 	}
-}(this, "backchart.canvasjs.view", function($, Backbone, _, baseview, CanvasJS, moment) {
+}(this, "backchart.canvasjs.view", function($, Backbone, _, baseview, CanvasJS) {
 	var backchartCanvasJSView = baseview.extend({
 		/*
 		 * The default render options
 		 */
 		defaultRenderOptions :{
-			type: "column",
-			parseFormat : "YYYY-MM-DD"
+			type: "column"
 		},
 		initialize: function(defaultOptions, defaultRenderOptions) {
 			baseview.prototype.initialize.apply(this, arguments);
@@ -61,13 +58,6 @@
 			ro = $.extend(true, {}, me.defaultRenderOptions, renderOptions);
 			collection.each(function(model) {
 				var dataPoint = _.clone(model.attributes);
-				if (ro.xValueType === "dateTime" && !(dataPoint['x'] instanceof Date) && typeof dataPoint['x'] !== "number"){
-					/*
-					 * cover the x value to Date object if not
-					 */
-					var strX = dataPoint['x'].toString();
-					dataPoint['x'] = moment(strX, ro.parseFormat||"YYYY-MM-DD").toDate();
-				}
 				dataPoints.push(dataPoint);
 			});
 			ro.dataPoints = dataPoints;

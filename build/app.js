@@ -2,36 +2,26 @@
  *     File Name           :     app.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-11 17:52]
- *     Last Modified       :     [2014-02-13 23:37]
+ *     Last Modified       :     [2014-02-13 23:04]
  *     Description         :     Test backchart main app
  **********************************************************************************/
-/*
- * requireJs config
- */
 require.config({
 	baseUrl: "../src",
-	/*
-	 * for debug
-	 */
-	/*packages: [
+	packages: [
 		{
 		name: "base"
 	},
 	{
 		name : "canvasjs"
 	}
-	],*/
+	],
 	paths:{
+		jquery : "../libs/jquery/jquery",
 		backbone : "../libs/utils/backbone-min",
 		underscore : "../libs/utils/underscore-min",
 		moment : "../libs/utils/moment.min",
 		excanvas : "../libs/utils/excanvas",
-		CanvasJS : "../libs/charts/canvasjs/canvasjs",
-		/*
-		 * for dist
-		 */
-		"backchart.base" : "../dist/backchart.base",
-		"backchart.canvasjs" : "../dist/backchart.canvasjs"
+		CanvasJS : "../libs/charts/canvasjs/canvasjs"
 	},
 	shim:{
 		underscore: {
@@ -47,14 +37,4 @@ require.config({
 			exports: 'CanvasJS'
 		}
 	}
-});
-
-define("jquery", function(){
-	return jQuery;
-});
-/*
- * test
- */
-$(function(){
-	require(["./backchart_test.js"]);
 });
