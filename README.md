@@ -36,7 +36,8 @@ Copy all files in *dist* directory to your JavaScript location.
 
 ###Browser
 *Add Backchart base scripts and Backchart library script your want to use.*
-```javascript
+```html
+
    //Import base script
    <script type="text/javascript" src="base/model.js"></script>
    <script type="text/javascript" src="base/collection.js"></script>
