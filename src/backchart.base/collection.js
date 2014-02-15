@@ -2,7 +2,7 @@
  *     File Name           :     collection.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-11 10:45]
- *     Last Modified       :     [2014-02-12 23:41]
+ *     Last Modified       :     [2014-02-15 19:27]
  *     Description         :     Backchart basic backbone collection
  **********************************************************************************/
 (function(root, name, factory) {
@@ -17,15 +17,17 @@
 		module.exports = factory($, Backbone);
 	}else{
 		var namespaces = name.split("."),
-		scope = (root.jQuery || root.ender || root.$ || root || this);
+		//scope = (root.jQuery || root.ender || root.$ || root || this);
+		scope = root || this;
 		for (var i=0; i<namespaces.length; i++) {
-			var p = namespaces[i];
+			var p = namespaces[i],
+				ex = scope[p];
 			scope = scope[p] = (i === namespaces.length - 1) ? 
 				factory(
 					(root.jQuery || window.jQuery),
 					(root.Backbone || window.Backbone)
 				):
-				{};
+				(ex || {});
 		}
 	}
 }(this, "backchart.base.collection", function($, Backbone) {

@@ -1,10 +1,120 @@
-/*********************************************************************************
- *     File Name           :     view.js
- *     Created By          :     Jone Casper
- *     Creation Date       :     [2014-02-01 10:39]
- *     Last Modified       :     [2014-02-12 23:40]
- *     Description         :     Backchart basic backbone view
- **********************************************************************************/
+/*! backchart - v0.1.0 - 2014-02-15 *//*! backchart - v0.1.0 - 2014-02-15 */(function(root, name, factory) {
+	"use strict";
+	if (typeof define === 'function' && define.amd) {
+		define(['jquery','backbone'], function($, Backbone) {
+			return factory($, Backbone);
+		});
+	}else if(typeof module !== 'undefined' && module.exports){
+		var $ = require("jquery"),
+		Backbone = require("backbone");
+		module.exports = factory($, Backbone);
+	}else{
+		var namespaces = name.split("."),
+		//scope = (root.jQuery || root.ender || root.$ || root || this);
+		scope = root || this;
+		for (var i=0; i<namespaces.length; i++) {
+			var p = namespaces[i],
+				ex = scope[p];
+			scope = scope[p] = (i === namespaces.length - 1) ?
+				factory(
+					(root.jQuery || window.jQuery), 
+				    (root.Backbone || window.Backbone)
+				):
+				(ex || {});
+		}
+	}
+}(this, "backchart.base.model", function($, Backbone) {
+	var chartBaseModel = Backbone.Model.extend({});
+	return chartBaseModel;
+}));
+
+(function(root, name, factory) {
+	"use strict";
+	if (typeof define === 'function' && define.amd) {
+		define(['jquery','backbone'], function($, Backbone) {
+			return factory($, Backbone);
+		});
+	}else if(typeof module !== 'undefined' && module.exports){
+		var $ = require("jquery"),
+		Backbone = require("backbone");
+		module.exports = factory($, Backbone);
+	}else{
+		var namespaces = name.split("."),
+		//scope = (root.jQuery || root.ender || root.$ || root || this);
+		scope = root || this;
+		for (var i=0; i<namespaces.length; i++) {
+			var p = namespaces[i],
+				ex = scope[p];
+			scope = scope[p] = (i === namespaces.length - 1) ? 
+				factory(
+					(root.jQuery || window.jQuery),
+					(root.Backbone || window.Backbone)
+				):
+				(ex || {});
+		}
+	}
+}(this, "backchart.base.collection", function($, Backbone) {
+	var backchartBaseCollection = Backbone.Collection.extend({
+		/*
+		 * Backchart mark
+		 */
+		_backchart : true,
+		/*parse: function(response) {
+		  if (response.success) {
+		  return response.msg;
+		  }
+		  return [];
+		  },*/
+		initialize: function(){
+			this._silence = false;
+			return Backbone.Collection.prototype.initialize.apply(this, arguments);
+		},
+		/*
+		 * The silence flag.If set many datas to append, you can set it to true for closing auto-render in view.
+		 * If you set the flag, we will not recover it after all operation.
+		 */
+		setSilence : function(flag){
+			this._silence = flag;
+		},
+		/*
+		 * Override collection set ,remove, change, reset "sync" function and add render function after finished.
+		 * When these function executing, view will enter the "silence" model and not do any render util end of it for avoiding repeating rendered.
+		 */
+		set : function(models, options){
+			if (this._silence === true){
+				return Backbone.Collection.prototype.set.apply(this, arguments);
+
+			}
+			this.setSilence(true);
+			var result = Backbone.Collection.prototype.set.apply(this, arguments);
+			this.setSilence(false);
+			this.trigger('seted', this.models, this, options);
+			return result;
+		},
+		remove: function(models, options){
+			if (this._silence === true){
+				return Backbone.Collection.prototype.remove.apply(this, arguments);
+			}
+			this.setSilence(true);
+			var result = Backbone.Collection.prototype.remove.apply(this, arguments);
+			this.setSilence(false);
+			this.trigger('removed', this.models, this, options);
+			return result;
+		},
+		reset: function(models, options){
+			if (this._silence === true){
+				return Backbone.Collection.prototype.reset.apply(this, arguments);
+			}
+			this.setSilence(true);
+			var result = Backbone.Collection.prototype.reset.apply(this, arguments);
+			this.setSilence(false);
+			this.trigger('reseted', this, options);
+			return result;
+		}
+	});
+	return backchartBaseCollection;
+}));
+
 (function(root, name, factory) {
 	"use strict";
 	if (typeof define === 'function' && define.amd) {
@@ -18,16 +128,18 @@
 		module.exports = factory($, Backbone, _);
 	}else{
 		var namespaces = name.split("."),
-		scope = (root.jQuery || root.ender || root.$ || root || this);
+		//scope = (root.jQuery || root.ender || root.$ || root || this);
+		scope = root || this;
 		for (var i=0; i<namespaces.length; i++) {
-			var p = namespaces[i];
+			var p = namespaces[i],
+				ex = scope[p];
 			scope = scope[p] = (i === namespaces.length - 1) ?
 				factory(
 					(root.jQuery || window.jQuery),
 					(root.Backbone || window.Backbone),
 					(root._ || window._)
 				):
-				{};
+				(ex || {});
 		}
 	}
 }(this, "backchart.base.view", function($, Backbone, _) {
@@ -455,4 +567,191 @@
 		}
 	});
 	return chartBaseView;
+}));
+
+(function(root, name, factory) {
+	"use strict";
+	if (typeof define === 'function' && define.amd) {
+		define(['jquery','../backchart.base/model'], function($, base) {
+			return factory($, base);
+		});
+	}else if(typeof module !== 'undefined' && module.exports){
+		var $ = require("jquery"),
+		base = require("../backchart.base/model");
+		module.exports = factory($, base);
+	}else{
+		var namespaces = name.split("."),
+		scope = root || this;
+		for (var i=0; i<namespaces.length; i++) {
+			var p = namespaces[i],
+				ex = scope[p];
+			scope = scope[p] = (i === namespaces.length - 1) ?
+				factory(
+					(root.jQuery || window.jQuery),
+					 root.backchart.base.model
+				):
+				(ex || {});
+		}
+	}
+}(this, "backchart.canvasjs.model", function($, basemodel) {
+	var backchartCanvasJSModel = basemodel.extend({
+		/*
+		 * If set xField and yFiled, we will use the two name to get x && y value from model
+		 *
+		 * example :
+		 *   xField : "name",
+		 *   yFiled : "value",
+		 *   labelField : "labelName"
+		 */
+		_setAlias: function(obj, key, alias){
+			if (typeof obj[key] !== "undefined"){
+				obj[alias] = obj[key];
+			}
+		},
+		constructor: function(attributes, options){
+			options = options || {};
+			options.parse = this.parse;
+			return basemodel.prototype.constructor.apply(this, [attributes, options]);
+		},
+		parse: function(response){
+			if (this.xField){
+				this._setAlias(response, this.xField, 'x');
+				if (this.timestamp){
+					response['x'] = response['x'] * 1000;
+				}
+			}
+			if (this.yField){
+				this._setAlias(response, this.yField, 'y');
+			}
+			if (this.labelField){
+				if (typeof this.labelField === "string"){
+					this._setAlias(response, this.labelField, 'label');
+				}else if (typeof this.labelField === "function"){
+					this.labelField.call(response);
+				}
+			}
+			return response;
+		}
+	});
+	return backchartCanvasJSModel;
+}));
+
+
+(function(root, name, factory) {
+	"use strict";
+	if (typeof define === 'function' && define.amd) {
+		define(['jquery','../backchart.base/collection'], function($, base) {
+			return factory($, base);
+		});
+	}else if(typeof module !== 'undefined' && module.exports){
+		var $ = require("jquery"),
+		base = require("../backchart.base/collection");
+		module.exports = factory($, base);
+	}else{
+		var namespaces = name.split("."),
+		//scope = (root.jQuery || root.ender || root.$ || root || this),
+		scope = root || this;
+		for (var i=0; i<namespaces.length; i++) {
+			var p = namespaces[i],
+				ex = scope[p];
+			scope = scope[p] = (i === namespaces.length - 1) ?
+				factory(
+					(root.jQuery || window.jQuery),
+					root.backchart.base.collection
+				):
+				(ex || {});
+		}
+	}
+}(this, "backchart.canvasjs.collection", function($, basecollection) {
+	return basecollection;
+}));
+
+(function(root, name, factory) {
+	"use strict";
+	if (typeof define === 'function' && define.amd) {
+		define(['jquery','../backchart.base/view','backbone',"underscore","CanvasJS"], function($, base, Backbone, _, canvasjs) {
+			canvasjs = canvasjs || window.CanvasJS;
+			return factory($, Backbone, _, base, canvasjs);
+		});
+	}else if(typeof module !== 'undefined' && module.exports){
+		var $ = require("jquery"),
+		base = require("../backchart.base/view"),
+		Backbone = require("backbone"),
+		_ = require("underscore"),
+		canvasjs = require("CanvasJS") || window.CanvasJS;
+		module.exports = factory($, Backbone, _, base, canvasjs);
+	}else{
+		var namespaces = name.split("."),
+			//scope = (root.jQuery || root.ender || root.$ || root || this),
+			scope = root || this;
+		for (var i=0; i<namespaces.length; i++) {
+			var p = namespaces[i],
+				ex = scope[p];
+			scope = scope[p] = (i === namespaces.length - 1) ?
+				factory(
+					(root.jQuery || window.jQuery),
+					(root.Backbone|| window.Backbone),
+					(root._ || window._),
+					root.backchart.base.view,
+					(root.CanvasJS || window.CanvasJS)
+				):
+				(ex || {}); 
+		}
+	}
+}(this, "backchart.canvasjs.view", function($, Backbone, _, baseview, CanvasJS) {
+	var backchartCanvasJSView = baseview.extend({
+		/*
+		 * The default render options
+		 */
+		defaultRenderOptions :{
+			type: "column"
+		},
+		initialize: function(defaultOptions, defaultRenderOptions) {
+			baseview.prototype.initialize.apply(this, arguments);
+			this.defaultOptions = $.extend(true, {}, this.defaultOptions, defaultOptions);
+			this.defaultRenderOptions = $.extend(true, {}, this.defaultRenderOptions, defaultRenderOptions);
+		},
+		/*
+		 * deal the data
+		 * return one of the data option for canvasjs
+		 */
+		transformData: function(collection, renderOptions){
+			var me = this,
+			dataPoints = [],
+			ro = $.extend(true, {}, me.defaultRenderOptions, renderOptions);
+			collection.each(function(model) {
+				var dataPoint = _.clone(model.attributes);
+				dataPoints.push(dataPoint);
+			});
+			ro.dataPoints = dataPoints;
+			return ro;
+		},
+		render: function(){
+			var me = this;
+			var rret = baseview.prototype.render.apply(me, arguments);
+			if (!rret){
+				return false;
+			}
+			//initialization el id 
+			if (!me.el.id){
+				me.el.id = _.uniqueId("backchartel");
+			}
+			var renderOptions = _.clone(me.defaultOptions);
+			renderOptions.data = [];
+			me.eachCollection(function(uid, collection, renderOption, options){
+				if (collection._silence || options.visible === false){
+					return;
+				}
+				renderOptions.data.push(me.transformData(collection, renderOption));
+			});
+
+			me.$container.empty().append(me.$el.empty());
+			me.elFillParents();
+			me.Chart = new CanvasJS.Chart(me.el.id, renderOptions);
+			me.Chart.render();
+
+			baseview.prototype.renderEvents.apply(me, [me, me.el, me.Chart, renderOptions]);
+		}
+	});
+	return backchartCanvasJSView;
 }));

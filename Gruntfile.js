@@ -22,12 +22,12 @@ module.exports = function(grunt) {
 					'<%= grunt.template.today("yyyy-mm-dd") %> */',
 			},
 			base: {
-				src: ['src/base/model.js', 'src/base/collection.js',  'src/base/view.js'],
-				dest: 'dist/bowser/backchart.base.js',
+				src: ['src/backchart.base/model.js', 'src/backchart.base/collection.js',  'src/backchart.base/view.js'],
+				dest: 'dist/browser/backchart.base.js',
 			},
 			canvasjs: {
-				src: ['src/canvasjs/model.js', 'src/canvasjs/collection.js',  'src/canvasjs/view.js'],
-				dest: 'dist/bowser/backchart.canvasjs.js',
+				src: ['dist/browser/backchart.base.js', 'src/backchart.canvasjs/model.js', 'src/backchart.canvasjs/collection.js',  'src/backchart.canvasjs/view.js'],
+				dest: 'dist/browser/backchart.canvasjs.js',
 			},
 		},
 		uglify: {
@@ -36,7 +36,7 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				expand: true,     // Enable dynamic expansion.
-				cwd: 'dist/bowser/',      // Src matches are relative to this path.
+				cwd: 'dist/browser/',      // Src matches are relative to this path.
 				src: ['**/*.js'], // Actual pattern(s) to match.
 				dest: 'dist/bowser/'   // Destination path prefix.
 			}
@@ -82,7 +82,7 @@ module.exports = function(grunt) {
 			base: {
 				options: {
 					mainConfigFile : "./build/app.js",
-					name: "base/main",
+					name: "backchart.base/main",
 					out: "./dist/backchart.base.js",
 					exclude : ['jquery','underscore','backbone']
 				}
@@ -90,7 +90,7 @@ module.exports = function(grunt) {
 			canvasjs: {
 				options: {
 					mainConfigFile : "./build/app.js",
-					name: "canvasjs/main",
+					name: "backchart.canvasjs/main",
 					out: "./dist/backchart.canvasjs.js",
 					exclude : ['jquery','underscore','backbone','excanvas','CanvasJS']
 				}

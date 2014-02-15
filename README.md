@@ -23,7 +23,7 @@ Otherwise, please copy all js files in *browser* directory to your target.
         	CanvasJS : "../libs/charts/canvasjs/canvasjs",
 
 			//import the backchart to support your chart library
-			"backchart.canvasjs" : "backchart.canvasjs.min"
+			"backchart" : "backchart.canvasjs"
 		  	//...code...
 		}
 		//...code...
@@ -31,8 +31,8 @@ Otherwise, please copy all js files in *browser* directory to your target.
 ```
 *Require the package and Backchart library script your want to use.*
 ```javascript:
-	require(["backchart.canvasjs"], function(){
-        require(["canvasjs"],function(backchart){
+	require(["backchart"], function(){
+        require(["backchart.canvasjs"],function(backchart){
 			var _model = backchart.model,
 				_collection = backchart.collection,
 				_view = backchart.view;
@@ -48,12 +48,9 @@ Otherwise, please copy all js files in *browser* directory to your target.
    <script type="text/javascript" src="underscore.min.js"></script>
    <script type="text/javascript" src="backbone.min.js"></script>
 
-   <!-- Import base script -->
-   <script type="text/javascript" src="bowser/backchart.base.js"></script>
-   
    <!-- Import CanvasJS and Backchart support -->
    <script type="text/javascript" src="canvasjs.min.js"></script>
-   <script type="text/javascript" src="bowser/backchart.canvasjs.js"></script>
+   <script type="text/javascript" src="browser/backchart.canvasjs.js"></script>
 ```
 *The global namespace which named `backchart` will be created if load script succeed.*
 ```javascript

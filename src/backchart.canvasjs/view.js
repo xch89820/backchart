@@ -2,37 +2,39 @@
  *     File Name           :     view.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-11 10:50]
- *     Last Modified       :     [2014-02-13 23:12]
+ *     Last Modified       :     [2014-02-15 19:28]
  *     Description         :     Backchart view for canvasJS
  **********************************************************************************/
 (function(root, name, factory) {
 	"use strict";
 	if (typeof define === 'function' && define.amd) {
-		define(['jquery','../base/view','backbone',"underscore","CanvasJS"], function($, base, Backbone, _, canvasjs) {
+		define(['jquery','../backchart.base/view','backbone',"underscore","CanvasJS"], function($, base, Backbone, _, canvasjs) {
 			canvasjs = canvasjs || window.CanvasJS;
 			return factory($, Backbone, _, base, canvasjs);
 		});
 	}else if(typeof module !== 'undefined' && module.exports){
 		var $ = require("jquery"),
-		base = require("../base/view"),
+		base = require("../backchart.base/view"),
 		Backbone = require("backbone"),
 		_ = require("underscore"),
 		canvasjs = require("CanvasJS") || window.CanvasJS;
 		module.exports = factory($, Backbone, _, base, canvasjs);
 	}else{
 		var namespaces = name.split("."),
-		scope = (root.jQuery || root.ender || root.$ || root || this);
+			//scope = (root.jQuery || root.ender || root.$ || root || this),
+			scope = root || this;
 		for (var i=0; i<namespaces.length; i++) {
-			var p = namespaces[i];
+			var p = namespaces[i],
+				ex = scope[p];
 			scope = scope[p] = (i === namespaces.length - 1) ?
 				factory(
 					(root.jQuery || window.jQuery),
 					(root.Backbone|| window.Backbone),
 					(root._ || window._),
-					scope.backchart.base.view,
+					root.backchart.base.view,
 					(root.CanvasJS || window.CanvasJS)
 				):
-				{}; 
+				(ex || {}); 
 		}
 	}
 }(this, "backchart.canvasjs.view", function($, Backbone, _, baseview, CanvasJS) {

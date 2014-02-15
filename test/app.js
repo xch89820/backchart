@@ -2,7 +2,7 @@
  *     File Name           :     app.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-11 17:52]
- *     Last Modified       :     [2014-02-13 23:37]
+ *     Last Modified       :     [2014-02-15 18:06]
  *     Description         :     Test backchart main app
  **********************************************************************************/
 /*
@@ -15,10 +15,10 @@ require.config({
 	 */
 	/*packages: [
 		{
-		name: "base"
+		name: "backchart.base"
 	},
 	{
-		name : "canvasjs"
+		name : "backchart.canvasjs"
 	}
 	],*/
 	paths:{
@@ -30,8 +30,7 @@ require.config({
 		/*
 		 * for dist
 		 */
-		"backchart.base" : "../dist/backchart.base",
-		"backchart.canvasjs" : "../dist/backchart.canvasjs"
+		"backchart" : "../dist/backchart.canvasjs"
 	},
 	shim:{
 		underscore: {

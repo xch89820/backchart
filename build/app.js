@@ -2,17 +2,17 @@
  *     File Name           :     app.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-11 17:52]
- *     Last Modified       :     [2014-02-13 23:04]
+ *     Last Modified       :     [2014-02-15 18:08]
  *     Description         :     Test backchart main app
  **********************************************************************************/
 require.config({
 	baseUrl: "../src",
 	packages: [
 		{
-		name: "base"
+		name: "backchart.base"
 	},
 	{
-		name : "canvasjs"
+		name : "backchart.canvasjs"
 	}
 	],
 	paths:{

@@ -2,11 +2,30 @@
  *     File Name           :     backchart_test.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-12 13:18]
- *     Last Modified       :     [2014-02-13 23:40]
+ *     Last Modified       :     [2014-02-15 19:31]
  *     Description         :     Test module
  **********************************************************************************/
-define(['jquery'], function($){
-	var canvasjsTest = function(_model, _collection, _view){
+
+(function(root, factory) {
+	"use strict";
+	if (typeof define === 'function' && define.amd) {
+		define(['jquery','backchart'], function($, base) {
+			require(["backchart.canvasjs"], function(chart){
+				factory($, chart.model, chart.collection, chart.view);
+			});
+		});
+		/*}else if(typeof module !== 'undefined' && module.exports){
+		  var $ = require("jquery"),
+		  base = require("");
+		  module.exports = factory($, base);
+	*/}else{
+   		
+			factory($,
+				root.backchart.canvasjs.model, 
+				root.backchart.canvasjs.collection,
+				root.backchart.canvasjs.view);
+	}
+}(this,  function($, _model, _collection, _view) {
 		module("base.module", {
 			setup: function() {
 				ok( true, "Begin..." );
@@ -68,19 +87,4 @@ define(['jquery'], function($){
 				ResultFormat : "json"
 			}
 		});
-	}
-
-	var me = this,
-	debug = false;
-	if (debug){
-		require(["canvasjs"], function(chart){
-			chart.run.call(me, canvasjsTest);
-		});
-	}else{
-		require(["backchart.canvasjs"], function(chart){
-			require(["canvasjs"], function(chart){
-				chart.run.call(me, canvasjsTest);
-			}); 
-		});
-	}
-});
+}));

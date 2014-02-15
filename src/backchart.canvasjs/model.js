@@ -2,30 +2,31 @@
  *     File Name           :     model.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-11 10:48]
- *     Last Modified       :     [2014-02-12 23:43]
+ *     Last Modified       :     [2014-02-15 19:45]
  *     Description         :     Backchart model for canvasJS
  **********************************************************************************/
 (function(root, name, factory) {
 	"use strict";
 	if (typeof define === 'function' && define.amd) {
-		define(['jquery','../base/model'], function($, base) {
+		define(['jquery','../backchart.base/model'], function($, base) {
 			return factory($, base);
 		});
 	}else if(typeof module !== 'undefined' && module.exports){
 		var $ = require("jquery"),
-		base = require("../base/model");
+		base = require("../backchart.base/model");
 		module.exports = factory($, base);
 	}else{
 		var namespaces = name.split("."),
-		scope = (root.jQuery || root.ender || root.$ || root || this);
+		scope = root || this;
 		for (var i=0; i<namespaces.length; i++) {
-			var p = namespaces[i];
+			var p = namespaces[i],
+				ex = scope[p];
 			scope = scope[p] = (i === namespaces.length - 1) ?
 				factory(
 					(root.jQuery || window.jQuery),
-					scope.backchart.base.model
+					 root.backchart.base.model
 				):
-				{};
+				(ex || {});
 		}
 	}
 }(this, "backchart.canvasjs.model", function($, basemodel) {
