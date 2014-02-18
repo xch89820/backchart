@@ -62,8 +62,10 @@ Otherwise, please copy all js files in *browser* directory to your target.
    })(window);
 ```
 ## Documentation
+[http://www.jonecasper.com/backchart/index.html](http://www.jonecasper.com/backchart/index.html "Documentation").
 
 ## Examples
+[http://www.jonecasper.com/backchart/index.html](http://www.jonecasper.com/backchart/index.html "Documentation").
 
 ## Compiling JavaScript
 

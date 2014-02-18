@@ -1,8 +1,8 @@
 <!--********************************************************************************
-*     File Name           :     main.html
+*     File Name           :     content.html
 *     Created By          :     Jone Casper
 *     Creation Date       :     [2014-02-16 21:10]
-*     Last Modified       :     [2014-02-18 17:48]
+*     Last Modified       :     [2014-02-19 01:15]
 *     Description         :     Document for backchart
 *********************************************************************************-->
 
@@ -37,22 +37,22 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a href="main.html" class="navbar-brand">Backchart</a>
+				<a href="index.html" class="navbar-brand">Backchart</a>
 			</div>
 			<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
 			<ul class="nav navbar-nav">
 				<li class="section">
-                    <a href="#getting-started">Getting started</a>
+                    <a href="#gettingstarted">Getting started</a>
                 </li>
                 <li class="section">
-                    <a href="#focus-on-data">Focus on data</a>
+                    <a href="#focusondata">Focus on data</a>
                 </li>
 			</ul>
 			</nav>
 		</div>
 		</header>
 		<main class="main" id="content" role="main">
-			<section id="getting-started">
+			<section id="gettingstarted">
 				<div class="bs-docs-header">
 					<div class="container">
 						<h1>Getting Started</h1>
@@ -184,7 +184,7 @@ myCollection.set([
 
 				</div>
 			</section>
-			<section id="focus-on-data">
+			<section id="focusondata">
 				<div class="bs-docs-header">
 					<div class="container">
 						<h1>Focus on data</h1>
@@ -253,13 +253,15 @@ BEACollection.fetch({
                                 </div>
                             </div>
 						</div>
+						<h4>Filter data</h4>
 						<p>In the above illustration drawn by Backchart ,we just covered format of each data in results.In the next, we want to filter the data which value above the average of United States.</p>
+						<p>Because the data has be stored in the collection, your job is only call <code>filter</code> function in collection to recreate a new dataset and set it to the collection</p>
 						<div class="row">
 							<div class="col-xs-12">
 								<div id="bea-example2-code">
 									<pre>
 BEACollection.on("sync", function(){
-	var usAverage = BEACollection.findWhere({GeoName: "United States"}).get("y");
+	var usAverage = BEACollection.findWhere({label: "United States"}).get("y");
 	BEACollection.set(BEACollection.filter(function(model){
 		reutrn model.get("y") > usAverage;
 	}));
@@ -271,8 +273,81 @@ BEACollection.on("sync", function(){
 								<div id="bea-example2" style="height:380px;">
 								</div>
 							</div>
-
 						</div>
+						<p>As you see, Backchart finished the rest of the work after you seted the new data in the collection which has bound.</p>
+						<h4>Sort data</h4>
+						<p>After a brief rest, you boss demand you to sort the data in descending order.Don't worry about it, as you know, you just focus to you data change and Backchart finished the rest.Let's do work!</p>
+						<div class="row">
+							<div class="col-xs-12">
+								<div id="bea-example3-code">
+									<pre>
+BEACollection.on("sync", function(){
+	//...code for filter
+	BEACollection.comparator = function(a, b){
+		return a.get("y")-b.get("y");
+	};
+	BEACollection.sort();
+});
+									</pre>
+								</div>
+							</div>
+							<div class="col-xs-12">
+								<div id="bea-example3" style="height:380px;">
+								</div>
+							</div>
+						</div>
+						<p>Amazing! You finished your work after adding four code in you application</p>
+						<h4>Change chart type</h4>
+						<p>After you finished all work and prepare to go home, the big boss tell you he want to check the percentage of each data by a pie chart.He just care about the data above the average and the reset of data should be add to an item called Other.Normally, we should change lots of code in you application because you should reconfigure the chart, but you just change a little in Backchart</p>
+						<div class="row">
+							<div class="col-xs-12">
+								<div id="bea-example4-code">
+									<pre>
+var BEAView = new (backchartView.extend({
+    container : document.getElementById("bea-example")
+}))({
+	//Add the toolTip configure in view, please see CanvasJS document("http://canvasjs.com/docs/charts/chart-options/tooltip/) to get more detail
+	toolTip:{
+       content: "{label} : {y} ({percent})"
+   	}
+});
+BEACollection.on("sync", function(){
+	var usAverageModel = BEACollection.findWhere({label: "United States"});
+	var usAverage = usAverageModel.get("y");
+	BEACollection.remove(usAverageModel);
+
+	//First ,get the total value of data which bellow the average and all, filter this data at the same time.
+	var otherValue = 0,
+		totalValue = 0;
+	var modelSet = BEACollection.filter(function(model){
+		var val = model.get("y");
+		totalValue += val;
+		if (val < usAverage){
+			otherValue += val;
+			return false;
+		}
+		return true;
+	});
+	modelSet.push(new BEAModel({GeoName:"other",DataValue:otherValue})); 
+	$.each(modelSet, function(index, model){
+		model.set("percent", (model.get("y")/totalValue * 100).toFixed(2) + "%");
+	});
+		
+	//Change the type
+	BEAView.getRenderOptions(BEACollection).type = "pie";
+	//Add the percentage to all models attribute
+	BEACollection.reset(modelSet);
+});
+									</pre>
+								</div>
+							</div>
+							<div class="col-xs-12">
+								<div id="bea-example4" style="height:480px;">
+								</div>
+							</div>
+						</div>
+
+
 					</div>
 				</div>
 			</section>
@@ -288,13 +363,7 @@ BEACollection.on("sync", function(){
 	<!--[if lt IE 9]>
 	<script src="statics/js/utils/excanvas.js"></script>
 	<![endif]-->
-	<script src="../dist/browser/backchart.canvasjs.js"></script>
-	<script>
-		$(function(){
-			//$(".main").onepage_scroll();
-			prettyPrint();
-		});
-	</script>
+	<script src="statics/js/backchart/backchart.canvasjs.js"></script>
 	<script src="statics/js/main.js"></script>
 </body>
 </html>

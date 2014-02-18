@@ -2,15 +2,17 @@
 *     File Name           :     main.js
 *     Created By          :     Jone Casper
 *     Creation Date       :     [2014-02-17 23:04]
-*     Last Modified       :     [2014-02-18 17:19]
+*     Last Modified       :     [2014-02-19 01:11]
 *     Description         :     document for Backbone
 **********************************************************************************/
 (function(window){
 	var backchartModel = backchart.canvasjs.model,
 	    backchartCollection = backchart.canvasjs.collection,
 		backchartView = backchart.canvasjs.view;
-	//The simple chart
 	$(function(){
+		prettyPrint();
+
+		//The simple chart
 		$("#simple-example").height($("#simple-example-code").height());
 		var myView = new (backchartView.extend({
 			container : document.getElementById("simple-example")
@@ -36,14 +38,10 @@
 			{ x: 70, y: 20682,  label: "US"},
 			{ x: 80, y: 20350,  label: "China"}
 		]);
-	});
 
-	$(function(){
+		//The BEA example
 		$("#bea-example").height($("#bea-example-code").height());
-		//filter United States
-		var BEAFView = new (backchartView.extend({
-			container : document.getElementById("bea-example2")
-		}))({
+		var viewOptions = {
 			legend:{
 				fontSize: 13
 			},
@@ -54,24 +52,33 @@
 			axisY:{
 				labelFontSize: 13
 			}
-		});
-
+		};
 		//Define the view inherit to backchart.canvasjs.view;
 		var BEAView = new (backchartView.extend({
 			container : document.getElementById("bea-example")
-		}))({
-			legend:{
-				fontSize: 13
-			},
-			axisX:{
-				interval : 1,
-				labelFontSize: 13
-			},
-			axisY:{
-				labelFontSize: 13
-			}
-		});
+		}))(viewOptions);
 		
+		//Filter United States
+		var BEAFView = new (backchartView.extend({
+			container : document.getElementById("bea-example2")
+		}))(viewOptions);
+
+		//Sort in descending order
+		var BEASView = new (backchartView.extend({
+			container : document.getElementById("bea-example3")
+		}))(viewOptions);
+		
+		//Pie example
+		var BEAPieView = new (backchartView.extend({
+			container : document.getElementById("bea-example4")
+		}))(
+			$.extend({}, viewOptions ,{
+				toolTip:{
+					content: "{label} : {y} ({percent})"
+				}
+			})
+		);
+
 		/**
 		 * Define the model to deal with each row of data
 		 * You should covered each data received to your chart can accept.
@@ -79,7 +86,6 @@
 		 **/
 		var BEAModel = backchartModel.extend({
 			parse : function(respo){
-				console.log(respo);
 				return {
 					label : respo.GeoName,
 					legendText: respo.GeoName,
@@ -98,24 +104,71 @@
 		}));
 		//Bind collection to view
 		BEAView.onCollection(BEACollection, {
-			type: "bar",
-			showInLegend: true
+			type: "bar"
 		});
 
 		//do some filter after 
 		BEACollection.on("sync", function(){
 			var usModel = BEACollection.findWhere({label: "United States"});
 			if (usModel){
+				//Average example
 				var usAverage = usModel.get("y");
 				var aboveAvg = BEACollection.filter(function(model){
 					return model.get("y") > usAverage;
 				});
-				BEAFView.onCollection(new backchartCollection(aboveAvg), {
+				var BEAFCollection = new backchartCollection(aboveAvg);
+				BEAFView.onCollection(BEAFCollection, {
+					type: "bar"
+				},{
+					renderAfterOn : true
+				});
+
+				//Sort example
+				var BEASCollection = BEAFCollection.clone();
+				BEASCollection.comparator = function(a, b){
+					return a.get("y")-b.get("y");
+				};
+				BEASView.onCollection(BEASCollection, {
+					type: "bar"
+				},{
+					renderAfterOn : true
+				});
+
+				BEASCollection.sort();
+
+				//Pie example
+				var PieBEACollection = BEACollection.clone();
+				var usAverageModel = PieBEACollection.findWhere({label: "United States"});
+				var usAverage = usAverageModel.get("y");
+				PieBEACollection.remove(usAverageModel);
+
+				var otherValue = 0,
+				totalValue = 0;
+				var modelSet = PieBEACollection.filter(function(model){
+					var val = model.get("y");
+					totalValue += val;
+					if (val < usAverage){
+						otherValue += val;
+						return false;
+					}
+					return true;
+				});
+				modelSet.push(new BEAModel({GeoName:"other",DataValue:otherValue}));
+				$.each(modelSet, function(index, model){
+					model.set("percent", (model.get("y")/totalValue * 100).toFixed(2) + "%");
+				});
+				
+				var bindID = BEAPieView.onCollection(PieBEACollection, {
 					type: "bar",
 					showInLegend: true
 				},{
 					renderAfterOn : true
 				});
+
+				//Change the type
+				BEAPieView.getRenderOptions(bindID).type = "pie";
+				//Add the percentage to all models attribute
+				PieBEACollection.reset(modelSet);
 			}
 		});
 
@@ -133,7 +186,6 @@
 				ResultFormat : "json"
 			}
 		});
-
 	});
 })(window)
 
