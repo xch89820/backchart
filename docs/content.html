@@ -1,0 +1,300 @@
+<!--********************************************************************************
+*     File Name           :     main.html
+*     Created By          :     Jone Casper
+*     Creation Date       :     [2014-02-16 21:10]
+*     Last Modified       :     [2014-02-18 17:48]
+*     Description         :     Document for backchart
+*********************************************************************************-->
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Backchart, a chart render librarys based on backbone.">
+		<meta name="keywords" content="HTML, CSS, JS, JavaScript, framework, bootstrap, front-end, frontend, web development, backbone, backchart, chart librarys, visualization, mvc">
+		<meta name="author" content="Jone casper">
+		<title>Backchart</title>
+
+		<!-- Bootstrap CSS-->
+		<link rel="stylesheet" type="text/css" href="statics/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="statics/css/todc-bootstrap.min.css">
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		<link rel="stylesheet" type="text/css" href="statics/css/docs.css">
+		<link rel="shortcut icon" type="text/css" href="statics/ico/favicon.ico">
+		<link rel="stylesheet" type="text/css" href="statics/css/google-code-prettify/prettify.css">
+	</head>
+	<body>
+		<header class="navbar navbar-masthead navbar-default navbar-fixed-top" role="banner">
+		<div class="container">
+			<div class="navbar-header">
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a href="main.html" class="navbar-brand">Backchart</a>
+			</div>
+			<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+			<ul class="nav navbar-nav">
+				<li class="section">
+                    <a href="#getting-started">Getting started</a>
+                </li>
+                <li class="section">
+                    <a href="#focus-on-data">Focus on data</a>
+                </li>
+			</ul>
+			</nav>
+		</div>
+		</header>
+		<main class="main" id="content" role="main">
+			<section id="getting-started">
+				<div class="bs-docs-header">
+					<div class="container">
+						<h1>Getting Started</h1>
+						<p>A simple example of Backchart.To introduce how to install, import and use it</p>
+					</div>
+				</div>
+				<div class="container bs-docs-container">
+					<div class="row">
+						<h2>Install</h2>
+						<hr>
+						<p>If you async loading your modules by AMD or CommonJS ,please copy all JavaScript files in dist directory but not <code>browser</code> directory to your library location. Otherwise, please copy all files in <code>browser</code> directory to your target.</p>
+
+						<h2>Import</h2>
+						<hr>
+						<p><strong>In the beginning, you should import <a href="http://backbonejs.org/">Backbone</a>, <a href="http://underscorejs.org/">Underscore</a> and the chart libraries you want to used in your application</strong></p>
+						<h4>AMD</h4>
+						<p>Add <code>backchart</code> path in your path config.The follow code is a example loading Backchart CanvasJS library.</p>
+						<pre class="prettyprint">
+require.config({
+   path :{
+       backbone : "you/backbone/path",
+       underscore : "you/underscore/path",
+
+       //import the chart library you want to use.
+       CanvasJS : "../libs/charts/canvasjs/canvasjs",
+
+       //import the backchart to support your chart library
+       "backchart" : "backchart.canvasjs"
+       //...code...
+   }
+});
+						</pre>
+						<p>You can import a few Backchart libraries as different types in your application , and make true every type of chart has a unique name in your path config.</p>
+						<pre class="prettyprint">
+require.config({
+   path :{
+       //import the backchart to support your chart library
+	   "main.backchart" : "backchart.highcharts",
+	   "backup.backchart" : "backchart.canvasjs"
+       //...code...
+   }
+});
+						</pre>
+						<p>Get the Model,Collection and View instance by require <code>backchart.CHARTNAME</code></p>
+						<pre class="prettyprint">
+//Define you model
+define(["CanvasJS","backchart"], function(){
+	require(["backchart.canvasjs"], function(chart){
+		var backchartModel = backchart.model,
+            backchartCollection = backchart.collection,
+			backchartView = backchart.view;
+		//do something..
+	});
+});
+						</pre>
+
+						<h4>Browser</h4>
+						<hr>
+						<p>If you use the <code>script</code> tag in you head to import you script librarys, you just need to add codes in follow</p>
+						<pre class="prettyprint">
+&lt;!-- Import backbone --&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;underscore.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;backbone.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Import you chart library support --&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;canvasjs.min.js&quot;&gt;&lt;/script&gt;
+&lt;!-- Import backchart --&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;browser/backchart.canvasjs.js&quot;&gt;&lt;/script&gt;
+						</pre>
+
+						<p>The namespace named backchart will created in global, and the variable's name of this is samed as the name of script</p>
+						<pre class="prettyprint">
+//Get MVC object
+(function(window){
+    var backchartModel = backchart.canvasjs.model,
+        backchartCollection = backchart.canvasjs.collection,
+        backchartView = backchart.canvasjs.view;
+
+	//...write codes...
+})(window);
+						</pre>
+
+						<h2>Simple usage</h2>
+						<p>Firstly, you should has a few understanding of MVC structure and Backcbone library. Backchart use Backbone to wrap the data transmission and store.You don't need to render your chart when your data changed because any changed will drive the view layer(you chart element) redraw immediately</p>
+						<p>We still use CanvasJS to begin our example.The collection configure is same as the data configure in CanvasJS and the data format same as too.</p>
+						<div class="row">
+							<div class="col-xs-6">
+
+						<pre id="simple-example-code" class="prettyprint">
+//Define the view inherit to backchart.canvasjs.view;
+var myView = new backchartView.extend({
+	container : document.getElementById("simple-example")
+});
+//Define the collection
+var myCollection = new backchartCollection;
+
+//Bind collection to your view and set the render configure
+myView.onCollection(myCollection, {
+	type: "column",
+	showInLegend: true,
+	legendText: "The column"
+});
+//You can bind the collection again by another configure
+myView.onCollection(myCollection, {
+    type: "line",
+    showInLegend: true,
+	legendText: "The line"
+});
+//Set the data
+myCollection.set([
+	{ x: 10, y: 97800, label: "UAE"},
+	{ x: 20, y: 267017,  label: "Saudi Arabia" },
+	{ x: 30, y: 116000,  label: "Russia"},
+	{ x: 40, y: 297571, label: "Venezuela"},
+	{ x: 50, y: 154580,  label: "Iran"},
+	{ x: 60, y: 175200,  label: "Canada"},
+	{ x: 70, y: 20682,  label: "US"},
+	{ x: 80, y: 20350,  label: "China"}
+]);
+								</pre>
+							</div>
+							<div class="col-xs-6">
+								<div id="simple-example">
+								</div>
+							</div>
+						</div>
+						<p><strong>As you see, we get two types of chart by the same collection, and just set data in the collection not use any render function to draw the chart, backchart will do all thing automatically.</strong></p>
+					</div>
+
+				</div>
+			</section>
+			<section id="focus-on-data">
+				<div class="bs-docs-header">
+					<div class="container">
+						<h1>Focus on data</h1>
+						<p>Backchart structure make a environment that you just focus on your data only in this.</p>
+					</div>
+				</div>
+				<div class="container bs-docs-container">
+					<div class="row">
+						<h2>BEA Example</h2>
+						<hr>
+						<p>We use the Bureau of Economic Analysis (BEA) publishes economic statistics API to explain a more complex exmaple that dealing with the data in you web page and explain Backchart how to work to automatic render your chart library</p>
+						<p>BEA API support JSONP and CORS features, we use JSONP in here</p>
+						<div class="row">
+							<div class="col-xs-12">
+								<pre id="bea-example-code" class="prettyprint">
+//Define the view inherit to backchart.canvasjs.view;
+var BEAView = new (backchartView.extend({
+    container : document.getElementById("bea-example")
+}));
+/**
+ * Define the model to deal with each row of data
+ * You should covered each data received to your chart can accept.
+ * We used CanvasJS, so add label,legendText and y in my data
+ **/
+var BEAModel = backchartModel.extend({
+	parse : function(respo){
+    	return {
+            label : respo.GeoName,
+            legendText: respo.GeoName,
+            y : parseInt(respo.DataValue,10)
+        }
+	}
+});
+//Define collection and set the URL and the name of dataset in the result
+var BEACollection = new (backchartCollection.extend({
+     model: BEAModel,
+     url: "http://www.bea.gov/api/data",
+	 parse : function(respo){
+		return respo.BEAAPI ? respo.BEAAPI.Results.Data : [];
+     }
+}));
+//Bind collection to view
+BEAView.onCollection(BEACollection, {
+     type: "bar",
+     showInLegend: true
+});
+
+//Fetch data
+BEACollection.fetch({
+     dataType: "jsonp",
+     jsonp:"jsonp",
+     data: {
+           UserID : "2A28DB6F-5FE7-4A05-8899-D6F4B72C5102",
+           method : "GetData",
+           datasetname : "RegionalData",
+           KeyCode : "PCPI_CI",
+           GeoFIPS : "STATE",
+           Year : "2011",
+           ResultFormat : "json"
+     }
+});
+								</pre>
+							</div>
+							<div class="col-xs-12">
+                                <div id="bea-example">
+                                </div>
+                            </div>
+						</div>
+						<p>In the above illustration drawn by Backchart ,we just covered format of each data in results.In the next, we want to filter the data which value above the average of United States.</p>
+						<div class="row">
+							<div class="col-xs-12">
+								<div id="bea-example2-code">
+									<pre>
+BEACollection.on("sync", function(){
+	var usAverage = BEACollection.findWhere({GeoName: "United States"}).get("y");
+	BEACollection.set(BEACollection.filter(function(model){
+		reutrn model.get("y") > usAverage;
+	}));
+});
+									</pre>
+								</div>
+							</div>
+							<div class="col-xs-12">
+								<div id="bea-example2" style="height:380px;">
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+	<script src="statics/js/jquery/jquery-1.9.1.js"></script>
+	<script src="statics/js/google-code-prettify/prettify.js"></script>
+	<script src="statics/js/bootstrap/bootstrap.min.js"></script>
+	<script src="statics/js/jquery.onepage-scroll/jquery.onepage-scroll.min.js"></script>
+
+	<script src="statics/js/utils/underscore-min.js"></script>
+	<script src="statics/js/utils/backbone-min.js"></script>
+	<script src="statics/js/charts/canvasjs/canvasjs.js"></script>
+	<!--[if lt IE 9]>
+	<script src="statics/js/utils/excanvas.js"></script>
+	<![endif]-->
+	<script src="../dist/browser/backchart.canvasjs.js"></script>
+	<script>
+		$(function(){
+			//$(".main").onepage_scroll();
+			prettyPrint();
+		});
+	</script>
+	<script src="statics/js/main.js"></script>
+</body>
+</html>

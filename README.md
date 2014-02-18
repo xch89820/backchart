@@ -5,12 +5,10 @@ Backchart is a lightweight JavaScript library based on Backbone and many chart l
 This project support AMD&COMMONJS standard and the aim of this project is make a MVC wrapper for char library and render it easily.
 
 ##Install
----
 If you async loading your modules by AMD or CommonJS ,please copy all js files in *dist* directory but not *browser* directory to your library location.
 Otherwise, please copy all js files in *browser* directory to your target.
 
 ##Import
----
 ###AMD (require.js)
 *Add package configure in your `path` config, exmaple(load CanvasJS):*
 ```javascript
@@ -65,9 +63,9 @@ Otherwise, please copy all js files in *browser* directory to your target.
 ```
 ## Documentation
 
-
 ## Examples
 
+## Compiling JavaScript
 
 ## Release History
 0.1.0 Released
