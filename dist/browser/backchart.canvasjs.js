@@ -1,4 +1,4 @@
-/*! backchart - v0.1.0 - 2014-02-15 *//*! backchart - v0.1.0 - 2014-02-15 */(function(root, name, factory) {
+/*! backchart - v0.1.0 - 2014-02-23 *//*! backchart - v0.1.0 - 2014-02-23 */(function(root, name, factory) {
 	"use strict";
 	if (typeof define === 'function' && define.amd) {
 		define(['jquery','backbone'], function($, Backbone) {
@@ -288,7 +288,7 @@
 		_getBindEvents:function(collection){
 			var listenEvents = ['set','add','change','destroy','reset','sort'];
 			if (typeof collection._backchart !== "undefined"){
-				listenEvents = ['seted','removed','change','destroy','reseted','sort'];
+				listenEvents = ['seted','removed','change','destroy','reseted','sort',"change:visible"];
 			}
 			return listenEvents;
 		},
@@ -528,7 +528,7 @@
 		 *  });
 		 *                                           }
 		 */
-		render : function(){
+		renderBefore : function(){
 			var me = this;
 			//initialization container
 			if (!me.container) {
@@ -555,9 +555,10 @@
 		 *    ...
 		 *  });
 		 */   
-		renderEvents : function(){
+		renderAfter : function(){
 			this.trigger.apply(this, ["view.rendered"].concat(arguments));
 			$(this.container).trigger("backchart.rendered",arguments);
+			return this;
 		},
 		elFillParents : function(){
 			this.$el.css({
@@ -720,18 +721,21 @@
 			dataPoints = [],
 			ro = $.extend(true, {}, me.defaultRenderOptions, renderOptions);
 			collection.each(function(model) {
-				var dataPoint = _.clone(model.attributes);
-				dataPoints.push(dataPoint);
+				if (collection.isVisibled(model)){
+					var dataPoint = _.clone(model.attributes);
+					dataPoints.push(dataPoint);
+				}
 			});
 			ro.dataPoints = dataPoints;
 			return ro;
 		},
 		render: function(){
 			var me = this;
-			var rret = baseview.prototype.render.apply(me, arguments);
+			var rret = baseview.prototype.renderBefore.apply(me, arguments);
 			if (!rret){
 				return false;
 			}
+			console.log(me);
 			//initialization el id 
 			if (!me.el.id){
 				me.el.id = _.uniqueId("backchartel");
@@ -750,7 +754,7 @@
 			me.Chart = new CanvasJS.Chart(me.el.id, renderOptions);
 			me.Chart.render();
 
-			baseview.prototype.renderEvents.apply(me, [me, me.el, me.Chart, renderOptions]);
+			return baseview.prototype.renderAfter.apply(me, [me, me.el, me.Chart, renderOptions]);
 		}
 	});
 	return backchartCanvasJSView;

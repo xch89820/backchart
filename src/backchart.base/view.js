@@ -2,7 +2,7 @@
  *     File Name           :     view.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-01 10:39]
- *     Last Modified       :     [2014-02-15 19:27]
+ *     Last Modified       :     [2014-02-23 14:05]
  *     Description         :     Backchart basic backbone view
  **********************************************************************************/
 (function(root, name, factory) {
@@ -178,7 +178,7 @@
 		_getBindEvents:function(collection){
 			var listenEvents = ['set','add','change','destroy','reset','sort'];
 			if (typeof collection._backchart !== "undefined"){
-				listenEvents = ['seted','removed','change','destroy','reseted','sort'];
+				listenEvents = ['seted','removed','change','destroy','reseted','sort',"change:visible"];
 			}
 			return listenEvents;
 		},
@@ -418,7 +418,7 @@
 		 *  });
 		 *                                           }
 		 */
-		render : function(){
+		renderBefore : function(){
 			var me = this;
 			//initialization container
 			if (!me.container) {
@@ -445,9 +445,10 @@
 		 *    ...
 		 *  });
 		 */   
-		renderEvents : function(){
+		renderAfter : function(){
 			this.trigger.apply(this, ["view.rendered"].concat(arguments));
 			$(this.container).trigger("backchart.rendered",arguments);
+			return this;
 		},
 		elFillParents : function(){
 			this.$el.css({

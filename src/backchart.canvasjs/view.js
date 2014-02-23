@@ -2,7 +2,7 @@
  *     File Name           :     view.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-11 10:50]
- *     Last Modified       :     [2014-02-15 19:28]
+ *     Last Modified       :     [2014-02-23 14:13]
  *     Description         :     Backchart view for canvasJS
  **********************************************************************************/
 (function(root, name, factory) {
@@ -59,15 +59,17 @@
 			dataPoints = [],
 			ro = $.extend(true, {}, me.defaultRenderOptions, renderOptions);
 			collection.each(function(model) {
-				var dataPoint = _.clone(model.attributes);
-				dataPoints.push(dataPoint);
+				if (collection.isVisibled(model)){
+					var dataPoint = _.clone(model.attributes);
+					dataPoints.push(dataPoint);
+				}
 			});
 			ro.dataPoints = dataPoints;
 			return ro;
 		},
 		render: function(){
 			var me = this;
-			var rret = baseview.prototype.render.apply(me, arguments);
+			var rret = baseview.prototype.renderBefore.apply(me, arguments);
 			if (!rret){
 				return false;
 			}
@@ -89,7 +91,7 @@
 			me.Chart = new CanvasJS.Chart(me.el.id, renderOptions);
 			me.Chart.render();
 
-			baseview.prototype.renderEvents.apply(me, [me, me.el, me.Chart, renderOptions]);
+			return baseview.prototype.renderAfter.apply(me, [me, me.el, me.Chart, renderOptions]);
 		}
 	});
 	return backchartCanvasJSView;

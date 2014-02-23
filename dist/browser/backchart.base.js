@@ -1,4 +1,4 @@
-/*! backchart - v0.1.0 - 2014-02-15 */(function(root, name, factory) {
+/*! backchart - v0.1.0 - 2014-02-23 */(function(root, name, factory) {
 	"use strict";
 	if (typeof define === 'function' && define.amd) {
 		define(['jquery','backbone'], function($, Backbone) {
@@ -288,7 +288,7 @@
 		_getBindEvents:function(collection){
 			var listenEvents = ['set','add','change','destroy','reset','sort'];
 			if (typeof collection._backchart !== "undefined"){
-				listenEvents = ['seted','removed','change','destroy','reseted','sort'];
+				listenEvents = ['seted','removed','change','destroy','reseted','sort',"change:visible"];
 			}
 			return listenEvents;
 		},
@@ -528,7 +528,7 @@
 		 *  });
 		 *                                           }
 		 */
-		render : function(){
+		renderBefore : function(){
 			var me = this;
 			//initialization container
 			if (!me.container) {
@@ -555,9 +555,10 @@
 		 *    ...
 		 *  });
 		 */   
-		renderEvents : function(){
+		renderAfter : function(){
 			this.trigger.apply(this, ["view.rendered"].concat(arguments));
 			$(this.container).trigger("backchart.rendered",arguments);
+			return this;
 		},
 		elFillParents : function(){
 			this.$el.css({

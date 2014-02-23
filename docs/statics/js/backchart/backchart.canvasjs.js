@@ -1,4 +1,4 @@
-/*! backchart - v0.1.0 - 2014-02-15 *//*! backchart - v0.1.0 - 2014-02-15 */(function(root, name, factory) {
+/*! backchart - v0.1.0 - 2014-02-20 *//*! backchart - v0.1.0 - 2014-02-20 */(function(root, name, factory) {
 	"use strict";
 	if (typeof define === 'function' && define.amd) {
 		define(['jquery','backbone'], function($, Backbone) {
@@ -67,6 +67,10 @@
 		  },*/
 		initialize: function(){
 			this._silence = false;
+			/*
+			 * To save model options
+			 */
+			this._modelOptions = {};
 			return Backbone.Collection.prototype.initialize.apply(this, arguments);
 		},
 		/*
@@ -110,6 +114,96 @@
 			this.setSilence(false);
 			this.trigger('reseted', this, options);
 			return result;
+		},
+		/*
+		 * Get model's options 
+		 * A private method which can get one model bind options 
+		 *
+		 * return options if existed ,otherwise return null(the model not in the collection)
+		 */
+		getOptions: function(model){
+			var me = this;
+			if (model instanceof String || typeof model === "string"){
+				model = me.get(model);
+			}
+			if (model instanceof Backbone.Model){
+				for (var i=me.models.length-1; i>=0; i--){
+					var m = me.models[i];
+					if (m.cid === model.cid){
+						if (!me._modelOptions[m.cid]){
+						   	me._modelOptions[m.cid] = {};
+						}
+						return me._modelOptions[m.cid];
+					}
+				}
+			}
+			return null;
+		},
+		_setOptions: function(model, options){
+			var me = this;
+			if (!!!me._modelOptions[model.cid]){
+				me._modelOptions[model.cid] = $.extend({}, options);
+			}else{
+				me._modelOptions[model.cid] = $.extend(me._modelOptions[model.cid], options);
+			}
+			return me._modelOptions[model.cid];
+		},
+		/*
+		 * Set model's options
+		 * A private method which can set one model bind options
+		 *
+		 * return the current options of this model
+		 */
+		setOptions: function(model, options){
+			var me = this;
+			if (model instanceof String || typeof model === "string"){
+				model = me.get(model);
+			}
+			if (model instanceof Backbone.Model){
+				for (var i=me.models.length-1; i>=0; i--){
+					var m = me.models[i];
+					if (m.cid === model.cid){
+						me._setOptions(model, options);
+					}
+				}
+			}
+			return null;
+		},
+		/*
+		 * Model in collection is visible or not
+		 *
+		 * @param model : the model instance or the id(you should set idAttribute first)
+		 * @param visible : set true if you want to this model can display, otherwise set false
+		 * return the model has hidden
+		 */
+		_setVisible: function(model, visible){
+			var me = this;
+			if (model instanceof String || typeof model === "string"){
+				model = me.get(model);
+			}
+			if (model instanceof Backbone.Model){
+				for (var i=me.models.length-1; i>=0; i--){
+					var m = me.models[i];
+					if (m.cid === model.cid){
+						me._setOptions(model, {"visible": visible});
+						me.trigger("change:visible", visible);
+						return model;
+					}
+				}
+			}
+			return null;
+		},
+		hide: function(idOrInstance){
+			return this._setVisible(idOrInstance, false);
+		},
+		show: function(idOrInstance){
+			return this._setVisible(idOrInstance, true);
+		},
+		isVisibled: function(idOrInstance){
+			var options = this.getOptions(idOrInstance);
+			return options ? 
+					(options.visible === false ? false : true):
+					true;
 		}
 	});
 	return backchartBaseCollection;
@@ -288,7 +382,7 @@
 		_getBindEvents:function(collection){
 			var listenEvents = ['set','add','change','destroy','reset','sort'];
 			if (typeof collection._backchart !== "undefined"){
-				listenEvents = ['seted','removed','change','destroy','reseted','sort'];
+				listenEvents = ['seted','removed','change','destroy','reseted','sort',"change:visible"];
 			}
 			return listenEvents;
 		},
@@ -720,8 +814,10 @@
 			dataPoints = [],
 			ro = $.extend(true, {}, me.defaultRenderOptions, renderOptions);
 			collection.each(function(model) {
-				var dataPoint = _.clone(model.attributes);
-				dataPoints.push(dataPoint);
+				if (collection.isVisibled(model)){
+					var dataPoint = _.clone(model.attributes);
+					dataPoints.push(dataPoint);
+				}
 			});
 			ro.dataPoints = dataPoints;
 			return ro;
@@ -732,6 +828,7 @@
 			if (!rret){
 				return false;
 			}
+			console.log(me);
 			//initialization el id 
 			if (!me.el.id){
 				me.el.id = _.uniqueId("backchartel");

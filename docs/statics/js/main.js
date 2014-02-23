@@ -2,7 +2,7 @@
 *     File Name           :     main.js
 *     Created By          :     Jone Casper
 *     Creation Date       :     [2014-02-17 23:04]
-*     Last Modified       :     [2014-02-19 01:11]
+*     Last Modified       :     [2014-02-20 01:29]
 *     Description         :     document for Backbone
 **********************************************************************************/
 (function(window){
@@ -78,6 +78,17 @@
 				}
 			})
 		);
+		//Pie select2 example
+		var BEAPieSelectView = new (backchartView.extend({
+			container : document.getElementById("bea-example5")
+		}))(
+			$.extend({}, viewOptions ,{
+				toolTip:{
+					content: "{label} : {y} ({percent})"
+				}
+			})
+		);
+
 
 		/**
 		 * Define the model to deal with each row of data
@@ -155,7 +166,7 @@
 				});
 				modelSet.push(new BEAModel({GeoName:"other",DataValue:otherValue}));
 				$.each(modelSet, function(index, model){
-					model.set("percent", (model.get("y")/totalValue * 100).toFixed(2) + "%");
+					model.set("percent", (model.get("y")/totalValue * 100).toFixed(2) + "%", {silent:true});
 				});
 				
 				var bindID = BEAPieView.onCollection(PieBEACollection, {
@@ -169,6 +180,47 @@
 				BEAPieView.getRenderOptions(bindID).type = "pie";
 				//Add the percentage to all models attribute
 				PieBEACollection.reset(modelSet);
+
+				//Pie select2
+				PieSelectBEACollection = PieBEACollection.clone();
+				BEAPieSelectView.onCollection(PieSelectBEACollection , {
+					type: "pie",
+					showInLegend: true
+				},{
+					renderAfterOn : true
+				});
+
+				//init select2
+				var states = (function(){
+					var ret = [];
+					PieSelectBEACollection.each(function(model){
+						ret.push(model.get("label"));
+					});
+					return ret;
+				})();
+				$("#bea-example5-select").select2({
+					multiple : true,
+				    placeholder: "Select a State",
+					data:(function(){
+						var ret = [];
+						$.each(states, function(index ,value){
+							ret.push({"id" : value, "text" : value});
+						});
+						return ret;
+					})()
+				});
+				$("#bea-example5-select").select2("val", states);
+				$("#bea-example5-select").on("change", function(e){
+					if (e.added){
+						var model = PieSelectBEACollection.findWhere({"label" : e.added.id});
+						PieSelectBEACollection.show(model);
+					}else if(e.removed){
+						var model = PieSelectBEACollection.findWhere({"label" : e.removed.id});
+						PieSelectBEACollection.hide(model);
+					}
+				});
+
+
 			}
 		});
 

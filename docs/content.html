@@ -2,7 +2,7 @@
 *     File Name           :     content.html
 *     Created By          :     Jone Casper
 *     Creation Date       :     [2014-02-16 21:10]
-*     Last Modified       :     [2014-02-19 01:15]
+*     Last Modified       :     [2014-02-23 14:11]
 *     Description         :     Document for backchart
 *********************************************************************************-->
 
@@ -26,6 +26,9 @@
 		<link rel="stylesheet" type="text/css" href="statics/css/docs.css">
 		<link rel="shortcut icon" type="text/css" href="statics/ico/favicon.ico">
 		<link rel="stylesheet" type="text/css" href="statics/css/google-code-prettify/prettify.css">
+
+		<!-- select2 -->
+		<link rel="stylesheet" type="text/css" href="statics/css/select2/select2.css">
 	</head>
 	<body>
 		<header class="navbar navbar-masthead navbar-default navbar-fixed-top" role="banner">
@@ -46,6 +49,9 @@
                 </li>
                 <li class="section">
                     <a href="#focusondata">Focus on data</a>
+                </li>
+ 				<li class="section">
+                    <a href="#moreexample">More Example</a>
                 </li>
 			</ul>
 			</nav>
@@ -196,7 +202,8 @@ myCollection.set([
 						<h2>BEA Example</h2>
 						<hr>
 						<p>We use the Bureau of Economic Analysis (BEA) publishes economic statistics API to explain a more complex exmaple that dealing with the data in you web page and explain Backchart how to work to automatic render your chart library</p>
-						<p>BEA API support JSONP and CORS features, we use JSONP in here</p>
+						<p>BEA API support JSONP and CORS features, we use JSONP in here.</p>
+						<p>Assuming that one day you boss want you to make a report which showing the Per Capita Personal Income of the U.S. states in MIS.You begin to work out it with Backchart.</p>
 						<div class="row">
 							<div class="col-xs-12">
 								<pre id="bea-example-code" class="prettyprint">
@@ -253,13 +260,14 @@ BEACollection.fetch({
                                 </div>
                             </div>
 						</div>
-						<h4>Filter data</h4>
-						<p>In the above illustration drawn by Backchart ,we just covered format of each data in results.In the next, we want to filter the data which value above the average of United States.</p>
+						<hr>
+						<h3>Filter data</h3>
+						<p>In the above illustration drawn by Backchart ,we just covered format of each data in results.In the next, you boss want to filter the data which value above the average of United States.</p>
 						<p>Because the data has be stored in the collection, your job is only call <code>filter</code> function in collection to recreate a new dataset and set it to the collection</p>
 						<div class="row">
 							<div class="col-xs-12">
 								<div id="bea-example2-code">
-									<pre>
+									<pre class="prettyprint">
 BEACollection.on("sync", function(){
 	var usAverage = BEACollection.findWhere({label: "United States"}).get("y");
 	BEACollection.set(BEACollection.filter(function(model){
@@ -275,12 +283,13 @@ BEACollection.on("sync", function(){
 							</div>
 						</div>
 						<p>As you see, Backchart finished the rest of the work after you seted the new data in the collection which has bound.</p>
-						<h4>Sort data</h4>
+						<hr>
+						<h3>Sort data</h3>
 						<p>After a brief rest, you boss demand you to sort the data in descending order.Don't worry about it, as you know, you just focus to you data change and Backchart finished the rest.Let's do work!</p>
 						<div class="row">
 							<div class="col-xs-12">
 								<div id="bea-example3-code">
-									<pre>
+									<pre class="prettyprint">
 BEACollection.on("sync", function(){
 	//...code for filter
 	BEACollection.comparator = function(a, b){
@@ -297,12 +306,13 @@ BEACollection.on("sync", function(){
 							</div>
 						</div>
 						<p>Amazing! You finished your work after adding four code in you application</p>
-						<h4>Change chart type</h4>
+						<hr>
+						<h3>Change chart type</h3>
 						<p>After you finished all work and prepare to go home, the big boss tell you he want to check the percentage of each data by a pie chart.He just care about the data above the average and the reset of data should be add to an item called Other.Normally, we should change lots of code in you application because you should reconfigure the chart, but you just change a little in Backchart</p>
 						<div class="row">
 							<div class="col-xs-12">
 								<div id="bea-example4-code">
-									<pre>
+									<pre class="prettyprint">
 var BEAView = new (backchartView.extend({
     container : document.getElementById("bea-example")
 }))({
@@ -346,16 +356,157 @@ BEACollection.on("sync", function(){
 								</div>
 							</div>
 						</div>
-
-
+						<hr>
+						<h3>Visible</h3>
+						<p>When you finally think that you done your work, the big boss throw a question."Can I choose the states I care about in this web page?"</p>
+						<p>Fuck boss! But very little code should be added in the in the implementation of this if you use Backchart.</p>
+						<div class="row">
+							<div id="bea-example5-code" class="col-xs-12">
+								<pre class="prettyprint">
+//Listen change event on select element and call show or hide function
+$("#bea-example5-select").on("change", function(e){
+     if (e.added){
+         var model = BEACollection.findWhere({"label" : e.added.id});
+         BEACollection.show(model);
+     }else if(e.removed){
+         var model = BEACollection.findWhere({"label" : e.removed.id});
+         BEACollection.hide(model);
+     }
+});
+								</pre>
+							</div>
+							<div class="col-xs-12">
+								<div class="row">
+									<div class="col-xs-12">
+										<input id="bea-example5-select" type="text" multiple style="width:100%"/> 
+									</div>
+									<div class="col-xs-12">
+										<div id="bea-example5" style="height:480px;">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-			</section>
+				</section>
+				<section id="moreexample">
+					<div class="bs-docs-header">
+						<div class="container">
+							<h1>More Example</h1>
+							<p>More example for describe how to use the basic function and enumerate some useful APIs</p>
+						</div>
+					</div>
+					<div class="container bs-docs-container">
+						<div class="row">
+							<h2>Write your model and collection</h2>
+							<hr>
+							<p>At the beginning of creating your Backchart, you should define your Model and Collection extended from into <code>Backchart.base</code> that can describe the conversion mode from original data to data can be used by your chart library.</p>
+							<p>In MVC structure, Model containing the interactive data as well as a large part of the logic surrounding it and the collection is a logical grouping of date wrapped by Model. Make an CanvasJS example. You original data is here</p>
+							<pre class="prettyprint">
+{
+   success:true,
+   code:200,
+   result:[
+	   {index:"XA-01", group:"backchart,json-cover,upload",name:"Jone Casper", age: "24", phone:"13365772345"},
+	   {index:"XA-02", group:"bk, jsMusic", name:"Steve Robin", age: "26", phone:"(912) 555-1234"},
+       //...
+   ]
+}
+							</pre>
+							<p>You want to make a column chart about each person's age.Obviously you just need <code>name</code> and <code>age</code> field in the result.So the first, we should define the model that only use the two filed to initialize the lable and y filed (CanvasJs use "label" to indicate what a certain position on the axis means and y is the data value)</p>
+							<pre class="prettyprint">
+var myModel = backchartModel.extend({
+	parse : function(respo){
+		return {
+			label : respo.name,
+			y : parseInt(respo.age, 10)
+		}
+	}
+});
+							</pre>
+							<p>And then, we should define how to convey the <code>result</code> filed from return data and use it to initialize our Collection. </p>
+							<pre class="prettyprint">
+var myCollection = backchartCollection.extend({
+	 model: myModel,
+	 parse : function(respo){
+		return respo.success ? respo.result : [];
+	 }
+}));
+							</pre>
+							<h2>Create a view and bind collections</h2>
+							<p>After defined the model and collection, a view instance inherit <code>Backchart.CHART.view</code> can help you to draw the chart by data in collection.</p>
+							<p>In Backbone, the default view is so simple that just implement the basic event model ,it is not enough to make a relationship between view and lots of collections, so we defined <code>onCollection</code> to bind collection to view and return a unique ID to identify the relation.</p>
+							<p>The <code>onCollection</code> function has three arguments need to. The first argument is "collection" ,please passing a collection instance, and the second is "renderOptions" which defined all dataset level properties like type ,name, etc. you should check the document of your chart before pass to.The third argument is "options" that defined the collection bind attributes like bid(Bind ID), visible, etc. The more detail API is here</p>
+							<p>After bind one collection to a view instance, the instance will change(redraw) when you change the content of the collection.Obviously, there are serious problem should be noticed:</p>
+							<p><strong>What events will trigger the instance redraw?</strong></p>
+							<p>By the default, those events will be listened to used to trigger if your collection inherited the Backchart.base.collection or it's upper class.</p>
+							<ul>
+								<li>seted</li>
+								<li>removed</li>
+								<li>change</li> 
+								<li>destroy</li>
+								<li>reseted</li>
+								<li>sort</li>
+								<li>change:visible</li>
+							</ul>
+							<p>And the ordinary backbone collection will be listened</p>
+							<ul>
+								<li>set</li>
+								<li>add</li>
+								<li>change</li>
+								<li>destroy</li>
+								<li>reset</li>
+								<li>sort</li>
+							</ul>
+							<p><strong>When have a lots of data insert to ,remove from the collection or you want to reset the collection,how to prevent to call the redraw function frequently?</strong></p>
+							<p>If you collection inherited Backchart.base.collection or it's upper class, the default set, remove and reset function has be overwritten and will send <em>seted</em>, <em>removed</em> and <em>reseted</em> event after data operation finished and the redraw function will be called after this.For example</p>
+							<pre class="prettyprint">
+backCollection.add([
+	{name:"Jone", age:35}, //send add event
+	{name:"Harry", age:25}, //send add event
+	{name:"Mark", age:33}  //send add event
+]);
+//send seted event
+							</pre>
+							<p>The collection in the above code will send 3 times of <em>add</em> events when the runtime and just send one time of seted event after finished.There are only one redraw behavior as the same time of seted occur.</p>
+							<pre class="prettyprint">
+var wanttoadded = [ 
+	{name:"Jone", age:35}, 
+	{name:"Harry", age:25},
+	{name:"Mark", age:33}
+]
+for (var i=0; i&lt;wanttoadded.length; i++){
+	backCollection.add(wanttoadded[i]); //send add event and seted event
+}
+							</pre>
+							<p>You should avoid to invoke add, set ,remove function in loop because it will make a lot of events and trigger the graph in view redraw many times.It will have a strong impact on the speed of your web application.</p>
+							<p>If you really want to use loop because you have some other things in this loop, call the <code>setSilence(true)</code> in your collection or your view to ban responding any events temporarily after the loop is a good idea and be recommended, and when jumping out of the loop, you should call the <code>setSilence(false)</code> to recover the default.</p>
+							<pre class="prettyprint">
+var wanttoadded = [ 
+	{name:"Jone", age:35}, 
+	{name:"Harry", age:25},
+	{name:"Mark", age:33}
+]
+backCollection.setSilence(true);
+for (var i=0; i&lt;wanttoadded.length; i++){
+	backCollection.add(wanttoadded[i]); //send add event and seted event
+}
+backCollection.setSilence(false);
+//To trigger redraw
+backCollection.trigger("seted");
+							</pre>
+							<p>Under some special condition, you want to rewrite the render function and call it when a given event be made.You can cover the default variable <code>eventCallback</code> when make the view instance.</p>
+							
+						</div>
+					</div>
+				</section>
 		</main>
 	<script src="statics/js/jquery/jquery-1.9.1.js"></script>
 	<script src="statics/js/google-code-prettify/prettify.js"></script>
 	<script src="statics/js/bootstrap/bootstrap.min.js"></script>
 	<script src="statics/js/jquery.onepage-scroll/jquery.onepage-scroll.min.js"></script>
+	<script src="statics/js/select2/select2.js"></script>
 
 	<script src="statics/js/utils/underscore-min.js"></script>
 	<script src="statics/js/utils/backbone-min.js"></script>
