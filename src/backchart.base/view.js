@@ -2,7 +2,7 @@
  *     File Name           :     view.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-01 10:39]
- *     Last Modified       :     [2014-02-23 14:05]
+ *     Last Modified       :     [2014-02-24 01:04]
  *     Description         :     Backchart basic backbone view
  **********************************************************************************/
 (function(root, name, factory) {
@@ -33,58 +33,77 @@
 		}
 	}
 }(this, "backchart.base.view", function($, Backbone, _) {
-	/*var getObjectName = function(object) { 
-	  var funcNameRegex = /function (.{1,})\(/;
-	  var results = (funcNameRegex).exec((object).constructor.toString());
-	  return (results && results.length > 1) ? results[1] : "";
-	  };*/
-	/*
+    /**
 	 * Backbone chart base view
-	 */
-	var chartBaseView = Backbone.View.extend({
+	 * @module base/view
+	 * @requires jquery
+	 * @requires backbone
+     * @this {Backbone.View}
+     */
+	var chartBaseView = Backbone.View.extend(
+		/** 
+		* @lends module:base/view.prototype 
+		*/
+		{
 		tagName: "div",
+		/**
+		* The element default class name
+		* @type {string}
+		*/ 
 		className: "backchart",
+		/**
+		* The collection bind ID prefix
+		* @type {string}
+		* @protected
+		*/
 		_collectionPrefix : "_cname",
-		/*
-		 * The element which to render
+		/**
+		 * The element which the view's element append to.
+		 * @type {element}
 		 */
 		container: null,
-		/*
-		 * Defined the collections' event listener
+		/**
+		 * To define the callback of event which has listened to collection
+		 * @type {Object}
+		 * @example <caption>Appoint to the callback of set event</caption>
+		 * eventCallback :{
+		 *   "set" : "setCallback"
+		 * }
 		 */
 		eventCallback: {
 			"default" : "render"
 		},
+        /**
+         * _getEventCallback
+		 *
+		 * @private
+		 * @description return the callback event from eventCallback
+         * @param {string} eventName
+         * @return {function} callback function
+         */
 		_getEventCallback: function(eventName){
 			var callbackName = this.eventCallback[eventName] || this.eventCallback["default"];
 			return callbackName ? this[callbackName] : this.render;
 		},
-		/*
-		 * For saving collections' configure
+		/**
+		 * The silence flag which can suspend responding events from all bind collections when be set to true.
+		 * It can be used when you refresh or set lots of data to avoid to draw repeatedly.
+		 * Normally ,chart will be rendered many times because sync/set function will create many add/remove events in backbone when batch processing. You can set it to true for closing auto-redraw in view.
+		 * If you set the flag personally ,you should remember recover it to default after all operation has done.
 		 *
-		 * _collectionRenderOptions: {
-		 * }
-		 */
-		/*
-		 * Store all collections
-		 *
-		 * collections: {
-		 * }
-		 */
-		/*
-		 * The silence flag to suspend responding events from bind collection.
-		 * It can be used when you refresh or set many.
-		 * Normally ,chart will be rendered many times because sync/set function will create many add events in backbone. you can set it to true for closing auto-render in view.
-		 * If you set the flag personally ,you should remember recover it after all operation is done.
+		 * @param {boolean} flag
 		 */
 		setSilence: function(flag){
 			this._silence = flag;
 		},
-		/*
+		/**
 		 * Collection is visible or not
-		 * @param  bindIdOrCollection
-		 *    If it's a string ,will hide the graph by this bindId
-		 *    If it's a Collection instance, will hide all of graph from getting data in this collection
+		 *
+		 * @private
+		 * @param  {(string|backchart.base.collection|Backbone.Collection)} bindIdOrCollection
+		 *    If it's a string ,will hide the graph that the bind ID correspond with.
+		 *    If it's a Collection instance, will hide all graphs rendered by this data source.
+		 * @return {backchart.base.view} this instance
 		 */
 		_setVisible: function(bindIdOrCollection, visible){
 			var me = this;
@@ -103,20 +122,26 @@
 			me.render();
 			return me;
 		},
-		/*
-		 * Hide graph
+		/**
+		 * Hide a set of data graph
+		 * @param  {(string|backchart.base.collection|Backbone.Collection)} bindIdOrCollection
+		 * @return {backchart.base.view} this instance
 		 */
 		hide: function(bindIdOrCollection){
 			return this._setVisible(bindIdOrCollection, false);
 		},
-		/*
-		 * Show graph
+		/**
+		 * Show a set of data points
+		 * @param  {(string|backchart.base.collection|Backbone.Collection)} bindIdOrCollection
+		 * @return {backchart.base.view} this instance
 		 */
 		show: function(bindIdOrCollection){
 			return this._setVisible(bindIdOrCollection, true);
 		},
-		/*
+		/**
 		 * Check a graph visible status
+		 * @param  {(string|backchart.base.collection|Backbone.Collection)} bindIdOrCollection
+		 * @return {boolean}
 		 */
 		isVisibled: function(bindIdOrCollection){
 			var me = this;
@@ -133,8 +158,9 @@
 				return Options;
 			}
 		},
-		/*
-		 * Overwrite initialize
+		/**
+		 * initialize
+         * @return {Backbone.View}
 		 */
 		initialize: function(){
 			var me = this;
@@ -156,10 +182,6 @@
 				me.render();
 			});
 		},
-
-		/*
-		 * Bind collection's event on me
-		 */
 		__bce: function(unid, evearr, collection){
 			var me = this;
 			_.each(evearr, function(eve){
@@ -182,6 +204,14 @@
 			}
 			return listenEvents;
 		},
+        /**
+		 * Listen to one collection events
+         *
+		 * @protected
+         * @param {string} unid
+		 * @param  {(backchart.base.collection|Backbone.Collection)} collection
+         * @param {Object} options
+         */
 		_bindCollectionEvent: function(unid, collection, options){
 			if (options.silence === true){
 				return;
@@ -190,11 +220,24 @@
 					   this._getBindEvents(collection),
 					   collection);
 		},
+		/**
+		 * Remove listener on one collection
+         *
+		 * @protected
+         * @param {string} unid
+		 * @param  {(backchart.base.collection|Backbone.Collection)} collection
+         */
 		_unbindColletionEvent: function(unid, collection){
 			this.__ubce(unid, 
 						this._getBindEvents(collection),
 						collection);
 		},
+        /**
+         * Determine whether an collection has be listened to
+         *
+		 * @param  {(backchart.base.collection|Backbone.Collection)} collection
+         * @return {boolean}
+         */
 		_collectionHasBind: function(collection){
 			for(var uid in this.collections){
 				if (this.collections[uid] === collection){
@@ -203,20 +246,21 @@
 			}
 			return false;
 		},
-		/*
+		/**
 		 * Bind one collection to this view
+		 * The collection will be listened to the following events if it's inherit from backchart.base.collection.
+		 * 'seted','removed','change','destroy','reseted','sort','change:visible'
+		 * Otherwise, the following events will be listend to.
+		 * 'set','add','change','destroy','reset','sort'
 		 *
-		 * This view will bind to the collection's 'set','add','change','destroy','reset','sorted','sync' events, and execute the relevant method which defined in eventCallback.
-		 * @param collection
-		 * @param renderOptions : render chart options which based what chart library you used.
-		 * @param options :
-		 *	  bid : Setting a uniq id
-		 *    silence : Not bind any event for rendering
-		 *    visible : Display or not render this collection,default is true.
-		 *			    You can use hide/show function to dynamic control.
-		 *    renderAfterOn : Default is false, render chart after binding.
-		 * @return the unique Id of this collection
-		 *
+		 * @param {(backchart.base.collection|Backbone.Collection)} collection
+		 * @param {Object} renderOptions render chart options which based what chart library you used.
+		 * @param {Object} options
+		 * @param {string} [options.bid] a unique id as the bind ID
+		 * @param {boolean} [options.silence=false] not responded to any event from this collection
+		 * @param {boolean} [options.visible=true] Display or not, you can use hide/show function to dynamic control.
+		 * @param {boolean} [options.renderAfterOn=false] redraw the chart after finished to bind.
+		 * @return {string} a bind ID
 		 */
 		onCollection: function(collection, renderOptions, options){
 			renderOptions = renderOptions || {};
@@ -243,10 +287,14 @@
 			me.trigger("collection.on", unid, collection, _rdOptions, options);
 			return unid;
 		},
-		/*
+		/**
 		 * Bind one or more collections
-		 * @return a object (key:collection,value:bind ID)
-		 */
+         *
+		 * @param {(backchart.base.collection[]|Backbone.Collection[])} collections
+         * @param {Object} renderOptions same as onCollection
+         * @param {Object} options same as onCollection
+		 * @return {Object} The key of this return is the collection instance and the value is the bind ID assigned.
+         */
 		onCollections: function(collections, renderOptions, options){
 			var me = this;
 			if (!collections instanceof Array){
@@ -258,11 +306,10 @@
 			});
 			return bid;
 		},
-		/*
+		/**
 		 * Remove one collection from the view
-		 * @param uid or collection
-		 *     If convey a collection instance, we will remove all bind configure about this collection
-		 * @return Collection instance
+		 * @param {(string|backchart.base.collection|Backbone.Collection)} unid pass the bind ID or collection instance in here.If convey a collection instance to, we will remove all bind configure about this collection.
+		 * @return {(backchart.base.collection|Backbone.Collection)} the collection instance or null
 		 */
 		unCollection: function(unid){
 			var me = this,
@@ -299,8 +346,10 @@
 				return collection;
 			}
 		},
-		/*
-		 * Remove all collection in this view
+		/**
+		 * Remove all collections has binded to the view
+		 *
+         * @return {backchart.base.view} this instance
 		 */
 		clearCollection: function(){
 			var me = this;
@@ -310,10 +359,10 @@
 			});
 			return this;
 		},
-		/*
+		/**
 		 * A generic iterator function, which can be used to seamlessly iterate collection has binded in this view
-		 * 
-		 * The eachCollection same as the jQuery.each function.The callback is passed an bind ID, the instance of collection, the render options and the config options.The this always as an collection currently in callback function.
+		 * This function same as the [jQuery.each]{@link https://api.jquery.com/jQuery.each/} function.The callback is passed an bind ID, the instance of collection, the render options and the config options.The this always as an collection currently in callback function.
+		 * @param {eachCallback} eachcb - The callback that handles the response.
 		 */
 		eachCollection: function(fn){
 			var me = this;
@@ -321,14 +370,23 @@
 				fn.call(me.collections[uid], uid, me.collections[uid], me._collectionRenderOptions[uid], me._collectionOptions[uid]);
 			}
 		},
-		/*
-		 * Get collections by uid or get uids by collection
-		 * @param getBindID:
-		 * @return
+		/**
+		* The callback of eachCollection
+		* @callback eachCallback
+		* @param {string} bid the bind ID
+		* @param {(backchart.base.collection|Backbone.Collection)} collection the collection instance
+		* @param {Object} renderOptions same as onCollection
+        * @param {Object} options same as onCollection
+		*/
+
+		/**
+		 * Get collections by bind ID or get bind IDs by collection
 		 *   If it's Boolean type and false, will return a Array contained all collections binded in this view
 		 *   If it's String type ,will return the representative collection.
-		 *   If it's a instance of Backbone.Collection, will return a Array contained all bind ID's
+		 *   If it's a instance of Backbone.Collection, will return a Array contained all bind IDs
 		 *   else return a map ,key is collections ,values is uid array corresponded
+		 * @param {(boolean|string|backchart.base.collection|Backbone.Collection)} bindIDOrCollection 
+		 * @return {(backchart.base.collection[]|Backbone.Collection[]|backchart.base.collection|Backbone.Collection|string[]|Object)}
 		 */
 		getCollection: function(getBindID){
 			var me = this;
@@ -355,6 +413,15 @@
 				return cols;
 			}
 		},
+		/**
+		 * Get collection's option by bind ID or collection instance
+		 *   If it's String type ,will return the representative collection's options.
+		 *   If it's a instance of Backbone.Collection, will return a Array contained all options
+		 *   else return a map ,key is collection instance ,values is its options
+		 * @param {(string|backchart.base.collection|Backbone.Collection)} bindIDOrCollection 
+		 * @return {(Object[]|Object)}
+		 */
+
 		getOptions: function(getBindID){
 			var me = this,
 			Options = null;
@@ -379,6 +446,14 @@
 				return Options;
 			}
 		},
+		/**
+		 * Get collection's renderOptions by bind ID or collection instance
+		 *   If it's String type ,will return the representative collection's options.
+		 *   If it's a instance of Backbone.Collection, will return a Array contained all options
+		 *   else return a map ,key is collection instance ,values is its options
+		 * @param {(string|backchart.base.collection|Backbone.Collection)} bindIDOrCollection 
+		 * @return {(Object[]|Object)}
+		 */
 		getRenderOptions : function(getBindID){
 			var me = this,
 			renderOptions = [];
@@ -404,12 +479,15 @@
 			}
 
 		},
-		/*
-		 * The default render,all inherit View MUST call this function in front of you code, like this:
+		/**
+		 * The default function should be invoke before rendered.All View class inherited MUST call this function before call the render.
+		 * If the function return false, you should give up the rendering process immediately.
+		 * Here is a example:
+		 * @example
 		 *   baseview.extend({
 		 *    ...
 		 *    render : function(){
-		 *       var baserender = baseview.prototype.render.apply(me, arguments);
+		 *       var baserender = baseview.prototype.renderBefore.apply(me, arguments);
 		 *       if (!baserender){
 		 *           return false;
 		 *       }
@@ -433,13 +511,15 @@
 			}
 			return true;
 		},
-		/*
-		 * All inherit render function should send the unity of event after rendered chart, like this
+		/**
+		 * All inherit render function should send the unity of event after rendered chart.
+		 * Here is a example:
+		 * @example
 		 *  baseview.extend({
 		 *    ...
 		 *    render : function(){
 		 *    	//implement rendered
-		 *    	baseview.prototype.renderEvents.apply(this, [this, this.el, chart object, renderOptions]);
+		 *    	return baseview.prototype.renderAfter.apply(this, [this, this.el, chart object, renderOptions]);
 		 *		...
 		 *    }
 		 *    ...

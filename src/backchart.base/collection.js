@@ -2,7 +2,7 @@
  *     File Name           :     collection.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-11 10:45]
- *     Last Modified       :     [2014-02-15 19:27]
+ *     Last Modified       :     [2014-02-24 01:45]
  *     Description         :     Backchart basic backbone collection
  **********************************************************************************/
 (function(root, name, factory) {
@@ -30,33 +30,52 @@
 				(ex || {});
 		}
 	}
-}(this, "backchart.base.collection", function($, Backbone) {
-	var backchartBaseCollection = Backbone.Collection.extend({
-		/*
-		 * Backchart mark
+}(this, "backchart.base.collection",function($, Backbone) {   
+	/**
+	 * Backbone chart base collection 
+	 * @module base/collection
+	 * @requires jquery
+	 * @requires backbone
+	 * @this {Backbone.Collection}
+	 */
+	var exports = Backbone.Collection.extend(
+		/** 
+		* @lends module:base/collection.prototype 
+		*/
+		{
+		/**
+		 * A significant that indicate this class is Backchart collection
+		 * @type {boolean}
+		 * @static
 		 */
 		_backchart : true,
-		/*parse: function(response) {
-		  if (response.success) {
-		  return response.msg;
-		  }
-		  return [];
-		  },*/
+        /**
+         * initialize
+         * @return {Backbone.Collection}
+         */
 		initialize: function(){
 			this._silence = false;
 			return Backbone.Collection.prototype.initialize.apply(this, arguments);
 		},
-		/*
-		 * The silence flag.If set many datas to append, you can set it to true for closing auto-render in view.
-		 * If you set the flag, we will not recover it after all operation.
-		 */
+		/**
+		 * Set the silence flag.If you want to set lots of data to append, you can set it to true for ban the collection creating seted, removed and reseted event.If you set the flag to true, please recover the flag to false after you finished your work.
+         *
+         * @param {boolean} flag
+         * @return
+         */
 		setSilence : function(flag){
 			this._silence = flag;
 		},
-		/*
-		 * Override collection set ,remove, change, reset "sync" function and add render function after finished.
-		 * When these function executing, view will enter the "silence" model and not do any render util end of it for avoiding repeating rendered.
-		 */
+		/**
+		 * Override collection set function and trigger seted event after processing has done.
+		 * When these function processing, collection will enter the "silence" model for avoiding to render chart repeatedly.
+		 * @see {@link http://backbonejs.org/#Collection-set Set}
+		 *
+         * @param {(Backbone.Model[]|String[])} models
+         * @param {Object} options
+		 * @fires Backbone.Collection#seted
+         * @return
+         */
 		set : function(models, options){
 			if (this._silence === true){
 				return Backbone.Collection.prototype.set.apply(this, arguments);
@@ -68,6 +87,16 @@
 			this.trigger('seted', this.models, this, options);
 			return result;
 		},
+		/**
+		 * Override collection remove function and trigger removed event after processing has done.
+		 * When these function processing, collection will enter the "silence" model for avoiding to render chart repeatedly.
+		 * @see {@link http://backbonejs.org/#Collection-remove Remove}
+		 *
+		 * @param {(Backbone.Model[]|String[])} models
+         * @param {Object} options
+		 * @fires Backbone.Collection#removed
+         * @return
+         */
 		remove: function(models, options){
 			if (this._silence === true){
 				return Backbone.Collection.prototype.remove.apply(this, arguments);
@@ -78,6 +107,16 @@
 			this.trigger('removed', this.models, this, options);
 			return result;
 		},
+		/**
+		 * Override collection reset function and trigger reseted event after processing has done.
+		 * When these function processing, collection will enter the "silence" model for avoiding to render chart repeatedly.
+		 * @see {@link http://backbonejs.org/#Collection-reset Reset}
+		 *
+		 * @param {(Backbone.Model[]|String[])} models
+         * @param {Object} options
+		 * @fires Backbone.Collection#reseted
+         * @return
+         */
 		reset: function(models, options){
 			if (this._silence === true){
 				return Backbone.Collection.prototype.reset.apply(this, arguments);
@@ -89,5 +128,5 @@
 			return result;
 		}
 	});
-	return backchartBaseCollection;
+	return exports;
 }));

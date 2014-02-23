@@ -2,7 +2,7 @@
  *     File Name           :     view.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-11 10:50]
- *     Last Modified       :     [2014-02-23 14:13]
+ *     Last Modified       :     [2014-02-24 01:04]
  *     Description         :     Backchart view for canvasJS
  **********************************************************************************/
 (function(root, name, factory) {
@@ -38,22 +38,43 @@
 		}
 	}
 }(this, "backchart.canvasjs.view", function($, Backbone, _, baseview, CanvasJS) {
-	var backchartCanvasJSView = baseview.extend({
-		/*
+	/**
+	 * Backbone chart CanvasJS view
+	 * @module canvasjs/view
+	 * @requires jquery
+	 * @requires base/view
+	 * @requires backbone
+	 * @requires CanvasJS 
+     * @this {Backbone.View}
+     */
+	var backchartCanvasJSView = baseview.extend(
+		/** 
+		* @lends module:canvasjs/view.prototype 
+		*/
+		{
+		/**
 		 * The default render options
+		 * @static
 		 */
 		defaultRenderOptions :{
 			type: "column"
 		},
+		/**
+		 * initialize
+         * @return {Backbone.View}
+		 */
 		initialize: function(defaultOptions, defaultRenderOptions) {
 			baseview.prototype.initialize.apply(this, arguments);
 			this.defaultOptions = $.extend(true, {}, this.defaultOptions, defaultOptions);
 			this.defaultRenderOptions = $.extend(true, {}, this.defaultRenderOptions, defaultRenderOptions);
 		},
-		/*
-		 * deal the data
-		 * return one of the data option for canvasjs
-		 */
+		/**
+		 * Transform the renderOptions to the options of CanvasJS
+         *
+		 * @param {(backchart.base.collection|Backbone.Collection)} collection
+         * @param {Object} renderOptions
+         * @return {Object} the options that can be accepted by CanvasJS library
+         */
 		transformData: function(collection, renderOptions){
 			var me = this,
 			dataPoints = [],
@@ -67,6 +88,11 @@
 			ro.dataPoints = dataPoints;
 			return ro;
 		},
+        /**
+         * The render function
+         *
+         * @return {Object} this instance
+         */
 		render: function(){
 			var me = this;
 			var rret = baseview.prototype.renderBefore.apply(me, arguments);

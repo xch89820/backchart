@@ -2,7 +2,7 @@
 *     File Name           :     content.html
 *     Created By          :     Jone Casper
 *     Creation Date       :     [2014-02-16 21:10]
-*     Last Modified       :     [2014-02-23 14:11]
+*     Last Modified       :     [2014-02-24 02:00]
 *     Description         :     Document for backchart
 *********************************************************************************-->
 
@@ -52,6 +52,9 @@
                 </li>
  				<li class="section">
                     <a href="#moreexample">More Example</a>
+                </li>
+				<li class="section">
+					<a href="jsdoc/index.html">APIs</a>
                 </li>
 			</ul>
 			</nav>
@@ -467,7 +470,7 @@ backCollection.add([
 	{name:"Harry", age:25}, //send add event
 	{name:"Mark", age:33}  //send add event
 ]);
-//send seted event
+//send seted event and the chart will redraw at the same time
 							</pre>
 							<p>The collection in the above code will send 3 times of <em>add</em> events when the runtime and just send one time of seted event after finished.There are only one redraw behavior as the same time of seted occur.</p>
 							<pre class="prettyprint">
@@ -476,6 +479,7 @@ var wanttoadded = [
 	{name:"Harry", age:25},
 	{name:"Mark", age:33}
 ]
+//Avoid to do this!
 for (var i=0; i&lt;wanttoadded.length; i++){
 	backCollection.add(wanttoadded[i]); //send add event and seted event
 }
@@ -501,6 +505,7 @@ backCollection.trigger("seted");
 						</div>
 					</div>
 				</section>
+
 		</main>
 	<script src="statics/js/jquery/jquery-1.9.1.js"></script>
 	<script src="statics/js/google-code-prettify/prettify.js"></script>

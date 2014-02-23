@@ -68,6 +68,21 @@ Otherwise, please copy all js files in *browser* directory to your target.
 [http://www.jonecasper.com/backchart/index.html](http://www.jonecasper.com/backchart/index.html "Documentation").
 
 ## Compiling JavaScript
+### Install Grunt
+From the command line:
+
+1. Install `grunt-cli` globally with `npm install -g grunt-cli`.
+2. Navigate to the root directory, then run `npm install`. npm will look at [package.json](https://github.com/todc/todc-bootstrap/blob/master/package.json) and automatically install the necessary local dependencies listed there.
+
+When completed, you'll be able to run the various Grunt commands provided from the command line.
+
+**Unfamiliar with `npm`? Don't have node installed?** That's a-okay. npm stands for [node packaged modules](http://npmjs.org/) and is a way to manage development dependencies through node.js. [Download and install node.js](http://nodejs.org/download/) before proceeding.
+
+#### Build - `grunt`
+Run `grunt` to run tests locally and compile the JavaScript into `/dist`.
+
+#### Build JSDoc - `jsdoc`
+Run `jsdoc * ../README.md -d ../docs/jsdoc/` in `/src` directory, the API document will be find in the `docs/jsdoc` directory
 
 ## Release History
 0.1.0 Released

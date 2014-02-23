@@ -4,7 +4,7 @@ module.exports = function(grunt) {
 
 	// Project configuration.
 	grunt.initConfig({
-		// Metadata.
+		// Metadata
 		pkg: grunt.file.readJSON('backchart.jquery.json'),
 		banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
 			'<%= grunt.template.today("yyyy-mm-dd") %>\n' +
@@ -55,7 +55,7 @@ module.exports = function(grunt) {
 				options: {
 					jshintrc: 'src/.jshintrc'
 				},
-				src: ['src/base/*.js']
+				src: ['src/backchart.base/*.js']
 			},
 			extend : {
 				options: {
@@ -95,6 +95,12 @@ module.exports = function(grunt) {
 					exclude : ['jquery','underscore','backbone','excanvas','CanvasJS']
 				}
 			}
+		},
+		copy: {
+			dist : {
+				src : "<%= concat.canvasjs.dest %>",
+				dest : "docs/statics/js/backchart/"
+			}
 		}
 	});
 
@@ -106,8 +112,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 
 	// Default task.
-	grunt.registerTask('default', ['jshint', 'clean', "concat", "uglify", 'requirejs']);
+	grunt.registerTask('default', ['jshint', 'clean', "concat", "uglify", 'requirejs','copy']);
 
 };

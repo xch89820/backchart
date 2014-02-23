@@ -1,6 +1,6 @@
 /* Outline button for use within the docs */
 body {
-	font-size:13.5px;
+	font-size:14.5px;
 }
 .btn-outline {
 	color: #E27D2D;
@@ -121,6 +121,7 @@ margin-top: -15px;
 	padding-top: 80px;
 	margin-bottom: 20px;
 	font-size: 20px;
+	min-height: 110px;
 	text-align: left;
 }
 .bs-docs-header h1 {

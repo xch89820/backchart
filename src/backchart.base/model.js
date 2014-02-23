@@ -2,7 +2,7 @@
  *     File Name           :     model.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-11 10:42]
- *     Last Modified       :     [2014-02-15 19:40]
+ *     Last Modified       :     [2014-02-24 00:56]
  *     Description         :     Backchart basic backbone model
  **********************************************************************************/
 (function(root, name, factory) {
@@ -31,6 +31,15 @@
 		}
 	}
 }(this, "backchart.base.model", function($, Backbone) {
-	var chartBaseModel = Backbone.Model.extend({});
+	/**
+	* Backbone chart base model
+	* @module base/model
+	* @requires jquery
+	* @requires backbone
+	* @this {Backbone.Model}
+	*/                     
+	var chartBaseModel = Backbone.Model.extend(
+		/** @lends module:base/model.prototype */
+		{});
 	return chartBaseModel;
 }));
