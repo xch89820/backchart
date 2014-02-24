@@ -2,7 +2,7 @@
 *     File Name           :     content.html
 *     Created By          :     Jone Casper
 *     Creation Date       :     [2014-02-16 21:10]
-*     Last Modified       :     [2014-02-24 02:00]
+*     Last Modified       :     [2014-02-25 00:06]
 *     Description         :     Document for backchart
 *********************************************************************************-->
 
@@ -45,6 +45,9 @@
 			<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
 			<ul class="nav navbar-nav">
 				<li class="section">
+                    <a href="#introduction">Introduction</a>
+                </li>
+				<li class="section">
                     <a href="#gettingstarted">Getting started</a>
                 </li>
                 <li class="section">
@@ -61,11 +64,96 @@
 		</div>
 		</header>
 		<main class="main" id="content" role="main">
+			<section id="introduction">
+				<div class="bs-docs-header">
+					<div class="container">
+						<h1>Introduction</h1>
+						<p>What is this? How does it help you?</p>
+					</div>
+				</div>
+				<div class="container bs-docs-container">
+					<div class="row">
+						<h2>What is this?</h2>
+						<hr>
+						<p>Firstly, the library is not a graphics library, it is just a MVC(Model View Controller) implementation for graphics library based on Backbone.If you not familiar the <a href="http://backbonejs.org/">Backbone library</a>, you should learn it at the beginning. The library only support CanvasJS at present, but will support more widespread use of chart libraries like Highcharts, D3 etc.The follow is a list that the library will support to in future.</p>
+						<table class="table table-bordered table-striped">
+							<thead>
+								<tr>
+									<th style="width:150px;">name</th>
+									<th>Rendering technique</th>
+									<th>Has supported</th>
+									<th>License of the library</th>
+									<th>Website</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>CanvasJS</td>
+									<td>HTML5 Canvas</td>
+									<td>Yes</td>
+									<td>CC</td>
+									<td><a href="http://canvasjs.com/">http://canvasjs.com/</a></td>
+								</tr>
+								<tr>
+									<td>Highcharts</td>
+									<td>VML ,SVG, HTML5 Canvas</td>
+									<td>No</td>
+									<td>CC</td>
+									<td><a href="http://www.highcharts.com/">http://www.highcharts.com/</a></td>
+								</tr>
+								<tr>
+									<td>D3</td>
+									<td>HTML, SVG</td>
+									<td>No</td>
+									<td>BSD</td>
+									<td><a href="http://d3js.org/">http://d3js.org/</a></td>
+								</tr>
+								<tr>
+									<td>amcharts</td>
+									<td>VML ,SVG</td>
+									<td>No</td>
+									<td>has limitation of the free version</td>
+									<td><a href="http://www.amcharts.com/">http://www.amcharts.com/</a></td>
+								</tr>
+								<tr>
+									<td>flotr2</td>
+									<td>HTML5 Canvas</td>
+									<td>No</td>
+									<td>MIT</td>
+									<td><a href="http://www.humblesoftware.com/flotr2/">http://www.amcharts.com/</a></td>
+								</tr>
+							</tbody>
+						</table>
+						<h2>How does it help you?</h2>
+						<hr>
+						<p>The aim of the project is that give the traditional graphics library MVC properties based on Backbone contained data-driver, local storage etc.You can find more detail advances in <a href="http://addyosmani.github.io/backbone-fundamentals/">here</a></p>
+						<p>Backchart will give you chart library :</p>
+						<ul>
+							<li>Data-driver</li>
+							<li>Date shared</li>
+							<li>More ways to manipulate data</li>
+							<li>Local storage</li>
+							<li>Concise code logic</li>
+							<li>more...</li>
+						</ul>
+						<h2>Browser Compatibility</h2>
+						<ul>
+							<li>IE 6+*</li>
+							<li>Chrome 8+</li>
+							<li>Firefox 10+</li>
+							<li>Safari 3+</li>
+							<li>Opera 10.6+</li>
+						</ul>
+						<em><small>*Support for IE depends on you chart library.You can use <a href="http://excanvas.sourceforge.net/">excanvas</a> to make the IE6-8 to support HTML Canvas</small></em>
+					</div>
+				</div>
+			</section>
+
 			<section id="gettingstarted">
 				<div class="bs-docs-header">
 					<div class="container">
 						<h1>Getting Started</h1>
-						<p>A simple example of Backchart.To introduce how to install, import and use it</p>
+						<p>How to install, import and use it.</p>
 					</div>
 				</div>
 				<div class="container bs-docs-container">
@@ -76,7 +164,7 @@
 
 						<h2>Import</h2>
 						<hr>
-						<p><strong>In the beginning, you should import <a href="http://backbonejs.org/">Backbone</a>, <a href="http://underscorejs.org/">Underscore</a> and the chart libraries you want to used in your application</strong></p>
+						<p><strong>At the beginning, you should import <a href="http://backbonejs.org/">Backbone</a>, <a href="http://underscorejs.org/">Underscore</a> and the chart libraries has be supported in your application.</strong></p>
 						<h4>AMD</h4>
 						<p>Add <code>backchart</code> path in your path config.The follow code is a example loading Backchart CanvasJS library.</p>
 						<pre class="prettyprint">
@@ -94,7 +182,7 @@ require.config({
    }
 });
 						</pre>
-						<p>You can import a few Backchart libraries as different types in your application , and make true every type of chart has a unique name in your path config.</p>
+						<p>You can import different types of libraries in your application , and make true every type of chart has a unique name in your path config.</p>
 						<pre class="prettyprint">
 require.config({
    path :{
@@ -120,7 +208,7 @@ define(["CanvasJS","backchart"], function(){
 
 						<h4>Browser</h4>
 						<hr>
-						<p>If you use the <code>script</code> tag in you head to import you script librarys, you just need to add codes in follow</p>
+						<p>If you use the <code>script</code> tag at the head tag to import you script libraries, you can do like this:</p>
 						<pre class="prettyprint">
 &lt;!-- Import backbone --&gt;
 &lt;script type=&quot;text/javascript&quot; src=&quot;underscore.min.js&quot;&gt;&lt;/script&gt;
@@ -132,7 +220,7 @@ define(["CanvasJS","backchart"], function(){
 &lt;script type=&quot;text/javascript&quot; src=&quot;browser/backchart.canvasjs.js&quot;&gt;&lt;/script&gt;
 						</pre>
 
-						<p>The namespace named backchart will created in global, and the variable's name of this is samed as the name of script</p>
+						<p>A variable named <code>backchart</code> will be created in global namespace, and the variable's name of this is samed as the name of script.</p>
 						<pre class="prettyprint">
 //Get MVC object
 (function(window){
@@ -145,7 +233,7 @@ define(["CanvasJS","backchart"], function(){
 						</pre>
 
 						<h2>Simple usage</h2>
-						<p>Firstly, you should has a few understanding of MVC structure and Backcbone library. Backchart use Backbone to wrap the data transmission and store.You don't need to render your chart when your data changed because any changed will drive the view layer(you chart element) redraw immediately</p>
+						<p>Firstly, you should has a few understanding of MVC structure and Backcbone library. Backchart use Backbone to wrap the processing of synchronous data and store.You don't need to care about rendering when your data changed because any changed will drive the view layer(you chart element) redraw immediately.</p>
 						<p>We still use CanvasJS to begin our example.The collection configure is same as the data configure in CanvasJS and the data format same as too.</p>
 						<div class="row">
 							<div class="col-xs-6">
@@ -188,7 +276,7 @@ myCollection.set([
 								</div>
 							</div>
 						</div>
-						<p><strong>As you see, we get two types of chart by the same collection, and just set data in the collection not use any render function to draw the chart, backchart will do all thing automatically.</strong></p>
+						<p><strong>As you see, we get two types of chart by the same collection, and you just need to set data to the collection and you will get the chart.Backchart will do all thing automatically.</strong></p>
 					</div>
 
 				</div>
@@ -197,16 +285,16 @@ myCollection.set([
 				<div class="bs-docs-header">
 					<div class="container">
 						<h1>Focus on data</h1>
-						<p>Backchart structure make a environment that you just focus on your data only in this.</p>
+						<p>You just need to focus on you data and forget others under Backchart.</p>
 					</div>
 				</div>
 				<div class="container bs-docs-container">
 					<div class="row">
 						<h2>BEA Example</h2>
 						<hr>
-						<p>We use the Bureau of Economic Analysis (BEA) publishes economic statistics API to explain a more complex exmaple that dealing with the data in you web page and explain Backchart how to work to automatic render your chart library</p>
+						<p>We use the data from the Bureau of Economic Analysis (BEA) publishes economic statistics API as the data source, and we will explain a more complex example which dealing with the data to you and describe the code which can help you to have a basic understanding how to use the Backchart library.</p>
 						<p>BEA API support JSONP and CORS features, we use JSONP in here.</p>
-						<p>Assuming that one day you boss want you to make a report which showing the Per Capita Personal Income of the U.S. states in MIS.You begin to work out it with Backchart.</p>
+						<p>Assuming that one day you boss want you to make a report which showing the Per Capita Personal Income of the U.S. states in company's MIS.You begin to work out it with Backchart.</p>
 						<div class="row">
 							<div class="col-xs-12">
 								<pre id="bea-example-code" class="prettyprint">
@@ -263,9 +351,15 @@ BEACollection.fetch({
                                 </div>
                             </div>
 						</div>
+						<p>In the above illustration ,we create the basic factors : Model, Collection and View.</p>
+						<p>In <strong>Model</strong>, we defined the method that how to covered format of each data in results. Model is the minimum data unit in Backchart and each model in collection represent a point or a column or other unit in your chart's data.In the CanvasJS, each object in <code>dataPoints</code> Array is as a model in Backchart.
+						<p>The <strong>Collection</strong> is a dataset of models, you can set the URL to reference its location on the server.In the CanvasJS, each object in <code>data</code> Array is as a collection.</p>
+						<p>The <strong>View</strong> is a object wrapped the element up and will listen to the events from the collections whose have been bound to used <code>onCollection</code> function.You must pass a HTMLElement to the <code>container</code> in view and make sure it not be hidden.</p>
+						<p>As you see, when you invoke the <code>fetch</code> function to synchronous data from server, the chart will be draw on the element you passed to</p>
+
 						<hr>
 						<h3>Filter data</h3>
-						<p>In the above illustration drawn by Backchart ,we just covered format of each data in results.In the next, you boss want to filter the data which value above the average of United States.</p>
+						<p>The next, you boss want to filter the data which value above the average of United States.</p>
 						<p>Because the data has be stored in the collection, your job is only call <code>filter</code> function in collection to recreate a new dataset and set it to the collection</p>
 						<div class="row">
 							<div class="col-xs-12">
@@ -285,10 +379,10 @@ BEACollection.on("sync", function(){
 								</div>
 							</div>
 						</div>
-						<p>As you see, Backchart finished the rest of the work after you seted the new data in the collection which has bound.</p>
+						<p>As you see, Backchart finished the rest of the work after you set the new data in the collection which has bound to.</p>
 						<hr>
 						<h3>Sort data</h3>
-						<p>After a brief rest, you boss demand you to sort the data in descending order.Don't worry about it, as you know, you just focus to you data change and Backchart finished the rest.Let's do work!</p>
+						<p>After a brief rest, you boss demand you to sort the data in descending order.Don't worry about it, as you know, you just focus to the transformation of your data and Backchart finished the rest. Let's do work!</p>
 						<div class="row">
 							<div class="col-xs-12">
 								<div id="bea-example3-code">
@@ -308,7 +402,7 @@ BEACollection.on("sync", function(){
 								</div>
 							</div>
 						</div>
-						<p>Amazing! You finished your work after adding four code in you application</p>
+						<p>Amazing! You finished your work after add four lines.</p>
 						<hr>
 						<h3>Change chart type</h3>
 						<p>After you finished all work and prepare to go home, the big boss tell you he want to check the percentage of each data by a pie chart.He just care about the data above the average and the reset of data should be add to an item called Other.Normally, we should change lots of code in you application because you should reconfigure the chart, but you just change a little in Backchart</p>
@@ -397,7 +491,7 @@ $("#bea-example5-select").on("change", function(e){
 					<div class="bs-docs-header">
 						<div class="container">
 							<h1>More Example</h1>
-							<p>More example for describe how to use the basic function and enumerate some useful APIs</p>
+							<p>More example for describe the basic function and enumerate some useful APIs</p>
 						</div>
 					</div>
 					<div class="container bs-docs-container">
@@ -417,7 +511,7 @@ $("#bea-example5-select").on("change", function(e){
    ]
 }
 							</pre>
-							<p>You want to make a column chart about each person's age.Obviously you just need <code>name</code> and <code>age</code> field in the result.So the first, we should define the model that only use the two filed to initialize the lable and y filed (CanvasJs use "label" to indicate what a certain position on the axis means and y is the data value)</p>
+							<p>You want to make a column chart about each person's age.Obviously only two fields <code>name</code> and <code>age</code> in the result is useful.So the first, we should define a model that only store the two filed and use it to initialize the lable and y filed (CanvasJs use "label" to indicate what a certain position on the axis means and y is the data value)</p>
 							<pre class="prettyprint">
 var myModel = backchartModel.extend({
 	parse : function(respo){
