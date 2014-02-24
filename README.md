@@ -82,7 +82,7 @@ When completed, you'll be able to run the various Grunt commands provided from t
 Run `grunt` to run tests locally and compile the JavaScript into `/dist`.
 
 #### Build JSDoc - `jsdoc`
-Run `jsdoc * ../README.md -d ../docs/jsdoc/` in `/src` directory, the API document will be find in the `docs/jsdoc` directory
+Run `jsdoc * ../README.md -d ../docs/jsdoc/ -t ../template/ -c jsdoc.conf` in `/src` directory, the API document will be find in the `docs/jsdoc` directory
 
 ## Release History
 0.1.0 Released

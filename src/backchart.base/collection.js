@@ -2,7 +2,7 @@
  *     File Name           :     collection.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-11 10:45]
- *     Last Modified       :     [2014-02-24 01:45]
+ *     Last Modified       :     [2014-02-24 11:12]
  *     Description         :     Backchart basic backbone collection
  **********************************************************************************/
 (function(root, name, factory) {
@@ -17,7 +17,6 @@
 		module.exports = factory($, Backbone);
 	}else{
 		var namespaces = name.split("."),
-		//scope = (root.jQuery || root.ender || root.$ || root || this);
 		scope = root || this;
 		for (var i=0; i<namespaces.length; i++) {
 			var p = namespaces[i],
@@ -51,7 +50,7 @@
 		_backchart : true,
         /**
          * initialize
-         * @return {Backbone.Collection}
+         * @return {Backbone.Collection} collection instance
          */
 		initialize: function(){
 			this._silence = false;
@@ -69,12 +68,12 @@
 		/**
 		 * Override collection set function and trigger seted event after processing has done.
 		 * When these function processing, collection will enter the "silence" model for avoiding to render chart repeatedly.
-		 * @see {@link http://backbonejs.org/#Collection-set Set}
+		 * Please see [Backbone.Collection#set]{@link http://backbonejs.org/#Collection-set}
 		 *
          * @param {(Backbone.Model[]|String[])} models
          * @param {Object} options
-		 * @fires Backbone.Collection#seted
-         * @return
+		 * @fires module:base/collection#seted
+         * @return {Object} result of Backbone.Collection.prototype.set
          */
 		set : function(models, options){
 			if (this._silence === true){
@@ -88,14 +87,22 @@
 			return result;
 		},
 		/**
+		* A event triggered after finished to add/set/sync.
+		* @event module:base/collection#seted
+		* @type {object}
+		* @property {boolean} models - Indicates all models affected.
+		* @property {boolean} collection - this instance
+		* @property {boolean} options - the options of set
+		*/
+		/**
 		 * Override collection remove function and trigger removed event after processing has done.
 		 * When these function processing, collection will enter the "silence" model for avoiding to render chart repeatedly.
-		 * @see {@link http://backbonejs.org/#Collection-remove Remove}
+		 * Please see [Backbone.Collection#remove]{@link http://backbonejs.org/#Collection-remove}
 		 *
 		 * @param {(Backbone.Model[]|String[])} models
          * @param {Object} options
-		 * @fires Backbone.Collection#removed
-         * @return
+		 * @fires module:base/collection#removed
+         * @return {Object} result of Backbone.Collection.prototype.remove
          */
 		remove: function(models, options){
 			if (this._silence === true){
@@ -108,14 +115,23 @@
 			return result;
 		},
 		/**
+		* A event triggered after finished to remove.
+		* @event module:base/collection#removed
+		* @type {object}
+		* @property {boolean} models - Indicates all models affected.
+		* @property {boolean} collection - this instance
+		* @property {boolean} options - the options of set
+		*/
+
+		/**
 		 * Override collection reset function and trigger reseted event after processing has done.
 		 * When these function processing, collection will enter the "silence" model for avoiding to render chart repeatedly.
-		 * @see {@link http://backbonejs.org/#Collection-reset Reset}
+		 * Please see [Backbone.Collection#reset]{@link http://backbonejs.org/#Collection-reset}
 		 *
 		 * @param {(Backbone.Model[]|String[])} models
          * @param {Object} options
-		 * @fires Backbone.Collection#reseted
-         * @return
+		 * @fires module:base/collection#reseted
+         * @return {Object} result of Backbone.Collection.prototype.reset
          */
 		reset: function(models, options){
 			if (this._silence === true){
@@ -127,6 +143,14 @@
 			this.trigger('reseted', this, options);
 			return result;
 		}
+		/**
+		* A event triggered after finished to reset.
+		* @event module:base/collection#reseted
+		* @type {object}
+		* @property {boolean} collection - this instance
+		* @property {boolean} options - the options of set
+		*/
+
 	});
 	return exports;
 }));

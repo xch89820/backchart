@@ -2,7 +2,7 @@
  *     File Name           :     view.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-01 10:39]
- *     Last Modified       :     [2014-02-24 01:04]
+ *     Last Modified       :     [2014-02-24 10:46]
  *     Description         :     Backchart basic backbone view
  **********************************************************************************/
 (function(root, name, factory) {
@@ -74,10 +74,9 @@
 			"default" : "render"
 		},
         /**
-         * _getEventCallback
+		 * Return the callback event from eventCallback
 		 *
 		 * @private
-		 * @description return the callback event from eventCallback
          * @param {string} eventName
          * @return {function} callback function
          */
