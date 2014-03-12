@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Backchart Source: backchart.canvasjs/collection.js</title>
+	<title>Backchart Source: backchart.base/collection.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -11,7 +11,7 @@
 	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
 
 	
-	<link type="text/css" rel="stylesheet" href="styles/site.cerulean.css">
+	<link type="text/css" rel="stylesheet" href="styles/site.cosmo.css">
 	
 </head>
 
@@ -29,27 +29,39 @@
 					<ul class="dropdown-menu ">
 						
 						<li>
-							<a href="collection.html">base/collection</a>
+							<a href="collection.html">amcharts/collection</a>
 						</li>
 						
 						<li>
-							<a href="model.html">base/model</a>
+							<a href="model.html">amcharts/model</a>
 						</li>
 						
 						<li>
-							<a href="view.html">base/view</a>
+							<a href="view.html">amcharts/view</a>
 						</li>
 						
 						<li>
-							<a href="collection_.html">canvasjs/collection</a>
+							<a href="collection_.html">base/collection</a>
 						</li>
 						
 						<li>
-							<a href="model_.html">canvasjs/model</a>
+							<a href="model_.html">base/model</a>
 						</li>
 						
 						<li>
-							<a href="view_.html">canvasjs/view</a>
+							<a href="view_.html">base/view</a>
+						</li>
+						
+						<li>
+							<a href="collection__.html">canvasjs/collection</a>
+						</li>
+						
+						<li>
+							<a href="model__.html">canvasjs/model</a>
+						</li>
+						
+						<li>
+							<a href="view__.html">canvasjs/view</a>
 						</li>
 						
 
@@ -63,15 +75,31 @@
 					<ul class="dropdown-menu ">
 						
 						<li>
-							<a href="collection.html#event:removed">removed</a>
+							<a href="view.html#event:beforeRender">beforeRender</a>
 						</li>
 						
 						<li>
-							<a href="collection.html#event:reseted">reseted</a>
+							<a href="view.html#event:beforeValidateData">beforeValidateData</a>
 						</li>
 						
 						<li>
-							<a href="collection.html#event:seted">seted</a>
+							<a href="collection_.html#event:removed">removed</a>
+						</li>
+						
+						<li>
+							<a href="collection_.html#event:reseted">reseted</a>
+						</li>
+						
+						<li>
+							<a href="collection_.html#event:seted">seted</a>
+						</li>
+						
+						<li>
+							<a href="view_.html#event:rendered">rendered</a>
+						</li>
+						
+						<li>
+							<a href="view__.html#event:beforeRender">beforeRender</a>
 						</li>
 						
 
@@ -91,55 +119,263 @@
 					
 
 
-		<h1 class="page-title">Source: backchart.canvasjs/collection.js</h1>
+		<h1 class="page-title">Source: backchart.base/collection.js</h1>
     
     <section>
         <article>
             <pre class="sunlight-highlight-javascript linenums">/*********************************************************************************
  *     File Name           :     collection.js
  *     Created By          :     Jone Casper
- *     Creation Date       :     [2014-02-11 10:46]
- *     Last Modified       :     [2014-02-24 00:58]
- *     Description         :     Backchart collection for canvasJS
+ *     Creation Date       :     [2014-02-11 10:45]
+ *     Last Modified       :     [2014-02-24 11:12]
+ *     Description         :     Backchart basic backbone collection
  **********************************************************************************/
 (function(root, name, factory) {
 	"use strict";
 	if (typeof define === 'function' &amp;&amp; define.amd) {
-		define(['jquery','../backchart.base/collection'], function($, base) {
-			return factory($, base);
+		define(['jquery','backbone'], function($, Backbone) {
+			return factory($, Backbone);
 		});
 	}else if(typeof module !== 'undefined' &amp;&amp; module.exports){
 		var $ = require("jquery"),
-		base = require("../backchart.base/collection");
-		module.exports = factory($, base);
+		Backbone = require("backbone");
+		module.exports = factory($, Backbone);
 	}else{
 		var namespaces = name.split("."),
-		//scope = (root.jQuery || root.ender || root.$ || root || this),
 		scope = root || this;
 		for (var i=0; i&lt;namespaces.length; i++) {
 			var p = namespaces[i],
 				ex = scope[p];
-			scope = scope[p] = (i === namespaces.length - 1) ?
+			scope = scope[p] = (i === namespaces.length - 1) ? 
 				factory(
 					(root.jQuery || window.jQuery),
-					root.backchart.base.collection
+					(root.Backbone || window.Backbone)
 				):
 				(ex || {});
 		}
 	}
-}(this, "backchart.canvasjs.collection", function($, basecollection) {
+}(this, "backchart.base.collection",function($, Backbone) {   
 	/**
-	 * Backbone chart CanvasJS collection 
-	 * @module canvasjs/collection
+	 * Backbone chart base collection 
+	 * @module base/collection
 	 * @requires jquery
-	 * @requires base/backbone
+	 * @requires backbone
 	 * @this {Backbone.Collection}
 	 */
-	var exports = basecollection.extend(
+	var exports = Backbone.Collection.extend(
 		/** 
-		* @lends module:canvasjs/collection.prototype 
+		* @lends module:base/collection.prototype 
 		*/
-		{});
+		{
+		/**
+		 * A significant that indicate this class is Backchart collection
+		 * @type {boolean}
+		 * @static
+		 */
+		_backchart : true,
+        /**
+         * initialize
+         * @return {Backbone.Collection} collection instance
+         */
+		initialize: function(){
+			this._silence = false;
+            //The model options
+            this._modelOptions = {};
+
+			return Backbone.Collection.prototype.initialize.apply(this, arguments);
+		},
+		/**
+		 * Set the silence flag.If you want to set lots of data to append, you can set it to true for ban the collection creating seted, removed and reseted event.If you set the flag to true, please recover the flag to false after you finished your work.
+         *
+         * @param {boolean} flag
+         * @return
+         */
+		setSilence : function(flag){
+			this._silence = flag;
+		},
+        /**
+		 * Override collection set function and trigger seted event after processing has done.
+		 * When these function processing, collection will enter the "silence" model for avoiding to render chart repeatedly.
+		 * Please see [Backbone.Collection#set]{@link http://backbonejs.org/#Collection-set}
+		 *
+         * @param {(Backbone.Model[]|String[])} models
+         * @param {Object} options
+		 * @fires module:base/collection#seted
+         * @return {Object} result of Backbone.Collection.prototype.set
+         */
+		set : function(models, options){
+            var soptions = $.extend({silent:true}, options);
+			if (this._silence === true){
+				return Backbone.Collection.prototype.set.apply(this, [models, soptions]);
+			}
+			this.setSilence(true);
+			var result = Backbone.Collection.prototype.set.apply(this, [models, soptions]);
+			this.setSilence(false);
+			this.trigger('seted', this.models, this, options);
+			return result;
+		},
+		/**
+		* A event triggered after finished to add/set/sync.
+		* @event module:base/collection#seted
+		* @type {object}
+		* @property {boolean} models - Indicates all models affected.
+		* @property {boolean} collection - this instance
+		* @property {boolean} options - the options of set
+		*/
+		/**
+		 * Override collection remove function and trigger removed event after processing has done.
+		 * When these function processing, collection will enter the "silence" model for avoiding to render chart repeatedly.
+		 * Please see [Backbone.Collection#remove]{@link http://backbonejs.org/#Collection-remove}
+		 *
+		 * @param {(Backbone.Model[]|String[])} models
+         * @param {Object} options
+		 * @fires module:base/collection#removed
+         * @return {Object} result of Backbone.Collection.prototype.remove
+         */
+		remove: function(models, options){
+            var soptions = $.extend({silent:true}, options);
+			if (this._silence === true){
+				return Backbone.Collection.prototype.remove.apply(this, [models, soptions]);
+			}
+			this.setSilence(true);
+			var result = Backbone.Collection.prototype.remove.apply(this, [models, soptions]);
+			this.setSilence(false);
+
+            //remove model options
+            for(var i=models.length; i>=0; i--){
+                var md = models[i];
+                if (this._modelOptions[md]){
+                    delete this._modelOptions[md];
+                }
+            }
+			this.trigger('removed', this.models, this, options);
+			return result;
+		},
+		/**
+		* A event triggered after finished to remove.
+		* @event module:base/collection#removed
+		* @type {object}
+		* @property {boolean} models - Indicates all models affected.
+		* @property {boolean} collection - this instance
+		* @property {boolean} options - the options of set
+		*/
+
+		/**
+		 * Override collection reset function and trigger reseted event after processing has done.
+		 * When these function processing, collection will enter the "silence" model for avoiding to render chart repeatedly.
+		 * Please see [Backbone.Collection#reset]{@link http://backbonejs.org/#Collection-reset}
+		 *
+		 * @param {(Backbone.Model[]|String[])} models
+         * @param {Object} options
+		 * @fires module:base/collection#reseted
+         * @return {Object} result of Backbone.Collection.prototype.reset
+         */
+		reset: function(models, options){
+			if (this._silence === true){
+				return Backbone.Collection.prototype.reset.apply(this, arguments);
+			}
+			this.setSilence(true);
+			var result = Backbone.Collection.prototype.reset.apply(this, arguments);
+			this.setSilence(false);
+			this.trigger('reseted', this, options);
+			return result;
+		},
+		/**
+		* A event triggered after finished to reset.
+		* @event module:base/collection#reseted
+		* @type {object}
+		* @property {boolean} collection - this instance
+		* @property {boolean} options - the options of set
+		*/
+        /**
+		 * Get model's options 
+		 * A private method which can get one model bind options 
+		 *
+		 */
+		getOptions: function(model){
+			var me = this;
+			if (model instanceof String || typeof model === "string"){
+				model = me.get(model);
+			}
+			if (model instanceof Backbone.Model){
+				for (var i=me.models.length-1; i>=0; i--){
+					var m = me.models[i];
+					if (m.cid === model.cid){
+						if (!me._modelOptions[m.cid]){
+						   	me._modelOptions[m.cid] = {};
+						}
+						return me._modelOptions[m.cid];
+					}
+				}
+			}
+			return null;
+		},
+		_setOptions: function(model, options){
+			var me = this;
+			if (!!!me._modelOptions[model.cid]){
+				me._modelOptions[model.cid] = $.extend({}, options);
+			}else{
+				me._modelOptions[model.cid] = $.extend(me._modelOptions[model.cid], options);
+			}
+			return me._modelOptions[model.cid];
+		},
+		/**
+		 * Set model's options
+		 * A private method which can set one model bind options
+		 *
+		 */
+		setOptions: function(model, options){
+			var me = this;
+			if (model instanceof String || typeof model === "string"){
+				model = me.get(model);
+			}
+			if (model instanceof Backbone.Model){
+				for (var i=me.models.length-1; i>=0; i--){
+					var m = me.models[i];
+					if (m.cid === model.cid){
+						me._setOptions(model, options);
+					}
+				}
+			}
+			return null;
+		},
+		/*
+		 * model in collection is visible or not
+		 *
+		 * @param model : the model instance or the id(you should set idattribute first)
+		 * @param visible : set true if you want to this model can display, otherwise set false
+		 * return the model has hidden
+		 */
+		_setVisible: function(model, visible){
+			var me = this;
+			if (model instanceof String || typeof model === "string"){
+				model = me.get(model);
+			}
+			if (model instanceof Backbone.Model){
+				for (var i=me.models.length-1; i>=0; i--){
+					var m = me.models[i];
+					if (m.cid === model.cid){
+						me._setoptions(model, {"visible": visible});
+						me.trigger("change:visible", visible);
+						return model;
+					}
+				}
+			}
+			return null;
+		},
+		hide: function(IdOrInstance){
+			return this._setVisible(IdOrInstance, false);
+		},
+		show: function(IdOrInstance){
+			return this._setVisible(IdOrInstance, true);
+		},
+		isVisibled: function(IdOrInstance){
+			var options = this.getOptions(IdOrInstance);
+			return options ? 
+					(options.visible === false ? false : true):
+					true;
+		}
+	});
 	return exports;
 }));
 </pre>
@@ -160,8 +396,8 @@
 					
 					
 		<span class="jsdoc-message">
-		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-dev</a>
-		on Mon Feb 24 2014 11:28:35 GMT+0800 (CST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha4</a>
+		on Wed Mar 12 2014 12:49:58 GMT-0400 (EDT) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
 			</div>

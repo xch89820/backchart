@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Backchart Module: canvasjs/model</title>
+	<title>Backchart Module: base/model</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -11,7 +11,7 @@
 	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
 
 	
-	<link type="text/css" rel="stylesheet" href="styles/site.cerulean.css">
+	<link type="text/css" rel="stylesheet" href="styles/site.cosmo.css">
 	
 </head>
 
@@ -29,27 +29,39 @@
 					<ul class="dropdown-menu ">
 						
 						<li>
-							<a href="collection.html">base/collection</a>
+							<a href="collection.html">amcharts/collection</a>
 						</li>
 						
 						<li>
-							<a href="model.html">base/model</a>
+							<a href="model.html">amcharts/model</a>
 						</li>
 						
 						<li>
-							<a href="view.html">base/view</a>
+							<a href="view.html">amcharts/view</a>
 						</li>
 						
 						<li>
-							<a href="collection_.html">canvasjs/collection</a>
+							<a href="collection_.html">base/collection</a>
 						</li>
 						
 						<li>
-							<a href="model_.html">canvasjs/model</a>
+							<a href="model_.html">base/model</a>
 						</li>
 						
 						<li>
-							<a href="view_.html">canvasjs/view</a>
+							<a href="view_.html">base/view</a>
+						</li>
+						
+						<li>
+							<a href="collection__.html">canvasjs/collection</a>
+						</li>
+						
+						<li>
+							<a href="model__.html">canvasjs/model</a>
+						</li>
+						
+						<li>
+							<a href="view__.html">canvasjs/view</a>
 						</li>
 						
 
@@ -63,15 +75,31 @@
 					<ul class="dropdown-menu ">
 						
 						<li>
-							<a href="collection.html#event:removed">removed</a>
+							<a href="view.html#event:beforeRender">beforeRender</a>
 						</li>
 						
 						<li>
-							<a href="collection.html#event:reseted">reseted</a>
+							<a href="view.html#event:beforeValidateData">beforeValidateData</a>
 						</li>
 						
 						<li>
-							<a href="collection.html#event:seted">seted</a>
+							<a href="collection_.html#event:removed">removed</a>
+						</li>
+						
+						<li>
+							<a href="collection_.html#event:reseted">reseted</a>
+						</li>
+						
+						<li>
+							<a href="collection_.html#event:seted">seted</a>
+						</li>
+						
+						<li>
+							<a href="view_.html#event:rendered">rendered</a>
+						</li>
+						
+						<li>
+							<a href="view__.html#event:beforeRender">beforeRender</a>
 						</li>
 						
 
@@ -91,12 +119,12 @@
 					
 
 
-	<h1 class="page-title">Module: canvasjs/model</h1>
+	<h1 class="page-title">Module: base/model</h1>
 <section>
 
 <header>
     <h2>
-    canvasjs/model
+    base/model
     </h2>
     
 </header>
@@ -107,7 +135,7 @@
 
     
         
-            <div class="description"><p>Backbone chart CanvasJS model</p></div>
+            <div class="description"><p>Backbone chart base model</p></div>
         
 
         
@@ -133,7 +161,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model.js_.html">backchart.canvasjs/model.js</a>, <a href="model.js_.html#sunlight-1-line-33">line 33</a>
+        <a href="model.js_.html">backchart.base/model.js</a>, <a href="model.js_.html#sunlight-1-line-34">line 34</a>
     </li></ul></dd>
     
 
@@ -159,7 +187,7 @@
         <ul>
             <li>module:jquery</li>
         
-            <li><a href="model.html">module:base/model</a></li>
+            <li>module:backbone</li>
         </ul>
     
 
@@ -169,156 +197,6 @@
 
     
 
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        <dl>
-            
-<dt>
-    <h4 class="name" id="parse"><span class="type-signature"></span>parse<span class="signature">(response)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The default parse function</p>
-<p>Here is some fast assignment method existed ,you can set the &quot;x&quot; field via declaration attribute called xField
-The follow example list all fast assignment attributes.</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>response</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="model.js_.html">backchart.canvasjs/model.js</a>, <a href="model.js_.html#sunlight-1-line-65">line 65</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">Object</span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">xFiled : x
-yField : y
-labelField : label</pre>
-
-
-    
-</dd>
-
-        </dl>
     
 
     
@@ -341,8 +219,8 @@ labelField : label</pre>
 					
 					
 		<span class="jsdoc-message">
-		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-dev</a>
-		on Mon Feb 24 2014 11:28:35 GMT+0800 (CST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha4</a>
+		on Wed Mar 12 2014 12:49:58 GMT-0400 (EDT) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
 			</div>

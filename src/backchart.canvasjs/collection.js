@@ -2,7 +2,7 @@
  *     File Name           :     collection.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-11 10:46]
- *     Last Modified       :     [2014-02-24 00:58]
+ *     Last Modified       :     [2014-03-09 19:18]
  *     Description         :     Backchart collection for canvasJS
  **********************************************************************************/
 (function(root, name, factory) {
@@ -38,10 +38,10 @@
 	 * @requires base/backbone
 	 * @this {Backbone.Collection}
 	 */
-	var exports = basecollection.extend(
+	var backchartCanvasJSCollection = basecollection.extend(
 		/** 
 		* @lends module:canvasjs/collection.prototype 
 		*/
 		{});
-	return exports;
+	return backchartCanvasJSCollection;
 }));

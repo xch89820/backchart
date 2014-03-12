@@ -2,7 +2,7 @@
  *     File Name           :     view.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-01 10:39]
- *     Last Modified       :     [2014-02-24 10:46]
+ *     Last Modified       :     [2014-03-09 18:03]
  *     Description         :     Backchart basic backbone view
  **********************************************************************************/
 (function(root, name, factory) {
@@ -56,7 +56,11 @@
 		* @type {string}
 		* @protected
 		*/
-		_collectionPrefix : "_cname",
+		_collectionPrefix: "_bcname",
+		/**
+		 * The view's element ID prefix
+		 */
+		_viewPrefix: "_bcview",
 		/**
 		 * The element which the view's element append to.
 		 * @type {element}
@@ -174,11 +178,11 @@
 			//bind on and off events
 			this.on("collection.on", function(unid, collection, renderOpt, options){
 				if (options.renderAfterOn === true){
-					me.render();
+					me.render(true);
 				}
 			});
 			this.on("collection.off", function(){
-				me.render();
+				me.render(true);
 			});
 		},
 		__bce: function(unid, evearr, collection){
@@ -525,15 +529,44 @@
 		 *  });
 		 */   
 		renderAfter : function(){
-			this.trigger.apply(this, ["view.rendered"].concat(arguments));
+			this.trigger.apply(this, ["rendered"].concat(Array.prototype.slice.call(arguments, 0)));
 			$(this.container).trigger("backchart.rendered",arguments);
 			return this;
 		},
+		/**
+		 * A event triggered after rendered a chart.
+		 * @event module:base/view#rendered
+		 * @type {object}
+		 * @property {Backbone.View} view view instance 
+		 * @property {string} elId Element's ID 
+		 * @property {Object} chart the chart object
+		 * @property {object} renderOptions options for rendering
+		 */
 		elFillParents : function(){
 			this.$el.css({
-				width: "100%",
-				height:"100%"
+				width: this.width ? (this.width + "px") : "100%",
+				height:this.height ? (this.height+ "px") :"100%"
 			});
+		},
+		/**
+		 * An interface that can obtain the third-party chart's render options currently
+		 */
+		getChartOptions : function(){
+			return null;
+		},
+		__logAlert: function(msg){
+			window.alert(msg);
+		},
+		/**
+		 * Log function
+		 */
+		_log: function(){
+			if (window.console){
+				return window.console;
+			}else{
+				var f = this.__logAlert;
+				return {log:f, info:f, warn:f, debug:f, error:f};
+			}
 		}
 	});
 	return chartBaseView;

@@ -13,7 +13,7 @@ module.exports = function(grunt) {
 			' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
 		// Task configuration.
 		clean: {
-			files: ['dist']
+			files: ['dist','docs/statics/js/backchart/']
 		},
 		concat: {
 			options: {
@@ -29,6 +29,10 @@ module.exports = function(grunt) {
 				src: ['dist/browser/backchart.base.js', 'src/backchart.canvasjs/model.js', 'src/backchart.canvasjs/collection.js',  'src/backchart.canvasjs/view.js'],
 				dest: 'dist/browser/backchart.canvasjs.js',
 			},
+            amcharts: {
+				src: ['dist/browser/backchart.base.js', 'src/backchart.amcharts/model.js', 'src/backchart.amcharts/collection.js',  'src/backchart.amcharts/view.js'],
+				dest: 'dist/browser/backchart.amcharts.js',
+			},
 		},
 		uglify: {
 			options: {
@@ -38,7 +42,7 @@ module.exports = function(grunt) {
 				expand: true,     // Enable dynamic expansion.
 				cwd: 'dist/browser/',      // Src matches are relative to this path.
 				src: ['**/*.js'], // Actual pattern(s) to match.
-				dest: 'dist/bowser/'   // Destination path prefix.
+				dest: 'dist/browser/'   // Destination path prefix.
 			}
 		},
 		qunit: {
@@ -94,13 +98,23 @@ module.exports = function(grunt) {
 					out: "./dist/backchart.canvasjs.js",
 					exclude : ['jquery','underscore','backbone','excanvas','CanvasJS']
 				}
+			},
+            amcharts: {
+				options: {
+					mainConfigFile : "./build/app.js",
+					name: "backchart.amcharts/main",
+					out: "./dist/backchart.amcharts.js",
+					exclude : ['jquery','underscore','backbone','AmCharts']
+				}
 			}
 		},
 		copy: {
-			dist : {
-				src : "<%= concat.canvasjs.dest %>",
-				dest : "docs/statics/js/backchart/"
-			}
+            dist : {
+                expand: true,
+                cwd: 'dist/',
+                src : "**/*.js",
+                dest : "docs/statics/js/backchart/"
+            }
 		}
 	});
 
@@ -115,6 +129,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 
 	// Default task.
-	grunt.registerTask('default', ['jshint', 'clean', "concat", "uglify", 'requirejs','copy']);
+	grunt.registerTask('dist', ['jshint', 'clean', "concat", "uglify", 'requirejs','copy']);
 
 };

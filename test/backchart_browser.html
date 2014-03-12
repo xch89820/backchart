@@ -18,8 +18,17 @@
   <!--[if lt 9]>
   	<script type="text/javascript" src="../libs/utils/excanvas.js"></script>
   <![endif]-->
-  <script type="text/javascript" src="../libs/charts/canvasjs/canvasjs.js"></script>
+
+
+  <!--<script type="text/javascript" src="../libs/charts/canvasjs/canvasjs.js"></script>
   <script type="text/javascript" src="../dist/browser/backchart.canvasjs.js"></script>
+  <script type="text/javascript" src="backchart_canvasjs_test.js"></script>-->
+  <script type="text/javascript" src="../libs/charts/amcharts/amcharts.js"></script>
+  <script type="text/javascript" src="../libs/charts/amcharts/pie.js"></script>
+  <script type="text/javascript" src="../libs/charts/amcharts/serial.js"></script>
+  <script type="text/javascript" src="../libs/charts/amcharts/language/zh-CN.js"></script>
+  <script type="text/javascript" src="../libs/charts/amcharts/themes/light.js"></script>
+  <script type="text/javascript" src="../dist/browser/backchart.amcharts.js"></script>
 	
   <style>
 	  body {
@@ -45,9 +54,12 @@
 	  <h2>Backchart Unittest</h2>
 	 <small>Just a view, not finished.</small>
   </div>
-  <div id="chart" style="height:800px;"></div>
+<div id="chart" style="min-height:500px;"></div>
+  <div id="chart2" style="min-height:500px;"></div>
+  <div id="chart3" style="min-height:500px;"></div>
+  <div id="chart4" style="min-height:500px;"></div>
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
-  <script type="text/javascript" src="backchart_test.js"></script>
+  <script type="text/javascript" src="backchart_amcharts_test.js"></script>
 </body>
 </html>

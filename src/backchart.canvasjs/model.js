@@ -2,7 +2,7 @@
  *     File Name           :     model.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-11 10:48]
- *     Last Modified       :     [2014-02-24 00:56]
+ *     Last Modified       :     [2014-03-06 11:07]
  *     Description         :     Backchart model for canvasJS
  **********************************************************************************/
 (function(root, name, factory) {

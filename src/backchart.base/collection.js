@@ -54,6 +54,9 @@
          */
 		initialize: function(){
 			this._silence = false;
+            //The model options
+            this._modelOptions = {};
+
 			return Backbone.Collection.prototype.initialize.apply(this, arguments);
 		},
 		/**
@@ -65,7 +68,7 @@
 		setSilence : function(flag){
 			this._silence = flag;
 		},
-		/**
+        /**
 		 * Override collection set function and trigger seted event after processing has done.
 		 * When these function processing, collection will enter the "silence" model for avoiding to render chart repeatedly.
 		 * Please see [Backbone.Collection#set]{@link http://backbonejs.org/#Collection-set}
@@ -76,12 +79,12 @@
          * @return {Object} result of Backbone.Collection.prototype.set
          */
 		set : function(models, options){
+            var soptions = $.extend({silent:true}, options);
 			if (this._silence === true){
-				return Backbone.Collection.prototype.set.apply(this, arguments);
-
+				return Backbone.Collection.prototype.set.apply(this, [models, soptions]);
 			}
 			this.setSilence(true);
-			var result = Backbone.Collection.prototype.set.apply(this, arguments);
+			var result = Backbone.Collection.prototype.set.apply(this, [models, soptions]);
 			this.setSilence(false);
 			this.trigger('seted', this.models, this, options);
 			return result;
@@ -105,12 +108,21 @@
          * @return {Object} result of Backbone.Collection.prototype.remove
          */
 		remove: function(models, options){
+            var soptions = $.extend({silent:true}, options);
 			if (this._silence === true){
-				return Backbone.Collection.prototype.remove.apply(this, arguments);
+				return Backbone.Collection.prototype.remove.apply(this, [models, soptions]);
 			}
 			this.setSilence(true);
-			var result = Backbone.Collection.prototype.remove.apply(this, arguments);
+			var result = Backbone.Collection.prototype.remove.apply(this, [models, soptions]);
 			this.setSilence(false);
+
+            //remove model options
+            for(var i=models.length; i>=0; i--){
+                var md = models[i];
+                if (this._modelOptions[md]){
+                    delete this._modelOptions[md];
+                }
+            }
 			this.trigger('removed', this.models, this, options);
 			return result;
 		},
@@ -142,7 +154,7 @@
 			this.setSilence(false);
 			this.trigger('reseted', this, options);
 			return result;
-		}
+		},
 		/**
 		* A event triggered after finished to reset.
 		* @event module:base/collection#reseted
@@ -150,7 +162,94 @@
 		* @property {boolean} collection - this instance
 		* @property {boolean} options - the options of set
 		*/
-
+        /**
+		 * Get model's options 
+		 * A private method which can get one model bind options 
+		 *
+		 */
+		getOptions: function(model){
+			var me = this;
+			if (model instanceof String || typeof model === "string"){
+				model = me.get(model);
+			}
+			if (model instanceof Backbone.Model){
+				for (var i=me.models.length-1; i>=0; i--){
+					var m = me.models[i];
+					if (m.cid === model.cid){
+						if (!me._modelOptions[m.cid]){
+						   	me._modelOptions[m.cid] = {};
+						}
+						return me._modelOptions[m.cid];
+					}
+				}
+			}
+			return null;
+		},
+		_setOptions: function(model, options){
+			var me = this;
+			if (!!!me._modelOptions[model.cid]){
+				me._modelOptions[model.cid] = $.extend({}, options);
+			}else{
+				me._modelOptions[model.cid] = $.extend(me._modelOptions[model.cid], options);
+			}
+			return me._modelOptions[model.cid];
+		},
+		/**
+		 * Set model's options
+		 * A private method which can set one model bind options
+		 *
+		 */
+		setOptions: function(model, options){
+			var me = this;
+			if (model instanceof String || typeof model === "string"){
+				model = me.get(model);
+			}
+			if (model instanceof Backbone.Model){
+				for (var i=me.models.length-1; i>=0; i--){
+					var m = me.models[i];
+					if (m.cid === model.cid){
+						me._setOptions(model, options);
+					}
+				}
+			}
+			return null;
+		},
+		/*
+		 * model in collection is visible or not
+		 *
+		 * @param model : the model instance or the id(you should set idattribute first)
+		 * @param visible : set true if you want to this model can display, otherwise set false
+		 * return the model has hidden
+		 */
+		_setVisible: function(model, visible){
+			var me = this;
+			if (model instanceof String || typeof model === "string"){
+				model = me.get(model);
+			}
+			if (model instanceof Backbone.Model){
+				for (var i=me.models.length-1; i>=0; i--){
+					var m = me.models[i];
+					if (m.cid === model.cid){
+						me._setoptions(model, {"visible": visible});
+						me.trigger("change:visible", visible);
+						return model;
+					}
+				}
+			}
+			return null;
+		},
+		hide: function(IdOrInstance){
+			return this._setVisible(IdOrInstance, false);
+		},
+		show: function(IdOrInstance){
+			return this._setVisible(IdOrInstance, true);
+		},
+		isVisibled: function(IdOrInstance){
+			var options = this.getOptions(IdOrInstance);
+			return options ? 
+					(options.visible === false ? false : true):
+					true;
+		}
 	});
 	return exports;
 }));

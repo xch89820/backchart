@@ -3,7 +3,7 @@
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-11 17:52]
  *     Last Modified       :     [2014-02-15 18:08]
- *     Description         :     Test backchart main app
+ *     Description         :     Build backchart main app
  **********************************************************************************/
 require.config({
 	baseUrl: "../src",
@@ -13,7 +13,10 @@ require.config({
 	},
 	{
 		name : "backchart.canvasjs"
-	}
+	},
+    {
+		name : "backchart.amcharts"
+    }
 	],
 	paths:{
 		jquery : "../libs/jquery/jquery",
@@ -21,7 +24,8 @@ require.config({
 		underscore : "../libs/utils/underscore-min",
 		moment : "../libs/utils/moment.min",
 		excanvas : "../libs/utils/excanvas",
-		CanvasJS : "../libs/charts/canvasjs/canvasjs"
+		CanvasJS : "../libs/charts/canvasjs/canvasjs",
+        AmCharts : "../libs/charts/amcharts/amcharts"
 	},
 	shim:{
 		underscore: {
@@ -35,6 +39,10 @@ require.config({
 		CanvasJS :{
 			deps : ['excanvas'],
 			exports: 'CanvasJS'
+		},
+        AmCharts: {
+            deps : [],
+			exports: 'AmCharts'
 		}
 	}
 });

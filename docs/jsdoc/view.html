@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Backchart Module: base/view</title>
+	<title>Backchart Module: amcharts/view</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -11,7 +11,7 @@
 	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
 
 	
-	<link type="text/css" rel="stylesheet" href="styles/site.cerulean.css">
+	<link type="text/css" rel="stylesheet" href="styles/site.cosmo.css">
 	
 </head>
 
@@ -29,27 +29,39 @@
 					<ul class="dropdown-menu ">
 						
 						<li>
-							<a href="collection.html">base/collection</a>
+							<a href="collection.html">amcharts/collection</a>
 						</li>
 						
 						<li>
-							<a href="model.html">base/model</a>
+							<a href="model.html">amcharts/model</a>
 						</li>
 						
 						<li>
-							<a href="view.html">base/view</a>
+							<a href="view.html">amcharts/view</a>
 						</li>
 						
 						<li>
-							<a href="collection_.html">canvasjs/collection</a>
+							<a href="collection_.html">base/collection</a>
 						</li>
 						
 						<li>
-							<a href="model_.html">canvasjs/model</a>
+							<a href="model_.html">base/model</a>
 						</li>
 						
 						<li>
-							<a href="view_.html">canvasjs/view</a>
+							<a href="view_.html">base/view</a>
+						</li>
+						
+						<li>
+							<a href="collection__.html">canvasjs/collection</a>
+						</li>
+						
+						<li>
+							<a href="model__.html">canvasjs/model</a>
+						</li>
+						
+						<li>
+							<a href="view__.html">canvasjs/view</a>
 						</li>
 						
 
@@ -63,15 +75,31 @@
 					<ul class="dropdown-menu ">
 						
 						<li>
-							<a href="collection.html#event:removed">removed</a>
+							<a href="view.html#event:beforeRender">beforeRender</a>
 						</li>
 						
 						<li>
-							<a href="collection.html#event:reseted">reseted</a>
+							<a href="view.html#event:beforeValidateData">beforeValidateData</a>
 						</li>
 						
 						<li>
-							<a href="collection.html#event:seted">seted</a>
+							<a href="collection_.html#event:removed">removed</a>
+						</li>
+						
+						<li>
+							<a href="collection_.html#event:reseted">reseted</a>
+						</li>
+						
+						<li>
+							<a href="collection_.html#event:seted">seted</a>
+						</li>
+						
+						<li>
+							<a href="view_.html#event:rendered">rendered</a>
+						</li>
+						
+						<li>
+							<a href="view__.html#event:beforeRender">beforeRender</a>
 						</li>
 						
 
@@ -91,12 +119,12 @@
 					
 
 
-	<h1 class="page-title">Module: base/view</h1>
+	<h1 class="page-title">Module: amcharts/view</h1>
 <section>
 
 <header>
     <h2>
-    base/view
+    amcharts/view
     </h2>
     
 </header>
@@ -107,7 +135,7 @@
 
     
         
-            <div class="description"><p>Backbone chart base view</p></div>
+            <div class="description"><p>Backbone chart amcharts view</p></div>
         
 
         
@@ -133,7 +161,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="view.js.html">backchart.base/view.js</a>, <a href="view.js.html#sunlight-1-line-36">line 36</a>
+        <a href="view.js_.html">backchart.amcharts/view.js</a>, <a href="view.js_.html#sunlight-1-line-41">line 41</a>
     </li></ul></dd>
     
 
@@ -159,7 +187,11 @@
         <ul>
             <li>module:jquery</li>
         
+            <li><a href="view_.html">module:base/view</a></li>
+        
             <li>module:backbone</li>
+        
+            <li>module:AmCharts</li>
         </ul>
     
 
@@ -173,14 +205,14 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="_collectionPrefix"><span class="type-signature">&lt;protected> </span>_collectionPrefix<span class="type-signature"> :string</span></h4>
+    <h4 class="name" id="this.defaultAxesOptions"><span class="type-signature">&lt;static> </span>this.defaultAxesOptions<span class="type-signature"> :object</span></h4>
     
     
 </dt>
 <dd>
     
     <div class="description">
-        <p>The collection bind ID prefix</p>
+        <p>The default Axes Options for all collections</p>
     </div>
     
     
@@ -188,80 +220,179 @@
         <h5>Type:</h5>
         <ul>
             <li>
+                
+<span class="param-type">object</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view.js_.html">backchart.amcharts/view.js</a>, <a href="view.js_.html#sunlight-1-line-97">line 97</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="this.defaultGraphsOptions"><span class="type-signature">&lt;static> </span>this.defaultGraphsOptions<span class="type-signature"> :object</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>The default Graphs Options for all collections
+You renderOptions have the high priority and can cover the default configuration</p>
+    </div>
+    
+    
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">object</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+        <h5 class="subsection-title">Properties:</h5>
+
+        <dl>
+
+<table class="props table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
                 
 <span class="param-type">string</span>
 
 
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="view.js.html">backchart.base/view.js</a>, <a href="view.js.html#sunlight-1-line-59">line 59</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-</dd>
-
-        
             
-<dt>
-    <h4 class="name" id="className"><span class="type-signature"></span>className<span class="type-signature"> :string</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The element default class name</p>
-    </div>
-    
-    
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>balloonText</code></td>
+            
+
+            <td class="type">
+            
                 
 <span class="param-type">string</span>
 
 
-            </li>
-        </ul>
-    
+            
+            </td>
 
-    
-<dl class="details">
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>valueField</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+	
+	</tbody>
+</table>
+</dl>
+
     
 
     
@@ -283,7 +414,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="view.js.html">backchart.base/view.js</a>, <a href="view.js.html#sunlight-1-line-53">line 53</a>
+        <a href="view.js_.html">backchart.amcharts/view.js</a>, <a href="view.js_.html#sunlight-1-line-81">line 81</a>
     </li></ul></dd>
     
 
@@ -301,14 +432,14 @@
         
             
 <dt>
-    <h4 class="name" id="container"><span class="type-signature"></span>container<span class="type-signature"> :element</span></h4>
+    <h4 class="name" id="this.defaultOptions"><span class="type-signature">&lt;static> </span>this.defaultOptions<span class="type-signature"> :object</span></h4>
     
     
 </dt>
 <dd>
     
     <div class="description">
-        <p>The element which the view's element append to.</p>
+        <p>The default make chart Options</p>
     </div>
     
     
@@ -317,7 +448,7 @@
         <ul>
             <li>
                 
-<span class="param-type">element</span>
+<span class="param-type">object</span>
 
 
             </li>
@@ -347,7 +478,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="view.js.html">backchart.base/view.js</a>, <a href="view.js.html#sunlight-1-line-64">line 64</a>
+        <a href="view.js_.html">backchart.amcharts/view.js</a>, <a href="view.js_.html#sunlight-1-line-110">line 110</a>
     </li></ul></dd>
     
 
@@ -365,14 +496,15 @@
         
             
 <dt>
-    <h4 class="name" id="eventCallback"><span class="type-signature"></span>eventCallback<span class="type-signature"> :Object</span></h4>
+    <h4 class="name" id="this.multiValueAxes"><span class="type-signature">&lt;static> </span>this.multiValueAxes<span class="type-signature"> :boolean</span></h4>
     
     
 </dt>
 <dd>
     
     <div class="description">
-        <p>To define the callback of event which has listened to collection</p>
+        <p>Allow one or more Axes displayed in chart. Default is false and use the defaultAxesOptions if no axes configuration in collections' renderOptions which had been bound to the view and not hidden.
+If exist axes configuration in any collection's renderOptions and multiValueAxes is false, we will use the first collection's setting when creating the options.</p>
     </div>
     
     
@@ -381,7 +513,7 @@
         <ul>
             <li>
                 
-<span class="param-type">Object</span>
+<span class="param-type">boolean</span>
 
 
             </li>
@@ -411,7 +543,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="view.js.html">backchart.base/view.js</a>, <a href="view.js.html#sunlight-1-line-73">line 73</a>
+        <a href="view.js_.html">backchart.amcharts/view.js</a>, <a href="view.js_.html#sunlight-1-line-91">line 91</a>
     </li></ul></dd>
     
 
@@ -424,15 +556,170 @@
 
     
     
-        <h5>Example</h5>
+</dd>
+
         
-        <p class="code-caption">Appoint to the callback of set event</p>
+            
+<dt>
+    <h4 class="name" id="defaultDateAxesOptions"><span class="type-signature"></span>defaultDateAxesOptions<span class="type-signature"></span></h4>
     
-    <pre class="sunlight-highlight-javascript">eventCallback :{
- "set" : "setCallback"
-}</pre>
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>The default categoryAxis when value is Date</p>
+    </div>
+    
+    
+    
 
+    
+<dl class="details">
+    
 
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view.js_.html">backchart.amcharts/view.js</a>, <a href="view.js_.html#sunlight-1-line-102">line 102</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="keyFields"><span class="type-signature"></span>keyFields<span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Key field in all kinds of charts' data
+These field will be attached to main configuration of chart</p>
+    </div>
+    
+    
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view.js_.html">backchart.amcharts/view.js</a>, <a href="view.js_.html#sunlight-1-line-67">line 67</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="mergeData"><span class="type-signature"></span>mergeData<span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Merge collection ways</p>
+<p>simple : default, use index to merge
+category : use category as key to merge data</p>
+    </div>
+    
+    
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view.js_.html">backchart.amcharts/view.js</a>, <a href="view.js_.html#sunlight-1-line-62">line 62</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
     
 </dd>
 
@@ -445,14 +732,14 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="_bindCollectionEvent"><span class="type-signature">&lt;protected> </span>_bindCollectionEvent<span class="signature">(unid, collection, options)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="onCollection"><span class="type-signature">&lt;static> </span>onCollection<span class="signature">(collection, renderOptions, options)</span><span class="type-signature"></span></h4>
     
     
 </dt>
 <dd>
     
     <div class="description">
-        <p>Listen to one collection events</p>
+        <p>inherited from base/view:onCollection and defined a special fixed formated renderOptions</p>
     </div>
     
 
@@ -486,29 +773,6 @@
 
         <tr>
             
-                <td class="name"><code>unid</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-
-        <tr>
-            
                 <td class="name"><code>collection</code></td>
             
 
@@ -529,6 +793,123 @@
             
 
             <td class="description last"></td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>renderOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>render chart options which based what chart library you used.</p>
+                <h6>Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+		<th>Argument</th>
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>graph</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>same as the AmGraph configration.If you set valueField</p></td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>axes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>same as the ValueAxis or GaugeAxis configration</p></td>
+        </tr>
+
+	
+	</tbody>
+</table>
+
+            </td>
         </tr>
 
 	
@@ -551,7 +932,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>inherited the options on base/collection.onCollection</p></td>
         </tr>
 
 	
@@ -583,7 +964,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="view.js.html">backchart.base/view.js</a>, <a href="view.js.html#sunlight-1-line-214">line 214</a>
+        <a href="view.js_.html">backchart.amcharts/view.js</a>, <a href="view.js_.html#sunlight-1-line-132">line 132</a>
     </li></ul></dd>
     
 
@@ -606,301 +987,25 @@
     
     
     
-</dd>
-
+        <h5>Example</h5>
         
-            
-<dt>
-    <h4 class="name" id="_collectionHasBind"><span class="type-signature"></span>_collectionHasBind<span class="signature">(collection)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Determine whether an collection has be listened to</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>collection</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">backchart.base.collection</span>
-|
-
-<span class="param-type">Backbone.Collection</span>
+    <pre class="sunlight-highlight-javascript">var chart = new AmCharts.AmSerialChart();var graph = new AmCharts.AmGraph();graph.type = 'column';graph.fillAlphas = 1;    //you renderOptions    var renderOptions = {        graph : {			   type : 'column',			   fillAlphas : 1		   }}</pre>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="view.js.html">backchart.base/view.js</a>, <a href="view.js.html#sunlight-1-line-240">line 240</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">boolean</span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
     
 </dd>
 
         
             
 <dt>
-    <h4 class="name" id="_unbindColletionEvent"><span class="type-signature">&lt;protected> </span>_unbindColletionEvent<span class="signature">(unid, collection)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="getChartOption"><span class="type-signature"></span>getChartOption<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
 <dd>
     
     <div class="description">
-        <p>Remove listener on one collection</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>unid</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>collection</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">backchart.base.collection</span>
-|
-
-<span class="param-type">Backbone.Collection</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="view.js.html">backchart.base/view.js</a>, <a href="view.js.html#sunlight-1-line-229">line 229</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="clearCollection"><span class="type-signature"></span>clearCollection<span class="signature">()</span><span class="type-signature"> &rarr; {backchart.base.view}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Remove all collections has binded to the view</p>
+        <p>Implement getChartOptions</p>
     </div>
     
 
@@ -933,148 +1038,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="view.js.html">backchart.base/view.js</a>, <a href="view.js.html#sunlight-1-line-353">line 353</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>this instance</p>
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">backchart.base.view</span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="eachCollection"><span class="type-signature"></span>eachCollection<span class="signature">(eachcb)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>A generic iterator function, which can be used to seamlessly iterate collection has binded in this view
-This function same as the <a href="https://api.jquery.com/jQuery.each/">jQuery.each</a> function.The callback is passed an bind ID, the instance of collection, the render options and the config options.The this always as an collection currently in callback function.</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>eachcb</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#eachCallback">eachCallback</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The callback that handles the response.</p></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="view.js.html">backchart.base/view.js</a>, <a href="view.js.html#sunlight-1-line-366">line 366</a>
+        <a href="view.js_.html">backchart.amcharts/view.js</a>, <a href="view.js_.html#sunlight-1-line-406">line 406</a>
     </li></ul></dd>
     
 
@@ -1102,613 +1066,7 @@ This function same as the <a href="https://api.jquery.com/jQuery.each/">jQuery.e
         
             
 <dt>
-    <h4 class="name" id="getCollection"><span class="type-signature"></span>getCollection<span class="signature">(bindIDOrCollection)</span><span class="type-signature"> &rarr; {Array.&lt;backchart.base.collection>|Array.&lt;Backbone.Collection>|backchart.base.collection|Backbone.Collection|Array.&lt;string>|Object}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Get collections by bind ID or get bind IDs by collection
-  If it's Boolean type and false, will return a Array contained all collections binded in this view
-  If it's String type ,will return the representative collection.
-  If it's a instance of Backbone.Collection, will return a Array contained all bind IDs
-  else return a map ,key is collections ,values is uid array corresponded</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>bindIDOrCollection</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-|
-
-<span class="param-type">string</span>
-|
-
-<span class="param-type">backchart.base.collection</span>
-|
-
-<span class="param-type">Backbone.Collection</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="view.js.html">backchart.base/view.js</a>, <a href="view.js.html#sunlight-1-line-390">line 390</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">Array.&lt;backchart.base.collection></span>
-|
-
-<span class="param-type">Array.&lt;Backbone.Collection></span>
-|
-
-<span class="param-type">backchart.base.collection</span>
-|
-
-<span class="param-type">Backbone.Collection</span>
-|
-
-<span class="param-type">Array.&lt;string></span>
-|
-
-<span class="param-type">Object</span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getOptions"><span class="type-signature"></span>getOptions<span class="signature">(bindIDOrCollection)</span><span class="type-signature"> &rarr; {Array.&lt;Object>|Object}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Get collection's option by bind ID or collection instance
-  If it's String type ,will return the representative collection's options.
-  If it's a instance of Backbone.Collection, will return a Array contained all options
-  else return a map ,key is collection instance ,values is its options</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>bindIDOrCollection</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-|
-
-<span class="param-type">backchart.base.collection</span>
-|
-
-<span class="param-type">Backbone.Collection</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="view.js.html">backchart.base/view.js</a>, <a href="view.js.html#sunlight-1-line-424">line 424</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">Array.&lt;Object></span>
-|
-
-<span class="param-type">Object</span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getRenderOptions"><span class="type-signature"></span>getRenderOptions<span class="signature">(bindIDOrCollection)</span><span class="type-signature"> &rarr; {Array.&lt;Object>|Object}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Get collection's renderOptions by bind ID or collection instance
-  If it's String type ,will return the representative collection's options.
-  If it's a instance of Backbone.Collection, will return a Array contained all options
-  else return a map ,key is collection instance ,values is its options</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>bindIDOrCollection</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-|
-
-<span class="param-type">backchart.base.collection</span>
-|
-
-<span class="param-type">Backbone.Collection</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="view.js.html">backchart.base/view.js</a>, <a href="view.js.html#sunlight-1-line-456">line 456</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">Array.&lt;Object></span>
-|
-
-<span class="param-type">Object</span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="hide"><span class="type-signature"></span>hide<span class="signature">(bindIdOrCollection)</span><span class="type-signature"> &rarr; {backchart.base.view}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Hide a set of data graph</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>bindIdOrCollection</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-|
-
-<span class="param-type">backchart.base.collection</span>
-|
-
-<span class="param-type">Backbone.Collection</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="view.js.html">backchart.base/view.js</a>, <a href="view.js.html#sunlight-1-line-129">line 129</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>this instance</p>
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">backchart.base.view</span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="initialize"><span class="type-signature"></span>initialize<span class="signature">()</span><span class="type-signature"> &rarr; {Backbone.View}</span></h4>
+    <h4 class="name" id="initialize"><span class="type-signature"></span>initialize<span class="signature">(defaultOptions, defaultGraphsOptions, defaultAxesOptions)</span><span class="type-signature"> &rarr; {Backbone.View}</span></h4>
     
     
 </dt>
@@ -1724,6 +1082,86 @@ This function same as the <a href="https://api.jquery.com/jQuery.each/">jQuery.e
     
     
     
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>defaultOptions</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>defaultGraphsOptions</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>defaultAxesOptions</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+	
+	</tbody>
+</table>
+
+    
     
     
 <dl class="details">
@@ -1748,7 +1186,7 @@ This function same as the <a href="https://api.jquery.com/jQuery.each/">jQuery.e
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="view.js.html">backchart.base/view.js</a>, <a href="view.js.html#sunlight-1-line-164">line 164</a>
+        <a href="view.js_.html">backchart.amcharts/view.js</a>, <a href="view.js_.html#sunlight-1-line-124">line 124</a>
     </li></ul></dd>
     
 
@@ -1795,723 +1233,14 @@ This function same as the <a href="https://api.jquery.com/jQuery.each/">jQuery.e
         
             
 <dt>
-    <h4 class="name" id="isVisibled"><span class="type-signature"></span>isVisibled<span class="signature">(bindIdOrCollection)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id="render"><span class="type-signature"></span>render<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
     
     
 </dt>
 <dd>
     
     <div class="description">
-        <p>Check a graph visible status</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>bindIdOrCollection</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-|
-
-<span class="param-type">backchart.base.collection</span>
-|
-
-<span class="param-type">Backbone.Collection</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="view.js.html">backchart.base/view.js</a>, <a href="view.js.html#sunlight-1-line-145">line 145</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">boolean</span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="onCollection"><span class="type-signature"></span>onCollection<span class="signature">(collection, renderOptions, options)</span><span class="type-signature"> &rarr; {string}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Bind one collection to this view
-The collection will be listened to the following events if it's inherit from backchart.base.collection.
-'seted','removed','change','destroy','reseted','sort','change:visible'
-Otherwise, the following events will be listend to.
-'set','add','change','destroy','reset','sort'</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>collection</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">backchart.base.collection</span>
-|
-
-<span class="param-type">Backbone.Collection</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>renderOptions</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>render chart options which based what chart library you used.</p></td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <h6>Properties</h6>
-                
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-		<th>Argument</th>
-		
-
-		
-		<th>Default</th>
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>bid</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>a unique id as the bind ID</p></td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>silence</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    false
-                
-                </td>
-            
-
-            <td class="description last"><p>not responded to any event from this collection</p></td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>visible</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    true
-                
-                </td>
-            
-
-            <td class="description last"><p>Display or not, you can use hide/show function to dynamic control.</p></td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>renderAfterOn</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    false
-                
-                </td>
-            
-
-            <td class="description last"><p>redraw the chart after finished to bind.</p></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-            </td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="view.js.html">backchart.base/view.js</a>, <a href="view.js.html#sunlight-1-line-264">line 264</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>a bind ID</p>
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">string</span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="onCollections"><span class="type-signature"></span>onCollections<span class="signature">(collections, renderOptions, options)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Bind one or more collections</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>collections</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;backchart.base.collection></span>
-|
-
-<span class="param-type">Array.&lt;Backbone.Collection></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>renderOptions</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>same as onCollection</p></td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>same as onCollection</p></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="view.js.html">backchart.base/view.js</a>, <a href="view.js.html#sunlight-1-line-297">line 297</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>The key of this return is the collection instance and the value is the bind ID assigned.</p>
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">Object</span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="renderAfter"><span class="type-signature"></span>renderAfter<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>All inherit render function should send the unity of event after rendered chart.
-Here is a example:</p>
+        <p>The render function</p>
     </div>
     
 
@@ -2544,7 +1273,7 @@ Here is a example:</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="view.js.html">backchart.base/view.js</a>, <a href="view.js.html#sunlight-1-line-527">line 527</a>
+        <a href="view.js_.html">backchart.amcharts/view.js</a>, <a href="view.js_.html#sunlight-1-line-358">line 358</a>
     </li></ul></dd>
     
 
@@ -2557,348 +1286,14 @@ Here is a example:</p>
 
     
     
-
+    <h5>Fires:</h5>
+    <ul>
+        <li><a href="view.html#event:beforeValidateData">module:amcharts/view#event:beforeValidateData</a></li>
     
-
+        <li><a href="view.html#event:beforeRender">module:amcharts/view#event:beforeRender</a></li>
     
-    
-    
-    
-    
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">baseview.extend({
-  ...
-  render : function(){
-  	//implement rendered
-  	return baseview.prototype.renderAfter.apply(this, [this, this.el, chart object, renderOptions]);
-		...
-  }
-  ...
-});</pre>
-
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="renderBefore"><span class="type-signature"></span>renderBefore<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The default function should be invoke before rendered.All View class inherited MUST call this function before call the render.
-If the function return false, you should give up the rendering process immediately.
-Here is a example:</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="view.js.html">backchart.base/view.js</a>, <a href="view.js.html#sunlight-1-line-498">line 498</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">baseview.extend({
- ...
- render : function(){
-    var baserender = baseview.prototype.renderBefore.apply(me, arguments);
-    if (!baserender){
-        return false;
-    }
- }
- ...
- });
-                                        }</pre>
-
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="setSilence"><span class="type-signature"></span>setSilence<span class="signature">(flag)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The silence flag which can suspend responding events from all bind collections when be set to true.
-It can be used when you refresh or set lots of data to avoid to draw repeatedly.
-Normally ,chart will be rendered many times because sync/set function will create many add/remove events in backbone when batch processing. You can set it to true for closing auto-redraw in view.
-If you set the flag personally ,you should remember recover it to default after all operation has done.</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>flag</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="view.js.html">backchart.base/view.js</a>, <a href="view.js.html#sunlight-1-line-95">line 95</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="show"><span class="type-signature"></span>show<span class="signature">(bindIdOrCollection)</span><span class="type-signature"> &rarr; {backchart.base.view}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Show a set of data points</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>bindIdOrCollection</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-|
-
-<span class="param-type">backchart.base.collection</span>
-|
-
-<span class="param-type">Backbone.Collection</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="view.js.html">backchart.base/view.js</a>, <a href="view.js.html#sunlight-1-line-137">line 137</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
+        <li><a href="view_.html#event:rendered">module:base/view#event:rendered</a></li>
+    </ul>
     
 
     
@@ -2923,7 +1318,7 @@ If you set the flag personally ,you should remember recover it to default after 
 	</dt>
 	<dd>
 		
-<span class="param-type">backchart.base.view</span>
+<span class="param-type">Object</span>
 
 
 	</dd>
@@ -2938,14 +1333,14 @@ If you set the flag personally ,you should remember recover it to default after 
         
             
 <dt>
-    <h4 class="name" id="unCollection"><span class="type-signature"></span>unCollection<span class="signature">(unid)</span><span class="type-signature"> &rarr; {backchart.base.collection|Backbone.Collection}</span></h4>
+    <h4 class="name" id="transformOptions"><span class="type-signature"></span>transformOptions<span class="signature">(renderOptions)</span><span class="type-signature"></span></h4>
     
     
 </dt>
 <dd>
     
     <div class="description">
-        <p>Remove one collection from the view</p>
+        <p>The collection options transform and push</p>
     </div>
     
 
@@ -2979,19 +1374,13 @@ If you set the flag personally ,you should remember recover it to default after 
 
         <tr>
             
-                <td class="name"><code>unid</code></td>
+                <td class="name"><code>renderOptions</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
-|
-
-<span class="param-type">backchart.base.collection</span>
-|
-
-<span class="param-type">Backbone.Collection</span>
+<span class="param-type">Object</span>
 
 
             
@@ -3001,7 +1390,7 @@ If you set the flag personally ,you should remember recover it to default after 
 
             
 
-            <td class="description last"><p>pass the bind ID or collection instance in here.If convey a collection instance to, we will remove all bind configure about this collection.</p></td>
+            <td class="description last"><p>the render options</p></td>
         </tr>
 
 	
@@ -3033,7 +1422,7 @@ If you set the flag personally ,you should remember recover it to default after 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="view.js.html">backchart.base/view.js</a>, <a href="view.js.html#sunlight-1-line-313">line 313</a>
+        <a href="view.js_.html">backchart.amcharts/view.js</a>, <a href="view.js_.html#sunlight-1-line-344">line 344</a>
     </li></ul></dd>
     
 
@@ -3057,28 +1446,6 @@ If you set the flag personally ,you should remember recover it to default after 
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    <p>the collection instance or null</p>
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">backchart.base.collection</span>
-|
-
-<span class="param-type">Backbone.Collection</span>
-
-
-	</dd>
-</dl>
-
-
         
     
     
@@ -3089,6 +1456,362 @@ If you set the flag personally ,you should remember recover it to default after 
 
     
 
+    
+        <h3 class="subsection-title">Events</h3>
+
+        <dl>
+            
+<dt>
+    <h4 class="name" id="event:beforeRender">beforeRender</h4>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>A event triggered before render chart.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">object</span>
+
+
+            </li>
+        </ul>
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+
+        <h5 class="subsection-title">Properties:</h5>
+
+        <dl>
+
+<table class="props table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>view</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Backbone.View</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>view instance</p></td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>elId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Element's ID</p></td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>renderOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>options for rendering</p></td>
+        </tr>
+
+	
+	</tbody>
+</table>
+</dl>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view.js_.html">backchart.amcharts/view.js</a>, <a href="view.js_.html#sunlight-1-line-385">line 385</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="event:beforeValidateData">beforeValidateData</h4>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>A event triggered before chart data change.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">object</span>
+
+
+            </li>
+        </ul>
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+
+        <h5 class="subsection-title">Properties:</h5>
+
+        <dl>
+
+<table class="props table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>view</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Backbone.View</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>view instance</p></td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>elId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Element's ID</p></td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>dataProvider</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>dataProvider options</p></td>
+        </tr>
+
+	
+	</tbody>
+</table>
+</dl>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="view.js_.html">backchart.amcharts/view.js</a>, <a href="view.js_.html#sunlight-1-line-393">line 393</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        </dl>
     
 </article>
 
@@ -3107,8 +1830,8 @@ If you set the flag personally ,you should remember recover it to default after 
 					
 					
 		<span class="jsdoc-message">
-		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-dev</a>
-		on Mon Feb 24 2014 11:28:35 GMT+0800 (CST) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha4</a>
+		on Wed Mar 12 2014 12:49:58 GMT-0400 (EDT) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
 			</div>

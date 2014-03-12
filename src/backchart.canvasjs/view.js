@@ -2,7 +2,7 @@
  *     File Name           :     view.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-11 10:50]
- *     Last Modified       :     [2014-02-24 01:04]
+ *     Last Modified       :     [2014-03-09 18:55]
  *     Description         :     Backchart view for canvasJS
  **********************************************************************************/
 (function(root, name, factory) {
@@ -67,6 +67,7 @@
 			baseview.prototype.initialize.apply(this, arguments);
 			this.defaultOptions = $.extend(true, {}, this.defaultOptions, defaultOptions);
 			this.defaultRenderOptions = $.extend(true, {}, this.defaultRenderOptions, defaultRenderOptions);
+			return this;
 		},
 		/**
 		 * Transform the renderOptions to the options of CanvasJS
@@ -91,6 +92,8 @@
         /**
          * The render function
          *
+		 * @fires module:canvasjs/view#beforeRender
+		 * @fires module:base/view#rendered
          * @return {Object} this instance
          */
 		render: function(){
@@ -101,7 +104,7 @@
 			}
 			//initialization el id 
 			if (!me.el.id){
-				me.el.id = _.uniqueId("backchartel");
+				me.el.id = _.uniqueId(me._viewPrefix || "_bcname");
 			}
 			var renderOptions = _.clone(me.defaultOptions);
 			renderOptions.data = [];
@@ -112,12 +115,31 @@
 				renderOptions.data.push(me.transformData(collection, renderOption));
 			});
 
+			//trigger beforeRender event
+			me.trigger("beforeRender", me, me.el.id, renderOptions);
+
 			me.$container.empty().append(me.$el.empty());
 			me.elFillParents();
 			me.Chart = new CanvasJS.Chart(me.el.id, renderOptions);
+			me.__cOptions = renderOptions;
 			me.Chart.render();
 
 			return baseview.prototype.renderAfter.apply(me, [me, me.el, me.Chart, renderOptions]);
+		},
+		/**
+		 * A event triggered before render chart.
+		 * @event module:canvasjs/view#beforeRender
+		 * @type {object}
+		 * @property {Backbone.View} view view instance
+		 * @property {string} elId Element's ID
+		 * @property {object} renderOptions options for rendering
+		 */
+
+		/**
+		 * Implement [getChartOptions]{@link base/view:getChartOptions}
+		 */
+		getChartOption: function(){
+			return this.__cOptions;
 		}
 	});
 	return backchartCanvasJSView;
