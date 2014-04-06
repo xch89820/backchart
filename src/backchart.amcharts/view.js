@@ -2,13 +2,13 @@
 *     File Name           :     view.js
 *     Created By          :     Jone Casper
 *     Creation Date       :     [2014-03-05 18:36]
-*     Last Modified       :     [2014-04-05 03:27]
+*     Last Modified       :     [2014-04-06 06:01]
 *     Description         :     Backchart view for amcharts
 **********************************************************************************/
 (function(root, name, factory) {
 	"use strict";
 	if (typeof define === 'function' && define.amd) {
-		define(['jquery','../backchart.base/view','backbone',"underscore","AmCharts","../backchart.utils/logger"], function($, base, Backbone, _, amcharts, logger) {
+		define(['jquery','../backchart.base/view','backbone',"underscore","AmCharts","../backchart.base/logger"], function($, base, Backbone, _, amcharts, logger) {
 			amcharts = amcharts || window.AmCharts;
 			return factory($, Backbone, _, base, amcharts, logger);
 		});
@@ -18,7 +18,7 @@
 		Backbone = require("backbone"),
 		_ = require("underscore"),
 		amcharts = require("AmCharts") || window.AmCharts;
-		var logger = require("../backchart.utils/logger");
+		var logger = require("../backchart.base/logger");
 		module.exports = factory($, Backbone, _, base, amcharts, logger);
 	}else{
 		var namespaces = name.split("."),
@@ -33,8 +33,7 @@
 					(root.Backbone|| window.Backbone),
 					(root._ || window._),
 					root.backchart.base.view,
-					(root.amcharts|| window.AmCharts),
-                    root.backchart.utils.logger
+					(root.amcharts|| window.AmCharts)
 				):
 				(ex || {}); 
 		}
@@ -264,7 +263,7 @@
 							}else{
 								var dataDateFormat = model.dataDateFormat || renderOptions.dataDateFormat;
                                 if (typeof _d[keyFields[0]] === "undefined"){
-                                    console.warn("One model's categoryField is undefined!!");
+                                    //console.warn("One model's categoryField is undefined!!");
                                     return;
                                 }
 								_d[keyFields[0]] = AmCharts.stringToDate(_d[keyFields[0]], dataDateFormat);

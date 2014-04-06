@@ -31,7 +31,7 @@ module.exports = function(grunt) {
 					'<%= grunt.template.today("yyyy-mm-dd") %> */',
 			},
 			base: {
-				src: ['src/backchart.base/model.js', 'src/backchart.base/collection.js',  'src/backchart.base/view.js'],
+				src: ['src/backchart.base/logger.js', 'src/backchart.base/loader.js', 'src/backchart.base/model.js', 'src/backchart.base/collection.js',  'src/backchart.base/view.js'],
 				dest: 'dist/browser/backchart.base.js',
 			},
 			canvasjs: {
@@ -43,8 +43,7 @@ module.exports = function(grunt) {
 				dest: 'dist/browser/backchart.amcharts.js',
 			},
             utils: {
-				src: ['src/backchart.utils/codepage/cptable.js','src/backchart.utils/codepage/cputils.js','src/backchart.utils/js-csv/jquery.csv.js','src/backchart.utils/js-xls/xls.js',
-                      'src/backchart.utils/js-xlsx/xlsx.js','src/backchart.utils/loader.js','src/backchart.utils/parser.js','src/backchart.utils/logger.js'],
+				src: ['src/backchart.utils/codepage/cptable.js','src/backchart.utils/codepage/cputils.js','src/backchart.utils/js-csv/jquery.csv.js','src/backchart.utils/js-xls/xls.js','src/backchart.utils/js-xlsx/xlsx.js','src/backchart.utils/parser.js'],
 				dest: 'dist/browser/backchart.utils.js'  // Destination path prefix.
             }
 		},

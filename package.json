@@ -1,6 +1,6 @@
 {
   "name": "backchart",
-  "version": "0.2.2",
+  "version": "0.2.1",
   "author": "Xu Chenhui <xu.chenhui@live.com>",
   "description": "A chart library based on backbone",
   "engines": {

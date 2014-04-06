@@ -2,7 +2,7 @@
  *     File Name           :     parser.js
  *     Created By          :     Jone Casper(xu.chenhui@live.com)
  *     Creation Date       :     [2014-03-25 06:20]
- *     Last Modified       :     [2014-04-04 05:17]
+ *     Last Modified       :     [2014-04-06 05:13]
  *     Description         :      
  **********************************************************************************/
 (function(root, name, factory) {
@@ -13,7 +13,7 @@
                "backchart.utils/js-csv/jquery.csv",
                "backchart.utils/js-xls/xls",
                "backchart.utils/js-xlsx/xlsx",
-               "backchart.utils/logger"],
+               "backchart.base/logger"],
                function($) {
                    return factory($, $.csv, root.XLS, root.XLSX);
                });
@@ -21,7 +21,7 @@
         var $ = require("jquery");
         require("backchart.utils/codepage/cputils");
         //root.JSZip = requires("./jszip/jszip.js");
-        require("backchart.utils/logger.js");
+        require("backchart.base/logger.js");
         require("backchart.utils/js-csv/jquery.csv.js");
         var XLS = require("backchart.utils/js-xls/xls.js");
         var XLSX = require("backchart.utils/js-xlsx/xlsx.js");

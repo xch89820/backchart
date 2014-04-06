@@ -2,15 +2,15 @@
  *     File Name           :     collection.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-11 10:45]
- *     Last Modified       :     [2014-04-05 03:20]
+ *     Last Modified       :     [2014-04-06 05:15]
  *     Description         :     Backchart basic backbone collection
  **********************************************************************************/
 (function(root, name, factory) {
     "use strict";
     if (typeof define === 'function' && define.amd) {
         define(['jquery', 'underscore', 'backbone',
-               "backchart.utils/loader", 
-               "backchart.utils/logger"], 
+               "backchart.base/loader", 
+               "backchart.base/logger"], 
                function($, _,  Backbone,  loader) {
                    return factory($, _, Backbone, loader);
                });
@@ -18,8 +18,8 @@
         var $ = require("jquery"),
         Backbone = require("backbone"),
         _ = require("underscore");
-        require("backchart.utils/logger");
-        var loader = require("backchart.utils/loaler");
+        require("backchart.base/logger");
+        var loader = require("backchart.base/loader");
         module.exports = factory($, _, Backbone, loader);
     }else{
         var namespaces = name.split("."),
@@ -32,7 +32,7 @@
                     (root.jQuery || window.jQuery),
             (root._|| window._),
             (root.Backbone || window.Backbone),
-            root.backchart.utils.loader
+            root.backchart.base.loader
             ):
                 (ex || {});
         }

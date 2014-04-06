@@ -2,7 +2,7 @@
 *     File Name           :     log.js
 *     Created By          :     Jone Casper(xu.chenhui@live.com)
 *     Creation Date       :     [2014-03-24 23:16]
-*     Last Modified       :     [2014-04-04 00:50]
+*     Last Modified       :     [2014-04-06 05:17]
 *     Description         :     logger for backchart
 **********************************************************************************/
 (function(root, name, factory) {
@@ -24,7 +24,7 @@
 				(ex || {});
 		}
 	}
-}(this, "backchart.utils.logger", function() {
+}(this, "backchart.base.logger", function() {
     if (!window.console){
         var f = function(msg){
             window.alert(msg);

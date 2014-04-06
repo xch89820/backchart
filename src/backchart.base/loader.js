@@ -2,7 +2,7 @@
  *     File Name           :     loader.js
  *     Created By          :     Jone Casper(xu.chenhui@live.com)
  *     Creation Date       :     [2014-03-25 22:14]
- *     Last Modified       :     [2014-04-04 06:48]
+ *     Last Modified       :     [2014-04-06 05:17]
  *     Description         :     A loader for loading module
  **********************************************************************************/
 
@@ -25,7 +25,7 @@
                 (ex || {});
         }
     }
-}(this, "backchart.utils.loader",function(){
+}(this, "backchart.base.loader",function(){
     var root = this;
     var exports = function(name, callback){
         var args = [];
