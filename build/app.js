@@ -2,7 +2,7 @@
  *     File Name           :     app.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-11 17:52]
- *     Last Modified       :     [2014-04-03 03:51]
+ *     Last Modified       :     [2014-04-09 13:17]
  *     Description         :     Build backchart main app
  **********************************************************************************/
 require.config({
@@ -17,6 +17,9 @@ require.config({
     {
 		name : "backchart.amcharts"
     },
+    {
+		name : "backchart.echarts"
+    },
     { 
         name: "backchart.utils"
     }],
@@ -27,7 +30,8 @@ require.config({
 		moment : "../test/libs/utils/moment.min",
 		excanvas : "../test/libs/utils/excanvas",
 		CanvasJS : "../test/libs/charts/canvasjs/canvasjs",
-        AmCharts : "../test/libs/charts/amcharts/amcharts"
+        AmCharts : "../test/libs/charts/amcharts/amcharts",
+        echarts : '../test/libs/charts/echarts/echarts'
 	},
 	shim:{
 		underscore: {

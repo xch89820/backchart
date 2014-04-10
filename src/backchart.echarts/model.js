@@ -2,8 +2,8 @@
 *     File Name           :     model.js
 *     Created By          :     Jone Casper
 *     Creation Date       :     [2014-03-05 18:37]
-*     Last Modified       :     [2014-04-08 09:43]
-*     Description         :     Backchart model for amcharts
+*     Last Modified       :     [2014-04-09 21:57]
+*     Description         :     Backchart model for Baidu Echarts 
 **********************************************************************************/
 (function(root, name, factory) {
 	"use strict";
@@ -29,18 +29,20 @@
 				(ex || {});
 		}
 	}
-}(this, "backchart.amcharts.model", function($, basemodel) {
+}(this, "backchart.echarts.model", function($, basemodel) {
 	/**
-	* Backchart amcharts model
+	* Backbone model for Baidu Echarts
 	*
-	* One model represent for a MapData in dataProvider Array
-	* You can set categoryField,valueField,labelField,colorField in model and item will be set to the default value when rendering
-	* @module amcharts/model
+	* One model represent for one data in Echarts's series.
+    * The categoryField attribute will be summarized and fill to the legend data for representing the category in Pie or xAxis in Line or Bar
+    * The valueField attribute will be filled to the series's data.If it's null or undefined, it will be set zero.
+    *
+	* @module echarts/model
 	* @requires jquery
 	* @requires base/model  
 	* @this {Backbone.Model}
 	*/ 
-   var backchartAmchartsModel = basemodel.extend(
+   var exports = basemodel.extend(
 	   /** @lends module:amcharts/model.prototype */
 	   {
 	   /**
@@ -50,17 +52,8 @@
 	   /**
 		* valueField which defined the name of value field.
 		*/
-	   valueField: null,
-	   /**
-		* Color field define 
-		*/
-	   colorField: null,
-	   /**
-		*
-		* Set the Date string format for categoryField
-		*/
-	   dataDateFormat: null
+	   valueField: null
    });
-   return backchartAmchartsModel;
+   return exports;
 }));
 

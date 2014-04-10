@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Backchart Source: backchart.base/model.js</title>
+	<title>Backchart Module: echarts/model</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -129,65 +129,101 @@
 	<div class="row-fluid">
 
 		
-			<div class="span12">
-				
+		<div class="span8">
+			
 				<div id="main">
 					
 
 
-		<h1 class="page-title">Source: backchart.base/model.js</h1>
-    
-    <section>
-        <article>
-            <pre class="sunlight-highlight-javascript linenums">/*********************************************************************************
- *     File Name           :     model.js
- *     Created By          :     Jone Casper
- *     Creation Date       :     [2014-02-11 10:42]
- *     Last Modified       :     [2014-02-24 00:56]
- *     Description         :     Backchart basic backbone model
- **********************************************************************************/
-(function(root, name, factory) {
-	"use strict";
-	if (typeof define === 'function' &amp;&amp; define.amd) {
-		define(['jquery','backbone'], function($, Backbone) {
-			return factory($, Backbone);
-		});
-	}else if(typeof module !== 'undefined' &amp;&amp; module.exports){
-		var $ = require("jquery"),
-		Backbone = require("backbone");
-		module.exports = factory($, Backbone);
-	}else{
-		var namespaces = name.split("."),
-		//scope = (root.jQuery || root.ender || root.$ || root || this);
-		scope = root || this;
-		for (var i=0; i&lt;namespaces.length; i++) {
-			var p = namespaces[i],
-				ex = scope[p];
-			scope = scope[p] = (i === namespaces.length - 1) ?
-				factory(
-					(root.jQuery || window.jQuery), 
-				    (root.Backbone || window.Backbone)
-				):
-				(ex || {});
-		}
-	}
-}(this, "backchart.base.model", function($, Backbone) {
-	/**
-	* Backbone chart base model
-	* @module base/model
-	* @requires jquery
-	* @requires backbone
-	* @this {Backbone.Model}
-	*/                     
-	var chartBaseModel = Backbone.Model.extend(
-		/** @lends module:base/model.prototype */
-		{});
-	return chartBaseModel;
-}));
-</pre>
-        </article>
-    </section>
+	<h1 class="page-title">Module: echarts/model</h1>
+<section>
 
+<header>
+    <h2>
+    echarts/model
+    </h2>
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+
+    
+        
+            <div class="description"><p>Backbone model for Baidu Echarts</p>
+<p>One model represent for one data in Echarts's series.
+The categoryField attribute will be summarized and fill to the legend data for representing the category in Pie or xAxis in Line or Bar
+The valueField attribute will be filled to the series's data.If it's null or undefined, it will be set zero.</p></div>
+        
+
+        
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="model.js_.html">backchart.echarts/model.js</a>, <a href="model.js_.html#sunlight-1-line-33">line 33</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Requires</h3>
+
+        <ul>
+            <li>module:jquery</li>
+        
+            <li><a href="model_.html">module:base/model</a></li>
+        </ul>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
@@ -208,6 +244,10 @@
 				</footer>
 			</div>
 
+			
+			<div class="span3">
+				<div id="toc"></div>
+			</div>
 			
 			<br clear="both">
 		</div>

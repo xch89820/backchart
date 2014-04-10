@@ -2,7 +2,7 @@
  *     File Name           :     view.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-11 10:50]
- *     Last Modified       :     [2014-03-09 18:55]
+ *     Last Modified       :     [2014-04-09 00:56]
  *     Description         :     Backchart view for canvasJS
  **********************************************************************************/
 (function(root, name, factory) {

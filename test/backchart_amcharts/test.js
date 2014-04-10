@@ -2,7 +2,7 @@
  *     File Name           :     backchart_test.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-12 13:18]
- *     Last Modified       :     [2014-04-03 05:29]
+ *     Last Modified       :     [2014-04-09 06:42]
  *     Description         :     Test module
  **********************************************************************************/
 
@@ -206,7 +206,7 @@
         }))({
             theme:"light",
             "categoryAxis": {
-                "gridPosition": "start",
+                "gridPosition": "start"
             },
             rotate : true
         });
@@ -214,7 +214,7 @@
             graph :{
                 "type": "column",
                 "fillAlphas": 0.8,
-                "lineAlpha": 0.2,
+                "lineAlpha": 0.2
             }
         });
 

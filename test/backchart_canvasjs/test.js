@@ -2,21 +2,21 @@
  *     File Name           :     backchart_test.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-12 13:18]
- *     Last Modified       :     [2014-04-06 06:15]
+ *     Last Modified       :     [2014-04-09 07:16]
  *     Description         :     Test module
  **********************************************************************************/
 
 (function(root, factory) {
 	"use strict";
 	if (typeof define === 'function' && define.amd) {
-		require(['jquery','CanvasJS', 'backcanvasjs'], function($, base) {
+		/*require(['jquery','CanvasJS', 'backcanvasjs'], function($, base) {
 			require(["backchart.canvasjs"], function(chart){
 				factory($, chart.model, chart.collection, chart.view);
 			});
-		});
-        /*require(["backchart.canvasjs"], function(chart){
+		});*/
+        require(["backchart.canvasjs"], function(chart){
             factory($, chart.model, chart.collection, chart.view);
-        });*/
+        });
 	}else{
    		
 			factory($,

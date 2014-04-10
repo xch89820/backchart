@@ -2,7 +2,7 @@
 *     File Name           :     view.js
 *     Created By          :     Jone Casper
 *     Creation Date       :     [2014-03-05 18:36]
-*     Last Modified       :     [2014-04-06 06:01]
+*     Last Modified       :     [2014-04-09 02:27]
 *     Description         :     Backchart view for amcharts
 **********************************************************************************/
 (function(root, name, factory) {
@@ -40,7 +40,7 @@
 	}
 }(this, "backchart.amcharts.view", function($, Backbone, _, baseview, AmCharts) {
 	/**
-	 * Backbone chart amcharts view
+	 * Backchart amcharts view
 	 * @module amcharts/view
 	 * @requires jquery
 	 * @requires base/view

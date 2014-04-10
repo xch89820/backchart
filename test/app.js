@@ -2,7 +2,7 @@
  *     File Name           :     app.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-11 17:52]
- *     Last Modified       :     [2014-04-03 05:30]
+ *     Last Modified       :     [2014-04-10 02:36]
  *     Description         :     Test backchart main app
  **********************************************************************************/
 /*
@@ -26,6 +26,10 @@ require.config({
         name : "backchart.amcharts",
         location: "../../src/backchart.amcharts"
     },
+    {
+        name : "backchart.echarts",
+        location: "../../src/backchart.echarts"
+    },
     { 
         name: "backchart.utils",
         location: "../../src/backchart.utils"
@@ -37,6 +41,7 @@ require.config({
         moment : "../libs/utils/moment.min",
         excanvas : "../libs/utils/excanvas",
         CanvasJS : "../libs/charts/canvasjs/canvasjs",
+
         "AmCharts.core" : "../libs/charts/amcharts/amcharts",
         "AmCharts.serial" : "../libs/charts/amcharts/serial",
         "AmCharts.pie" : "../libs/charts/amcharts/pie",
@@ -49,11 +54,23 @@ require.config({
         "AmCharts.theme.chalk" : "../libs/charts/amcharts/themes/chalk",
         "AmCharts.theme.patterns" : "../libs/charts/amcharts/themes/patterns",
         "AmCharts.language.zh-CN" : "../libs/charts/amcharts/language/zh-CN",
+
+        'echarts' : '../libs/charts/echarts/echarts',
+        'echarts/chart/line': '../libs/charts/echarts/echarts',
+        'echarts/chart/bar': '../libs/charts/echarts/echarts',
+        'echarts/chart/scatter': '../libs/charts/echarts/echarts',
+        'echarts/chart/k': '../libs/charts/echarts/echarts',
+        'echarts/chart/pie': '../libs/charts/echarts/echarts',
+        'echarts/chart/radar': '../libs/charts/echarts/echarts',
+        'echarts/config' : '../libs/charts/echarts/echarts',
+        'zrender' : '../libs/charts/echarts/zrender',
+        'zrender/tool/event' : '../libs/charts/echarts/zrender'
         /*
          * for dist
          */
-        "backcanvasjs" : "../../dist/backchart.canvasjs",
+        ,"backcanvasjs" : "../../dist/backchart.canvasjs",
         "backamcharts" : "../../dist/backchart.amcharts",
+        "backecharts" : "../../dist/backchart.echarts",
         "backutils" : "../../dist/backchart.utils"
     },
     shim:{

@@ -2,7 +2,7 @@
 *     File Name           :     collection.js
 *     Created By          :     Jone Casper
 *     Creation Date       :     [2014-03-05 18:37]
-*     Last Modified       :     [2014-03-06 13:08]
+*     Last Modified       :     [2014-04-08 10:31]
 *     Description         :     Backchart collection for amcharts
 **********************************************************************************/
 
@@ -33,13 +33,13 @@
 	}
 }(this, "backchart.amcharts.collection", function($, basecollection) {
 	/**
-	 * Backbone chart amcharts collection 
+	 * Backbchart amcharts collection 
 	 *
 	 * One collection will contained one or more amcharts models.When you bind one collection to an view, the renderOptions corresponding to the graphs + valueAxes(GaugeAxis) options.The categoryAxis will be set in view because one chart only have one categoryAxis!
 	 * About renderOptions configuration detail, please see [amcharts/view.onCollection]{@link amcharts/view:amcharts.onCollection}
 	 * @module amcharts/collection
 	 * @requires jquery
-	 * @requires base/backbone
+	 * @requires base/collection
 	 * @this {Backbone.Collection}
 	 */
 	var backchartAmchartsCollection = basecollection.extend(

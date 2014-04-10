@@ -42,6 +42,10 @@ module.exports = function(grunt) {
 				src: ['dist/browser/backchart.base.js', 'src/backchart.amcharts/model.js', 'src/backchart.amcharts/collection.js',  'src/backchart.amcharts/view.js'],
 				dest: 'dist/browser/backchart.amcharts.js',
 			},
+            echarts: {
+				src: ['dist/browser/backchart.base.js', 'src/backchart.echarts/model.js', 'src/backchart.echarts/collection.js',  'src/backchart.echarts/view.js'],
+				dest: 'dist/browser/backchart.echarts.js',
+			},
             utils: {
 				src: ['src/backchart.utils/codepage/cptable.js','src/backchart.utils/codepage/cputils.js','src/backchart.utils/js-csv/jquery.csv.js','src/backchart.utils/js-xls/xls.js','src/backchart.utils/js-xlsx/xlsx.js','src/backchart.utils/parser.js'],
 				dest: 'dist/browser/backchart.utils.js'  // Destination path prefix.
@@ -127,6 +131,14 @@ module.exports = function(grunt) {
 					name: "backchart.amcharts/main",
 					out: "./dist/backchart.amcharts.js",
 					exclude : ['jquery','underscore','backbone','AmCharts']
+				}
+			},
+            echarts: {
+				options: {
+					mainConfigFile : "./build/app.js",
+					name: "backchart.echarts/main",
+					out: "./dist/backchart.echarts.js",
+					exclude : ['jquery','underscore','backbone','echarts']
 				}
 			}
 		},

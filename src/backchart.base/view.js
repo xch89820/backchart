@@ -2,7 +2,7 @@
  *     File Name           :     view.js
  *     Created By          :     Jone Casper
  *     Creation Date       :     [2014-02-01 10:39]
- *     Last Modified       :     [2014-04-05 02:39]
+ *     Last Modified       :     [2014-04-09 07:17]
  *     Description         :     Backchart basic backbone view
  **********************************************************************************/
 (function(root, name, factory) {
@@ -553,7 +553,7 @@
 		 */
 		getChartOptions : function(){
 			return null;
-		},
+		}
 //       __logAlert: function(msg){
 //		    window.alert(msg);
 //	    },
