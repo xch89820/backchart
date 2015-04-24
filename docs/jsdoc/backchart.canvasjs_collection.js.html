@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Backchart Index</title>
+	<title>Backchart Source: backchart.canvasjs/collection.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -129,95 +129,66 @@
 	<div class="row-fluid">
 
 		
-		<div class="span8">
-			
+			<div class="span12">
+				
 				<div id="main">
 					
 
 
-	
-	<span class="page-title">Index</span>
-	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	
-
-
-
-
-
+		<h1 class="page-title">Source: backchart.canvasjs/collection.js</h1>
+    
     <section>
-        <article><h1>Backchart</h1><p>Backchart is a lightweight JavaScript library based on Backbone and many chart libraries(current just support CanvasJS)
-This project support AMD&amp;COMMONJS standard and the aim of this project is make a MVC wrapper for char library and render it easily.</p>
-<h2>Install</h2><p>If you async loading your modules by AMD or CommonJS ,please copy all js files in <em>dist</em> directory but not <em>browser</em> directory to your library location.
-Otherwise, please copy all js files in <em>browser</em> directory to your target.</p>
-<h2>Import</h2><h3>AMD (require.js)</h3><p><em>Add package configure in your <code>path</code> config, exmaple(load CanvasJS):</em></p>
-<pre class="prettyprint source lang-javascript"><code>    require.config({
-        path :{
-            backbone : &quot;you/backbone/path&quot;,
-            underscore : &quot;you/underscore/path&quot;,
-
-            //import the chart library you want to use.
-            CanvasJS : &quot;../libs/charts/canvasjs/canvasjs&quot;,
-
-            //import the backchart to support your chart library
-            &quot;backchart&quot; : &quot;backchart.canvasjs&quot;
-              //...code...
-        }
-        //...code...
-    });</code></pre><p><em>Require the package and Backchart library script your want to use.</em></p>
-<pre class="prettyprint source lang-javascript:"><code>    require([&quot;backchart&quot;], function(){
-        require([&quot;backchart.canvasjs&quot;],function(backchart){
-            var _model = backchart.model,
-                _collection = backchart.collection,
-                _view = backchart.view;
-            //...write codes...
-        });
-    });</code></pre><h3>Browser</h3><p><em>Add Backchart base scripts and Backchart library script your want to use.</em></p>
-<pre class="prettyprint source lang-html"><code>   &lt;!-- Import backbone -->
-   &lt;script type=&quot;text/javascript&quot; src=&quot;underscore.min.js&quot;>&lt;/script>
-   &lt;script type=&quot;text/javascript&quot; src=&quot;backbone.min.js&quot;>&lt;/script>
-
-   &lt;!-- Import CanvasJS and Backchart support -->
-   &lt;script type=&quot;text/javascript&quot; src=&quot;canvasjs.min.js&quot;>&lt;/script>
-   &lt;script type=&quot;text/javascript&quot; src=&quot;browser/backchart.canvasjs.js&quot;>&lt;/script></code></pre><p><em>The global namespace which named <code>backchart</code> will be created if load script succeed.</em></p>
-<pre class="prettyprint source lang-javascript"><code>   //Get MVC object
-   (function(window){
-        var _model = backchart.canvasjs.model,
-            _collection = backchart.canvasjs.collection,
-            _view = backchart.canvasjs.view;
-
-        //...write codes...
-   })(window);</code></pre><h2>Documentation</h2><p><a href="http://www.jonecasper.com/backchart/index.html" title="Documentation">http://www.jonecasper.com/backchart/index.html</a>.</p>
-<h2>Examples</h2><p><a href="http://www.jonecasper.com/backchart/index.html" title="Documentation">http://www.jonecasper.com/backchart/index.html</a>.</p>
-<h2>Compiling JavaScript</h2><h3>Install Grunt</h3><p>From the command line:</p>
-<ol>
-<li>Install <code>grunt-cli</code> globally with <code>npm install -g grunt-cli</code>.</li>
-<li>Navigate to the root directory, then run <code>npm install</code>. npm will look at <a href="https://github.com/todc/todc-bootstrap/blob/master/package.json">package.json</a> and automatically install the necessary local dependencies listed there.</li>
-</ol>
-<p>When completed, you'll be able to run the various Grunt commands provided from the command line.</p>
-<p><strong>Unfamiliar with <code>npm</code>? Don't have node installed?</strong> That's a-okay. npm stands for <a href="http://npmjs.org/">node packaged modules</a> and is a way to manage development dependencies through node.js. <a href="http://nodejs.org/download/">Download and install node.js</a> before proceeding.</p>
-<h4>Build - <code>grunt</code></h4><p>Run <code>grunt</code> to run tests locally and compile the JavaScript into <code>/dist</code>.</p>
-<h4>Build JSDoc - <code>jsdoc</code></h4><ol>
-<li>Install JSDoc &gt;= 3.30 with <code>npm install jsdoc</code></li>
-<li>Run <code>grunt jsdoc</code></li>
-</ol>
-<h2>Release History</h2><p>0.1.0 Released</p></article>
+        <article>
+            <pre class="sunlight-highlight-javascript linenums">/*********************************************************************************
+ *     File Name           :     collection.js
+ *     Created By          :     Jone Casper
+ *     Creation Date       :     [2014-02-11 10:46]
+ *     Last Modified       :     [2014-03-09 19:18]
+ *     Description         :     Backchart collection for canvasJS
+ **********************************************************************************/
+(function(root, name, factory) {
+	"use strict";
+	if (typeof define === 'function' &amp;&amp; define.amd) {
+		define(['jquery','../backchart.base/collection'], function($, base) {
+			return factory($, base);
+		});
+	}else if(typeof module !== 'undefined' &amp;&amp; module.exports){
+		var $ = require("jquery"),
+		base = require("../backchart.base/collection");
+		module.exports = factory($, base);
+	}else{
+		var namespaces = name.split("."),
+		//scope = (root.jQuery || root.ender || root.$ || root || this),
+		scope = root || this;
+		for (var i=0; i&lt;namespaces.length; i++) {
+			var p = namespaces[i],
+				ex = scope[p];
+			scope = scope[p] = (i === namespaces.length - 1) ?
+				factory(
+					(root.jQuery || window.jQuery),
+					root.backchart.base.collection
+				):
+				(ex || {});
+		}
+	}
+}(this, "backchart.canvasjs.collection", function($, basecollection) {
+	/**
+	 * Backbone chart CanvasJS collection 
+	 * @module canvasjs/collection
+	 * @requires jquery
+	 * @requires base/backbone
+	 * @this {Backbone.Collection}
+	 */
+	var backchartCanvasJSCollection = basecollection.extend(
+		/** 
+		* @lends module:canvasjs/collection.prototype 
+		*/
+		{});
+	return backchartCanvasJSCollection;
+}));
+</pre>
+        </article>
     </section>
-
-
 
 
 
@@ -239,10 +210,6 @@ Otherwise, please copy all js files in <em>browser</em> directory to your target
 				</footer>
 			</div>
 
-			
-			<div class="span3">
-				<div id="toc"></div>
-			</div>
 			
 			<br clear="both">
 		</div>
